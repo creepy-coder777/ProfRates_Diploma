@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ProfRates - Rating Questions</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="admin-styles.css" rel="stylesheet"/>
+<link rel="stylesheet" href="accounts-ui.css?v=20261024-p2">
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+<div class="logo">
+<div class="logo-icon">
+<i class="fas fa-star"></i>
+</div>
+<div class="logo-text">
+<h1>ProfRates</h1>
+<p>Admin Panel</p>
+</div>
+</div>
+<div class="user-info">
+<div class="user-avatar">AD</div>
+<div class="user-details">
+<h3>Admin User</h3>
+<p>admin@profrates.am</p>
+</div>
+</div>
+<nav class="nav-menu">
+<a class="nav-item" href="dashboard.html">
+<span class="nav-icon"><i class="fas fa-th-large"></i></span>
+<span>Dashboard</span>
+</a>
+<a class="nav-item" href="users.html">
+<span class="nav-icon"><i class="fas fa-users"></i></span>
+<span>Users</span>
+</a>
+<a class="nav-item" href="professors.html">
+<span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+<span>Professors</span>
+</a>
+<a class="nav-item" href="ratings&amp;reviews.html">
+<span class="nav-icon"><i class="fas fa-star"></i></span>
+<span>Ratings &amp; Reviews</span>
+</a>
+<a class="nav-item active" href="#">
+<span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>
+<span>Rating Questions</span>
+</a>
+<a class="nav-item" href="ActivityLogs.html">
+<span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+<span>Activity Logs</span>
+</a>
+<a class="nav-item" href="ResetPassword.html">
+<span class="nav-icon"><i class="fas fa-key"></i></span>
+<span>Reset Password</span>
+</a>
+<a class="nav-item" href="../home_eng.html" rel="noopener" target="_blank">
+<span class="nav-icon"><i class="fas fa-globe"></i></span>
+<span>Student portal</span>
+</a>
+</nav>
+<div class="portal-links">
+<a href="#">EN</a>
+<a href="RatingQuestions_arm.html">Հայ</a>
+</div>
+<div class="sidebar-footer">
+            © 2025 ProfRates<br/>
+            Admin Panel v1.0
+        </div>
+<a class="nav-item" href="academic.html">Academic data</a></div>
+<!-- Main Content -->
+<div class="main-content">
+<div class="header">
+<div class="header-title">
+<h1>Rating Questions</h1>
+<p>Manage your platform</p>
+</div>
+<button class="export-btn">Export questions</button></div>
+<!-- Rating Questions Management Section -->
+<div class="management-section">
+<div class="section-header">
+<div class="section-title">
+<h2>Rating Questions Management</h2>
+<p>Manage questions students use to rate professors (1-5 scale)</p>
+</div>
+</div>
+<!-- Info Banner -->
+<div class="info-banner">
+<div class="info-icon">i</div>
+<div class="info-content">
+<p><strong>Students will rate professors using these questions on a 1-5 scale.</strong></p>
+<p class="info-subtext">Export questions from the database as a CSV file.</p>
+</div>
+</div>
+</div>
+<!-- Teaching Quality Category -->
+<!-- Course Organization Category -->
+<!-- Assessment & Grading Category -->
+<button class="add-question-btn" id="s2AddQuestion">Add question</button><div id="s2Questions"></div></div>
+<!-- Add Question Modal -->
+<script src="../js_codes/student2_i18n.js"></script><script src="../js_codes/api.js?v=20261024-p2"></script><script src="js_folder/student2_ui.js"></script><script src="js_folder/student2_questions.js"></script><script src="js_folder/accounts.js?v=20261024-p2"></script>
+</body>
+</html>

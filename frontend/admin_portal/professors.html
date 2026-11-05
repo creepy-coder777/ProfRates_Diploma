@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ProfRates - Professors Management</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="admin-styles.css" rel="stylesheet"/>
+<link rel="stylesheet" href="accounts-ui.css?v=20261024-p2">
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+<div class="logo">
+<div class="logo-icon">
+<i class="fas fa-star"></i>
+</div>
+<div class="logo-text">
+<h1>ProfRates</h1>
+<p>Admin Panel</p>
+</div>
+</div>
+<div class="user-info">
+<div class="user-avatar">AD</div>
+<div class="user-details">
+<h3>Admin User</h3>
+<p>admin@profrates.am</p>
+</div>
+</div>
+<nav class="nav-menu">
+<a class="nav-item" href="dashboard.html">
+<span class="nav-icon"><i class="fas fa-th-large"></i></span>
+<span>Dashboard</span>
+</a>
+<a class="nav-item" href="users.html">
+<span class="nav-icon"><i class="fas fa-users"></i></span>
+<span>Users</span>
+</a>
+<a class="nav-item active" href="#">
+<span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+<span>Professors</span>
+</a>
+<a class="nav-item" href="ratings&amp;reviews.html">
+<span class="nav-icon"><i class="fas fa-star"></i></span>
+<span>Ratings &amp; Reviews</span>
+</a>
+<a class="nav-item" href="RatingQuestions.html">
+<span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>
+<span>Rating Questions</span>
+</a>
+<a class="nav-item" href="ActivityLogs.html">
+<span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+<span>Activity Logs</span>
+</a>
+<a class="nav-item" href="ResetPassword.html">
+<span class="nav-icon"><i class="fas fa-key"></i></span>
+<span>Reset Password</span>
+</a>
+<a class="nav-item" href="../home_eng.html" rel="noopener" target="_blank">
+<span class="nav-icon"><i class="fas fa-globe"></i></span>
+<span>Student portal</span>
+</a>
+</nav>
+<div class="portal-links">
+<a href="#">EN</a>
+<a href="professors_arm.html">Հայ</a>
+</div>
+<div class="sidebar-footer">
+            © 2025 ProfRates<br/>
+            Admin Panel v1.0
+        </div>
+<a class="nav-item" href="academic.html">Academic data</a></div>
+<!-- Main Content -->
+<div class="main-content">
+<div class="header">
+<div class="header-title">
+<h1>Professors</h1>
+<p>Manage your platform</p>
+</div>
+<div class="header-actions">
+<div class="search-bar">
+<i class="fas fa-search search-icon"></i>
+<input placeholder="Search..." type="text"/>
+</div>
+<button class="export-btn">
+<i class="fas fa-download"></i>
+<span>Export</span>
+</button>
+</div>
+</div>
+<!-- Professor Management Section -->
+<div class="management-section">
+<div class="section-header">
+<div class="section-title">
+<h2>Professor Management</h2>
+<p>Manage all professors in the system</p>
+</div>
+<button class="add-professor-btn">
+<i class="fas fa-plus"></i>
+<span>Add Professor</span>
+</button>
+</div>
+<!-- Professors Table -->
+<div class="table-wrap" tabindex="0" role="region" aria-label="Professors table">
+<table class="professors-table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Department</th>
+<th>Rating</th>
+<th>Reviews</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Edit Professor Modal -->
+<!-- Add Professor Modal -->
+<script src="../js_codes/student2_i18n.js"></script><script src="../js_codes/api.js?v=20261024-p2"></script><script src="js_folder/student2_ui.js"></script><script src="js_folder/student2_professors.js"></script><script src="js_folder/accounts.js?v=20261024-p2"></script>
+</body>
+</html>

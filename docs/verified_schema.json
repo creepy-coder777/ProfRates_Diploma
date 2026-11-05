@@ -1,0 +1,794 @@
+{
+  "Ratings": [
+    {
+      "name": "RatingID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "UserID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "LecturerID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Comment",
+      "type": "nvarchar",
+      "size": "(max)",
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "Status",
+      "type": "varchar",
+      "size": "(20)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "ApprovedByAdminID",
+      "type": "int",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "Likes",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Dislikes",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "CreatedAt",
+      "type": "datetime",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "UpdatedAt",
+      "type": "datetime",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "EditExpiry",
+      "type": "datetime",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "CourseID",
+      "type": "int",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "TermID",
+      "type": "int",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    }
+  ],
+  "RatingAnswers": [
+    {
+      "name": "AnswerID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "RatingID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "QuestionID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Score",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "Lecturers": [
+    {
+      "name": "LecturerID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "Title",
+      "type": "nvarchar",
+      "size": "(100)",
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "PhotoUrl",
+      "type": "nvarchar",
+      "size": "(500)",
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "Description",
+      "type": "nvarchar",
+      "size": "(max)",
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "IsActive",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "ViewCount",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "FirstName",
+      "type": "nvarchar",
+      "size": "(150)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "MiddleName",
+      "type": "nvarchar",
+      "size": "(150)",
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "LastName",
+      "type": "nvarchar",
+      "size": "(150)",
+      "nullable": true,
+      "identity": false
+    }
+  ],
+  "AcademicSemesters": [
+    {
+      "name": "SemesterNumber",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "NameHy",
+      "type": "nvarchar",
+      "size": "(50)",
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "AcademicTerms": [
+    {
+      "name": "TermID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "AcademicYearStart",
+      "type": "smallint",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "TermNumber",
+      "type": "tinyint",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "NameHy",
+      "type": "nvarchar",
+      "size": "(100)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "StartsOn",
+      "type": "date",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "EndsOn",
+      "type": "date",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    }
+  ],
+  "StudentAcademicProgress": [
+    {
+      "name": "UserID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "TermID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "SemesterNumber",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "IsCurrent",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "StudentGroups": [
+    {
+      "name": "GroupID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "GroupCode",
+      "type": "nvarchar",
+      "size": "(20)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "SpecializationID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "EnrollmentYear",
+      "type": "smallint",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "IsActive",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "Users": [
+    {
+      "name": "UserID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "FirstName",
+      "type": "nvarchar",
+      "size": "(100)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "LastName",
+      "type": "nvarchar",
+      "size": "(100)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Email",
+      "type": "nvarchar",
+      "size": "(255)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "PasswordHash",
+      "type": "nvarchar",
+      "size": "(255)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "IsEmailVerified",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Status",
+      "type": "varchar",
+      "size": "(20)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "LastLogin",
+      "type": "datetime",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "GroupID",
+      "type": "int",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    }
+  ],
+  "Specializations": [
+    {
+      "name": "SpecializationID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "ChairID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Name",
+      "type": "nvarchar",
+      "size": "(200)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Code",
+      "type": "varchar",
+      "size": "(20)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "IsActive",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "Chairs": [
+    {
+      "name": "ChairID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "InstituteID",
+      "type": "int",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "FacultyID",
+      "type": "int",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "Name",
+      "type": "nvarchar",
+      "size": "(200)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "ShortName",
+      "type": "nvarchar",
+      "size": "(50)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "IsActive",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "Courses": [
+    {
+      "name": "CourseID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "SpecializationID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "LecturerID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Name",
+      "type": "nvarchar",
+      "size": "(200)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "CurriculumSemesterNumber",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "IsActive",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "Faculty": [
+    {
+      "name": "FacultyID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "Name",
+      "type": "nvarchar",
+      "size": "(200)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "ShortName",
+      "type": "nvarchar",
+      "size": "(50)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "IsActive",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "Institutes": [
+    {
+      "name": "InstituteID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "Name",
+      "type": "nvarchar",
+      "size": "(200)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "ShortName",
+      "type": "nvarchar",
+      "size": "(50)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "IsActive",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "ActivityLogs": [
+    {
+      "name": "LogID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "UserID",
+      "type": "int",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "AdminID",
+      "type": "int",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "ActionType",
+      "type": "varchar",
+      "size": "(50)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Target",
+      "type": "nvarchar",
+      "size": "(255)",
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "Status",
+      "type": "varchar",
+      "size": "(20)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "CreatedAt",
+      "type": "datetime",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "Admins": [
+    {
+      "name": "AdminID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "Email",
+      "type": "nvarchar",
+      "size": "(255)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "PasswordHash",
+      "type": "nvarchar",
+      "size": "(255)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "LastLogin",
+      "type": "datetime",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "FirstName",
+      "type": "nvarchar",
+      "size": "(150)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "LastName",
+      "type": "nvarchar",
+      "size": "(150)",
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "IsEmailVerified",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "PasswordResets": [
+    {
+      "name": "ResetID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "UserID",
+      "type": "int",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "Code",
+      "type": "varchar",
+      "size": "(64)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Expiry",
+      "type": "datetime",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "IsUsed",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "CreatedAt",
+      "type": "datetime",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "AdminID",
+      "type": "int",
+      "size": null,
+      "nullable": true,
+      "identity": false
+    },
+    {
+      "name": "Purpose",
+      "type": "varchar",
+      "size": "(10)",
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "Questions": [
+    {
+      "name": "QuestionID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "Text",
+      "type": "nvarchar",
+      "size": "(500)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "Category",
+      "type": "nvarchar",
+      "size": "(100)",
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "SortOrder",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "IsActive",
+      "type": "bit",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ],
+  "StudentCourses": [
+    {
+      "name": "StudentCourseID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": true
+    },
+    {
+      "name": "UserID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "CourseID",
+      "type": "int",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    },
+    {
+      "name": "EnrolledAt",
+      "type": "datetime",
+      "size": null,
+      "nullable": false,
+      "identity": false
+    }
+  ]
+}

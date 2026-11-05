@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="hy">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ProfRates - Լավագույն դասախոսներ</title>
+<link href="main-styles.css?v=20261023-r3" rel="stylesheet"/>
+<style>
+        .prof-card .card-content > div { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .prof-card .bio { display: block; }
+    </style>
+<link href="ui-fixes.css?v=20261023-r3" rel="stylesheet"/></head>
+<body>
+<header class="site-header">
+<div class="header-content">
+<a class="logo" href="home_arm.html">
+<img alt="ProfRates" src="logo.png"/>
+<span>ProfRates</span>
+</a>
+<nav class="center-nav">
+<a class="nav-link" href="home_arm.html">Գլխավոր</a>
+<a class="nav-link" href="about_armenian.html">Մեր մասին</a>
+<a class="nav-link" href="privacy_arm.html">Գաղտնիություն</a>
+<a class="nav-link" href="top_eng.html">
+<img alt="" class="globe-icon" src="white-logo.png"/>
+<span>Eng</span>
+</a>
+</nav>
+<div class="right-nav">
+<a class="my-rates-btn" hidden="" href="ratings_arm.html">Իմ գնահատականները</a>
+<a class="logout-btn" href="login_arm.html">Ելք</a>
+</div>
+</div>
+</header>
+<main>
+<h1 class="page-title">Լավագույն դասախոսներ</h1>
+<p class="subtitle">Ամենաբարձր և ամենացածր գնահատված դասախոսները՝ ըստ ուսանողների գնահատականների։</p>
+<div class="filters">
+<div class="filter-group">
+<select class="filter-select" id="departmentFilter">
+<option value="all">Ֆիլտրել ըստ բաժնի</option>
+<option value="Computer Science">Համակարգչային համակարգեր և ցանցեր</option>
+<option value="Civil Engineering">Տեղեկատվական անվտանգություն և ծրագրային ապահովում</option>
+<option value="OOP Engineer">OOP Engineer</option>
+</select>
+</div>
+<div class="filter-group">
+<select class="filter-select" id="sortFilter">
+<option value="">Դասավորել դասախոսներին</option>
+<option value="highest">Ամենաբարձր վարկանիշ</option>
+<option value="lowest">Ամենացածր վարկանիշ</option>
+<option value="a-z">Անուն (Ա-Զ)</option>
+<option value="z-a">Անուն (Զ-Ա)</option>
+</select>
+</div>
+<div class="filter-group">
+<input class="search-input" id="searchInput" placeholder="Որոնել դասախոսին" type="text"/>
+</div>
+</div>
+<div class="prof-grid" id="profGrid"></div></main>
+<footer>
+<p>© 2026 ProfRates — Բոլոր իրավունքները պաշտպանված են</p>
+</footer>
+<script src="js_codes/api.js?v=20261023-r2"></script><script src="js_codes/ui_session.js?v=20261023-r2"></script><script src="js_codes/student3_top.js?v=20261023-r2"></script></body>
+</html>

@@ -1,0 +1,1303 @@
+{
+  "source": {
+    "sql_file": "script.sql",
+    "sql_sha256": "642cac0bf9d059c7cdcc44f9742139174c5a965d8075a1c3fb4a537e5ae80539",
+    "backup_file": "ProfRates_database_21.10.26 (2).bak",
+    "backup_sha256": "fb34bf2a5bae961bfb7f8c67c6ee5ce35a0395ee065b55f898fa6660c2d3f3d9",
+    "backup_schema_correspondence": "UNCONFIRMED: backup not restored or queried"
+  },
+  "tables": {
+    "Ratings": {
+      "columns": {
+        "RatingID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "UserID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "LecturerID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "Comment": {
+          "type_name": "nvarchar",
+          "is_nullable": true,
+          "is_identity": false,
+          "max_length": -1
+        },
+        "Status": {
+          "type_name": "varchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 20
+        },
+        "ApprovedByAdminID": {
+          "type_name": "int",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "Likes": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "Dislikes": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "CreatedAt": {
+          "type_name": "datetime",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "UpdatedAt": {
+          "type_name": "datetime",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "EditExpiry": {
+          "type_name": "datetime",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "CourseID": {
+          "type_name": "int",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "TermID": {
+          "type_name": "int",
+          "is_nullable": true,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "RatingID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "TermID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "AcademicTerms",
+          "target_columns": [
+            "TermID"
+          ]
+        },
+        {
+          "source_columns": [
+            "ApprovedByAdminID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Admins",
+          "target_columns": [
+            "AdminID"
+          ]
+        },
+        {
+          "source_columns": [
+            "CourseID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Courses",
+          "target_columns": [
+            "CourseID"
+          ]
+        },
+        {
+          "source_columns": [
+            "LecturerID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Lecturers",
+          "target_columns": [
+            "LecturerID"
+          ]
+        },
+        {
+          "source_columns": [
+            "UserID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Users",
+          "target_columns": [
+            "UserID"
+          ]
+        }
+      ],
+      "unique_keys": [
+        {
+          "columns": [
+            "UserID",
+            "LecturerID",
+            "CourseID"
+          ],
+          "filter": null
+        }
+      ]
+    },
+    "RatingAnswers": {
+      "columns": {
+        "AnswerID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "RatingID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "QuestionID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "Score": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "AnswerID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "QuestionID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Questions",
+          "target_columns": [
+            "QuestionID"
+          ]
+        },
+        {
+          "source_columns": [
+            "RatingID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Ratings",
+          "target_columns": [
+            "RatingID"
+          ]
+        }
+      ],
+      "unique_keys": [
+        {
+          "columns": [
+            "RatingID",
+            "QuestionID"
+          ],
+          "filter": null
+        }
+      ]
+    },
+    "Lecturers": {
+      "columns": {
+        "LecturerID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "Title": {
+          "type_name": "nvarchar",
+          "is_nullable": true,
+          "is_identity": false,
+          "max_length": 200
+        },
+        "PhotoUrl": {
+          "type_name": "nvarchar",
+          "is_nullable": true,
+          "is_identity": false,
+          "max_length": 1000
+        },
+        "Description": {
+          "type_name": "nvarchar",
+          "is_nullable": true,
+          "is_identity": false,
+          "max_length": -1
+        },
+        "IsActive": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "ViewCount": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "FirstName": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 300
+        },
+        "MiddleName": {
+          "type_name": "nvarchar",
+          "is_nullable": true,
+          "is_identity": false,
+          "max_length": 300
+        },
+        "LastName": {
+          "type_name": "nvarchar",
+          "is_nullable": true,
+          "is_identity": false,
+          "max_length": 300
+        }
+      },
+      "primary_key": [
+        "LecturerID"
+      ],
+      "foreign_keys": [],
+      "unique_keys": []
+    },
+    "AcademicSemesters": {
+      "columns": {
+        "SemesterNumber": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "NameHy": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 100
+        }
+      },
+      "primary_key": [
+        "SemesterNumber"
+      ],
+      "foreign_keys": [],
+      "unique_keys": []
+    },
+    "AcademicTerms": {
+      "columns": {
+        "TermID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "AcademicYearStart": {
+          "type_name": "smallint",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "TermNumber": {
+          "type_name": "tinyint",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "NameHy": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 200
+        },
+        "StartsOn": {
+          "type_name": "date",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "EndsOn": {
+          "type_name": "date",
+          "is_nullable": true,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "TermID"
+      ],
+      "foreign_keys": [],
+      "unique_keys": [
+        {
+          "columns": [
+            "AcademicYearStart",
+            "TermNumber"
+          ],
+          "filter": null
+        }
+      ]
+    },
+    "StudentAcademicProgress": {
+      "columns": {
+        "UserID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "TermID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "SemesterNumber": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "IsCurrent": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "UserID",
+        "TermID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "SemesterNumber"
+          ],
+          "target_schema": "dbo",
+          "target_table": "AcademicSemesters",
+          "target_columns": [
+            "SemesterNumber"
+          ]
+        },
+        {
+          "source_columns": [
+            "TermID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "AcademicTerms",
+          "target_columns": [
+            "TermID"
+          ]
+        },
+        {
+          "source_columns": [
+            "UserID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Users",
+          "target_columns": [
+            "UserID"
+          ]
+        }
+      ],
+      "unique_keys": [
+        {
+          "columns": [
+            "UserID"
+          ],
+          "filter": "([IsCurrent]=(1))"
+        }
+      ]
+    },
+    "StudentGroups": {
+      "columns": {
+        "GroupID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "GroupCode": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 40
+        },
+        "SpecializationID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "EnrollmentYear": {
+          "type_name": "smallint",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "IsActive": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "GroupID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "SpecializationID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Specializations",
+          "target_columns": [
+            "SpecializationID"
+          ]
+        }
+      ],
+      "unique_keys": [
+        {
+          "columns": [
+            "GroupCode"
+          ],
+          "filter": null
+        }
+      ]
+    },
+    "Users": {
+      "columns": {
+        "UserID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "FirstName": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 200
+        },
+        "LastName": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 200
+        },
+        "Email": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 510
+        },
+        "PasswordHash": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 510
+        },
+        "IsEmailVerified": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "Status": {
+          "type_name": "varchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 20
+        },
+        "LastLogin": {
+          "type_name": "datetime",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "GroupID": {
+          "type_name": "int",
+          "is_nullable": true,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "UserID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "GroupID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "StudentGroups",
+          "target_columns": [
+            "GroupID"
+          ]
+        }
+      ],
+      "unique_keys": [
+        {
+          "columns": [
+            "Email"
+          ],
+          "filter": null
+        }
+      ]
+    },
+    "Specializations": {
+      "columns": {
+        "SpecializationID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "ChairID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "Name": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 400
+        },
+        "Code": {
+          "type_name": "varchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 20
+        },
+        "IsActive": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "SpecializationID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "ChairID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Chairs",
+          "target_columns": [
+            "ChairID"
+          ]
+        }
+      ],
+      "unique_keys": []
+    },
+    "Chairs": {
+      "columns": {
+        "ChairID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "InstituteID": {
+          "type_name": "int",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "FacultyID": {
+          "type_name": "int",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "Name": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 400
+        },
+        "ShortName": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 100
+        },
+        "IsActive": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "ChairID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "FacultyID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Faculty",
+          "target_columns": [
+            "FacultyID"
+          ]
+        },
+        {
+          "source_columns": [
+            "InstituteID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Institutes",
+          "target_columns": [
+            "InstituteID"
+          ]
+        }
+      ],
+      "unique_keys": []
+    },
+    "Courses": {
+      "columns": {
+        "CourseID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "SpecializationID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "LecturerID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "Name": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 400
+        },
+        "CurriculumSemesterNumber": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "IsActive": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "CourseID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "CurriculumSemesterNumber"
+          ],
+          "target_schema": "dbo",
+          "target_table": "AcademicSemesters",
+          "target_columns": [
+            "SemesterNumber"
+          ]
+        },
+        {
+          "source_columns": [
+            "LecturerID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Lecturers",
+          "target_columns": [
+            "LecturerID"
+          ]
+        },
+        {
+          "source_columns": [
+            "SpecializationID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Specializations",
+          "target_columns": [
+            "SpecializationID"
+          ]
+        }
+      ],
+      "unique_keys": []
+    },
+    "Faculty": {
+      "columns": {
+        "FacultyID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "Name": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 400
+        },
+        "ShortName": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 100
+        },
+        "IsActive": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "FacultyID"
+      ],
+      "foreign_keys": [],
+      "unique_keys": []
+    },
+    "Institutes": {
+      "columns": {
+        "InstituteID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "Name": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 400
+        },
+        "ShortName": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 100
+        },
+        "IsActive": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "InstituteID"
+      ],
+      "foreign_keys": [],
+      "unique_keys": []
+    },
+    "ActivityLogs": {
+      "columns": {
+        "LogID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "UserID": {
+          "type_name": "int",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "AdminID": {
+          "type_name": "int",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "ActionType": {
+          "type_name": "varchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 50
+        },
+        "Target": {
+          "type_name": "nvarchar",
+          "is_nullable": true,
+          "is_identity": false,
+          "max_length": 510
+        },
+        "Status": {
+          "type_name": "varchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 20
+        },
+        "CreatedAt": {
+          "type_name": "datetime",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "LogID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "AdminID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Admins",
+          "target_columns": [
+            "AdminID"
+          ]
+        },
+        {
+          "source_columns": [
+            "UserID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Users",
+          "target_columns": [
+            "UserID"
+          ]
+        }
+      ],
+      "unique_keys": []
+    },
+    "Admins": {
+      "columns": {
+        "AdminID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "Email": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 510
+        },
+        "PasswordHash": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 510
+        },
+        "LastLogin": {
+          "type_name": "datetime",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "FirstName": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 300
+        },
+        "LastName": {
+          "type_name": "nvarchar",
+          "is_nullable": true,
+          "is_identity": false,
+          "max_length": 300
+        },
+        "IsEmailVerified": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "AdminID"
+      ],
+      "foreign_keys": [],
+      "unique_keys": [
+        {
+          "columns": [
+            "Email"
+          ],
+          "filter": null
+        }
+      ]
+    },
+    "PasswordResets": {
+      "columns": {
+        "ResetID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "UserID": {
+          "type_name": "int",
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "Code": {
+          "type_name": "varchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 64
+        },
+        "Expiry": {
+          "type_name": "datetime",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "IsUsed": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "CreatedAt": {
+          "type_name": "datetime",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "AdminID": {
+          "type_name": "int",
+          "is_nullable": true,
+          "is_identity": false,
+          "max_length": 4
+        },
+        "Purpose": {
+          "type_name": "varchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 10
+        }
+      },
+      "primary_key": [
+        "ResetID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "UserID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Users",
+          "target_columns": [
+            "UserID"
+          ]
+        },
+        {
+          "source_columns": [
+            "AdminID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Admins",
+          "target_columns": [
+            "AdminID"
+          ]
+        }
+      ],
+      "unique_keys": []
+    },
+    "Questions": {
+      "columns": {
+        "QuestionID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "Text": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 1000
+        },
+        "Category": {
+          "type_name": "nvarchar",
+          "is_nullable": false,
+          "is_identity": false,
+          "max_length": 200
+        },
+        "SortOrder": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "IsActive": {
+          "type_name": "bit",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "QuestionID"
+      ],
+      "foreign_keys": [],
+      "unique_keys": []
+    },
+    "StudentCourses": {
+      "columns": {
+        "StudentCourseID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": true
+        },
+        "UserID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "CourseID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "EnrolledAt": {
+          "type_name": "datetime",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "StudentCourseID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "CourseID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Courses",
+          "target_columns": [
+            "CourseID"
+          ]
+        },
+        {
+          "source_columns": [
+            "UserID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Users",
+          "target_columns": [
+            "UserID"
+          ]
+        }
+      ],
+      "unique_keys": [
+        {
+          "columns": [
+            "UserID",
+            "CourseID"
+          ],
+          "filter": null
+        }
+      ]
+    },
+    "RatingReactions": {
+      "columns": {
+        "RatingID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "UserID": {
+          "type_name": "int",
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "Reaction": {
+          "type_name": "smallint",
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "RatingID",
+        "UserID"
+      ],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "RatingID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Ratings",
+          "target_columns": [
+            "RatingID"
+          ]
+        },
+        {
+          "source_columns": [
+            "UserID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Users",
+          "target_columns": [
+            "UserID"
+          ]
+        }
+      ],
+      "unique_keys": []
+    },
+    "AuthSessions": {
+      "columns": {
+        "SessionHash": {
+          "type_name": "varchar",
+          "max_length": 64,
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "CSRFHash": {
+          "type_name": "varchar",
+          "max_length": 64,
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "UserID": {
+          "type_name": "int",
+          "max_length": 4,
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "AdminID": {
+          "type_name": "int",
+          "max_length": 4,
+          "is_nullable": true,
+          "is_identity": false
+        },
+        "CreatedAt": {
+          "type_name": "datetime",
+          "max_length": 8,
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "ExpiresAt": {
+          "type_name": "datetime",
+          "max_length": 8,
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "SessionHash"
+      ],
+      "unique_keys": [],
+      "foreign_keys": [
+        {
+          "source_columns": [
+            "UserID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Users",
+          "target_columns": [
+            "UserID"
+          ]
+        },
+        {
+          "source_columns": [
+            "AdminID"
+          ],
+          "target_schema": "dbo",
+          "target_table": "Admins",
+          "target_columns": [
+            "AdminID"
+          ]
+        }
+      ]
+    },
+    "AuthRateLimits": {
+      "columns": {
+        "KeyHash": {
+          "type_name": "varchar",
+          "max_length": 64,
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "WindowStart": {
+          "type_name": "int",
+          "max_length": 4,
+          "is_nullable": false,
+          "is_identity": false
+        },
+        "Attempts": {
+          "type_name": "int",
+          "max_length": 4,
+          "is_nullable": false,
+          "is_identity": false
+        }
+      },
+      "primary_key": [
+        "KeyHash"
+      ],
+      "unique_keys": [],
+      "foreign_keys": []
+    }
+  },
+  "view_columns": {
+    "vwLecturerRatingSummary": {
+      "LecturerID": {
+        "type_name": "int",
+        "is_nullable": false
+      },
+      "TotalRatings": {
+        "type_name": "int"
+      },
+      "TotalAnswers": {
+        "type_name": "int"
+      },
+      "AverageScore": {
+        "type_name": "decimal",
+        "precision": 5,
+        "scale": 2,
+        "is_nullable": true
+      }
+    },
+    "vw_Ratings_Public": {
+      "RatingID": {
+        "type_name": "int",
+        "is_nullable": false
+      },
+      "LecturerID": {
+        "type_name": "int",
+        "is_nullable": false
+      },
+      "Comment": {
+        "type_name": "nvarchar",
+        "is_nullable": true,
+        "max_length": -1
+      },
+      "CreatedAt": {
+        "type_name": "datetime",
+        "is_nullable": false
+      },
+      "OverallScore": {
+        "type_name": "decimal",
+        "precision": 5,
+        "scale": 2,
+        "is_nullable": true
+      }
+    },
+    "vw_Ratings_Admin": {
+      "RatingID": {
+        "type_name": "int",
+        "is_nullable": false
+      },
+      "LecturerID": {
+        "type_name": "int",
+        "is_nullable": false
+      },
+      "Comment": {
+        "type_name": "nvarchar",
+        "is_nullable": true,
+        "max_length": -1
+      },
+      "Status": {
+        "type_name": "varchar",
+        "is_nullable": false,
+        "max_length": 20
+      },
+      "CreatedAt": {
+        "type_name": "datetime",
+        "is_nullable": false
+      },
+      "OverallScore": {
+        "type_name": "decimal",
+        "precision": 5,
+        "scale": 2,
+        "is_nullable": true
+      },
+      "LecturerName": {
+        "type_name": "nvarchar"
+      },
+      "StudentName": {
+        "type_name": "nvarchar"
+      },
+      "StudentGroup": {
+        "type_name": "nvarchar",
+        "is_nullable": true,
+        "max_length": 40
+      }
+    }
+  },
+  "view_definitions": {
+    "vwLecturerRatingSummary": "CREATE OR ALTER VIEW [dbo].[vwLecturerRatingSummary] AS\nSELECT l.LecturerID,l.FirstName,l.MiddleName,l.LastName,\n COUNT(CASE WHEN r.OverallScore IS NOT NULL THEN 1 END) AS TotalRatings,\n COALESCE(SUM(r.TotalAnswers),0) AS TotalAnswers,\n CAST(AVG(r.OverallScore) AS decimal(5,2)) AS AverageScore\nFROM dbo.Lecturers l LEFT JOIN dbo.vwRatingScores r ON r.LecturerID=l.LecturerID\nGROUP BY l.LecturerID,l.FirstName,l.MiddleName,l.LastName;\n\r\n",
+    "vw_Ratings_Public": "CREATE   VIEW [dbo].[vw_Ratings_Public] AS\nSELECT r.RatingID,r.LecturerID,s.OverallScore,r.Comment,r.Likes,r.Dislikes,\n r.CreatedAt,r.CourseID,\n CASE WHEN t.TermID IS NULL THEN NULL ELSE CONCAT(t.AcademicYearStart,N'-',t.AcademicYearStart+1,N'/',t.TermNumber) END AS Semester,\n r.Status\nFROM dbo.Ratings r JOIN dbo.vwRatingScores s ON s.RatingID=r.RatingID\nLEFT JOIN dbo.AcademicTerms t ON t.TermID=r.TermID\nWHERE r.Status='Approved';",
+    "vw_Ratings_Admin": "CREATE   VIEW [dbo].[vw_Ratings_Admin] AS\nSELECT r.RatingID,r.UserID,CONCAT(u.FirstName,N' ',u.LastName) AS StudentName,\n u.Email AS StudentEmail,sg.GroupCode AS StudentGroup,r.LecturerID,\n CONCAT_WS(N' ',l.FirstName,l.MiddleName,l.LastName) AS LecturerName,\n s.OverallScore,r.Comment,r.Status,r.Likes,r.Dislikes,r.CreatedAt,\n CASE WHEN t.TermID IS NULL THEN NULL ELSE CONCAT(t.AcademicYearStart,N'-',t.AcademicYearStart+1,N'/',t.TermNumber) END AS Semester,\n r.ApprovedByAdminID\nFROM dbo.Ratings r JOIN dbo.Users u ON u.UserID=r.UserID\nJOIN dbo.Lecturers l ON l.LecturerID=r.LecturerID\nJOIN dbo.vwRatingScores s ON s.RatingID=r.RatingID\nLEFT JOIN dbo.StudentGroups sg ON sg.GroupID=u.GroupID\nLEFT JOIN dbo.AcademicTerms t ON t.TermID=r.TermID;"
+  },
+  "view_metadata_not_asserted": {
+    "vwLecturerRatingSummary": [
+      "TotalRatings nullability",
+      "TotalAnswers nullability"
+    ],
+    "vw_Ratings_Admin": [
+      "LecturerName length/nullability",
+      "StudentName length/nullability"
+    ]
+  }
+}

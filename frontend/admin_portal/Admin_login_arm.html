@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login — ProfRates</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="admin-styles.css">
+  <style>
+    /* Split-screen admin login (Armenian) */
+    .login-wrap {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .login-aside {
+      flex: 0 0 46%;
+      padding: 56px 46px;
+      background:
+        radial-gradient(700px 380px at -10% 0%, rgba(139, 92, 246, .25), transparent 60%),
+        radial-gradient(700px 420px at 110% 100%, rgba(109, 40, 217, .3), transparent 55%),
+        var(--grad-sidebar);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .login-aside .title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .security img { width: 44px; height: 44px; }
+
+    .txt h1 { font-size: 28px; color: #fff; font-weight: 800; letter-spacing: -.02em; }
+    .txt p { font-size: 15px; font-weight: 500; color: rgba(255,255,255,.72); }
+
+    .login-aside > p {
+      font-size: 15px;
+      color: rgba(255,255,255,.85);
+      margin: 18px 0 30px;
+      line-height: 1.7;
+      max-width: 440px;
+    }
+
+    .actions { display: flex; flex-direction: column; gap: 14px; max-width: 460px; }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .12);
+      padding: 15px 17px;
+      border-radius: 14px;
+      width: 100%;
+    }
+
+    .mark img { width: 24px; height: 24px; }
+
+    .feature p {
+      margin: 0;
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .feature span {
+      display: block;
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,.68);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .login-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 36px;
+      position: relative;
+      background: var(--canvas);
+    }
+
+    .form-container {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 46px 42px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-container h1 {
+      font-size: 30px;
+      color: var(--primary-deep);
+      margin-bottom: 8px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .p3 {
+      font-size: 15px;
+      color: var(--ink-mute);
+      margin-bottom: 30px;
+    }
+
+    .form { display: flex; flex-direction: column; }
+
+    .label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+      margin-top: 16px;
+    }
+
+    .label:first-of-type { margin-top: 0; }
+
+    .mail, .pass {
+      width: 100%;
+      padding: 13px 16px;
+      padding-left: 44px;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      font-size: 15px;
+      color: var(--ink);
+      transition: border-color var(--t-fast), box-shadow var(--t-fast);
+      background: #fff;
+      font-family: inherit;
+    }
+
+    .mail:focus, .pass:focus {
+      outline: none;
+      border-color: var(--primary-soft);
+      background-color: #fff;
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, .14);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-mute);
+      font-size: 15px;
+    }
+
+    .input-wrap { position: relative; }
+
+    .error {
+      font-size: 13px;
+      color: var(--danger);
+      margin-top: 6px;
+      min-height: 16px;
+    }
+
+    .lang-toggle {
+      position: absolute;
+      top: 22px;
+      right: 26px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .lang-toggle a {
+      color: var(--primary);
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 7px 14px;
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      transition: background var(--t-fast);
+      background: #fff;
+    }
+
+    .lang-toggle a:hover { background: var(--line-soft); }
+
+    .submit {
+      margin-top: 25px;
+      width: 100%;
+      padding: 14px;
+      background: var(--grad-primary);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: filter var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+      font-family: inherit;
+    }
+
+    .submit:hover {
+      filter: brightness(1.07);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(109, 40, 217, .32);
+    }
+
+    @media (max-width: 900px) {
+      .login-wrap { flex-direction: column; }
+      .login-aside { flex: none; padding: 40px 26px; }
+      .login-main { padding: 36px 20px; }
+      .lang-toggle { top: 16px; right: 16px; }
+    }
+  </style>
+<link rel="stylesheet" href="accounts-ui.css?v=20261024-p2">
+</head>
+<body>
+  <div class="login-wrap">
+    <aside class="login-aside">
+      <div class="title">
+        <div class="security">
+          <img src="security.svg" alt="Security Icon">
+        </div>
+        <div class="txt">
+          <h1>ProfRates</h1>
+          <p>Ադմին պորտալ</p>
+        </div>  
+      </div>
+
+      <p>Կառավարեք ձեր դասախոսների գնահատման հարթակը հզոր գործիքներով և վերլուծություններով։</p>
+
+      <div class="actions">
+        <div class="feature">
+          <div class="mark"><img src="mark.svg" alt="Check Icon"></div>
+          <p>Անվտանգ մուտք
+            <span>Ձեր ադմին հաշվի ձեռնարկային անվտանգության մակարդակ</span>
+          </p>
+        </div>
+
+        <div class="feature">
+          <div class="mark"><img src="mark.svg" alt="Check Icon"></div>
+          <p>Լրիվ վերահսկողություն
+            <span>Կառավարեք օգտատերերին, դասախոսներին և գնահատականները հեշտությամբ</span>
+          </p>
+        </div>
+
+        <div class="feature">
+          <div class="mark"><img src="mark.svg" alt="Check Icon"></div>
+          <p>Իրական ժամանակի վերլուծություն
+            <span>Հետևեք հարթակի ակտիվությանը և ներգրավվածությանը</span>
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="login-main">
+      <div class="lang-toggle">
+        <a href="Admin_login_eng.html" onclick="setLanguage('EN')">EN</a>
+        <a href="#" onclick="setLanguage('HY')">Հայ</a>
+      </div>
+
+      <div class="form-container">
+        <h1>Բարի վերադարձ</h1>
+        <p class="p3">Մուտք գործեք ձեր ադմին հաշիվ</p>
+
+        <form class="form">
+          <label for="email" class="label">Էլ. հասցե</label>
+          <div class="input-wrap">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="email" class="mail" placeholder="Էլփոստ" />
+          </div>
+          <div id="email-error" class="error"></div>
+
+          <label for="password" class="label">Գաղտնաբառ</label>
+          <div class="input-wrap">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="password" class="pass" placeholder="••••••••" />
+          </div>
+          <div id="password-error" class="error"></div>
+
+          <button type="submit" class="submit">Մուտք</button>
+        </form>
+      </div>
+    </main>
+  </div>
+  
+<script src="../js_codes/api.js?v=20261024-p2"></script>
+<script src="js_folder/accounts.js?v=20261024-p2"></script>
+</body>
+</html>

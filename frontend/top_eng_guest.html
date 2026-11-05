@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ProfRates - Top Professors</title>
+<link href="main-styles.css?v=20261023-r3" rel="stylesheet"/>
+<style>
+        .prof-card .card-content > div { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .prof-card .bio { display: block; }
+    </style>
+<link href="ui-fixes.css?v=20261023-r3" rel="stylesheet"/></head>
+<body>
+<header class="site-header">
+<div class="header-content">
+<a class="logo" href="home_eng_guest.html">
+<img alt="ProfRates Logo" src="logo.png"/>
+<span>ProfRates</span>
+</a>
+<nav class="center-nav">
+<a class="nav-link" href="home_eng_guest.html">Home</a>
+<a class="nav-link" href="about_guest_eng.html">About Us</a>
+<a class="nav-link" href="privacy_eng_guest.html">Privacy</a>
+<a class="nav-link" href="top_arm_guest.html">
+<img alt="" class="globe-icon" src="white-logo.png"/>
+<span>Հայ</span>
+</a>
+</nav>
+<div class="right-nav">
+<a class="login-btn" href="login_eng.html">Login</a>
+</div>
+</div>
+</header>
+<main>
+<h1 class="page-title">Top Professors</h1>
+<p class="subtitle">The highest and lowest rated professors, ranked by students.</p>
+<div class="filters">
+<div class="filter-group">
+<select class="filter-select" id="departmentFilter">
+<option value="all">Filter by department</option>
+<option value="Computer Science">Computer systems and networks</option>
+<option value="Civil Engineering">Information security and software provision</option>
+<option value="OOP Engineer">OOP Engineer</option>
+</select>
+</div>
+<div class="filter-group">
+<select class="filter-select" id="sortFilter">
+<option value="">Order professors by</option>
+<option value="highest">Highest rated</option>
+<option value="lowest">Lowest rated</option>
+<option value="a-z">Name (A-Z)</option>
+<option value="z-a">Name (Z-A)</option>
+</select>
+</div>
+<div class="filter-group">
+<input class="search-input" id="searchInput" placeholder="Search by professor" type="text"/>
+</div>
+</div>
+<div class="prof-grid" id="profGrid"></div></main>
+<footer>
+<p>© 2026 ProfRates — All Rights Reserved</p>
+</footer>
+<script src="js_codes/api.js?v=20261023-r2"></script><script src="js_codes/ui_session.js?v=20261023-r2"></script><script src="js_codes/student3_top.js?v=20261023-r2"></script></body>
+</html>

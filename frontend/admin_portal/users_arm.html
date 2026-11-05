@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfRates - Users Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-styles.css">
+<link rel="stylesheet" href="accounts-ui.css?v=20261024-p2">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="logo-text">
+                <h1>ProfRates</h1>
+                <p>Ադմին պորտալ</p>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">AD</div>
+            <div class="user-details">
+                <h3>Admin User</h3>
+                <p>admin@profrates.am</p>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="dashboard_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-th-large"></i></span>
+                <span>Վահանակ</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <span class="nav-icon"><i class="fas fa-users"></i></span>
+                <span>Օգտատերեր</span>
+            </a>
+            <a href="professors_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+                <span>Դասախոսներ</span>
+            </a>
+            <a href="ratings&reviews_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-star"></i></span>
+                <span>Գնահատականներ և Կարծիքներ</span>
+            </a>
+            <a href="RatingQuestions_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>
+                <span>Ռեյթինգի Հարցեր</span>
+            </a>
+            <a href="ActivityLogs_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+                <span>Գործողությունների Պատմություն</span>
+            </a>
+            <a href="ResetPassword_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-key"></i></span>
+                <span>Վերականգնել Գաղտնաբառը</span>
+            </a>
+            <a href="../home_eng.html" class="nav-item" target="_blank" rel="noopener">
+                <span class="nav-icon"><i class="fas fa-globe"></i></span>
+                <span>Ուսանողական կայք</span>
+            </a>
+        </nav>
+
+
+        <div class="portal-links">
+            <a href="users.html">EN</a>
+            <a href="#">Հայ</a>
+        </div>
+
+        <div class="sidebar-footer">
+            © 2025 ProfRates<br>
+            Ադմին պորտալ v1.0
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="header-title">
+                <h1>Օգտատերեր</h1>
+                <p>Կառավարեք ձեր պորտալը</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Փնտրել...">
+                </div>
+                <button class="export-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Բեռնել</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- User Management Section -->
+        <div class="management-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>Օգտատիրոջ Կառավարում</h2>
+                    <p>Կառավարեք բոլոր գրանցված օգտատերերին</p>
+                </div>
+                <button class="add-user-btn">
+                    <i class="fas fa-plus"></i>
+                    <span>Ավելացնել Օգտատեր</span>
+                </button>
+            </div>
+
+            <!-- Users Table -->
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Օգտատերերի աղյուսակ">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Անուն</th>
+                        <th>Էլփոստ</th>
+                        <th>Դեր</th>
+                        <th>Կարգավիճակ</th>
+                        <th>Միացման Ամսաթիվ</th>
+                        <th>Գործողություններ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>john.smith@polytechnic.am</td>
+                        <td><span class="role-badge student">Ուսանող</span></td>
+                        <td><span class="status-badge active">Ակտիվ</span></td>
+                        <td>2025-01-15</td>
+                        <td>
+                            <div class="actions-cell">
+                                <button class="action-btn">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sarah Johnson</td>
+                        <td>sarah.johnson@polytechnic.am</td>
+                        <td><span class="role-badge student">Ուսանող</span></td>
+                        <td><span class="status-badge active">Ակտիվ</span></td>
+                        <td>2025-02-20</td>
+                        <td>
+                            <div class="actions-cell">
+                                <button class="action-btn">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mike Davis</td>
+                        <td>mike.davis@polytechnic.am</td>
+                        <td><span class="role-badge student">Ուսանող</span></td>
+                        <td><span class="status-badge suspended">Դադարեցված</span></td>
+                        <td>2025-03-10</td>
+                        <td>
+                            <div class="actions-cell">
+                                <button class="action-btn">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Admin User</td>
+                        <td>admin@profrates.am</td>
+                        <td><span class="role-badge admin">Ադմին</span></td>
+                        <td><span class="status-badge active">Ակտիվ</span></td>
+                        <td>2025-09-05</td>
+                        <td>
+                            <div class="actions-cell">
+                                <button class="action-btn">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+  <!-- Edit User Modal -->
+<div id="editModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:white; padding:30px; border-radius:12px; width:400px; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+    <h2 style="margin-bottom:20px; font-size:20px;">Խմբագրել Օգտատեր</h2>
+    <label for="editName" style="font-weight:600; font-size:14px;">Անուն</label>
+    <input type="text" id="editName" style="width:100%; margin-bottom:16px; padding:10px; border-radius:8px; border:1px solid #ccc;" />
+    <label for="editEmail" style="font-weight:600; font-size:14px;">Էլփոստ</label>
+    <input type="email" id="editEmail" style="width:100%; margin-bottom:24px; padding:10px; border-radius:8px; border:1px solid #ccc;" />
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button onclick="closeEditModal()" style="padding:10px 16px; background:#eee; border:none; border-radius:8px; cursor:pointer;">Չեղարկել</button>
+      <button onclick="saveEdit()" style="padding:10px 16px; background:#7c3aed; color:white; border:none; border-radius:8px; cursor:pointer;">Պահպանել</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add User Modal -->
+<div id="addModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:white; padding:30px; border-radius:12px; width:400px; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+    <h2 style="margin-bottom:20px; font-size:20px;">Ավելացնել Նոր Օգտատեր</h2>
+    <label for="newName" style="font-weight:600; font-size:14px;">Անուն</label>
+    <input type="text" id="newName" style="width:100%; margin-bottom:16px; padding:10px; border-radius:8px; border:1px solid #ccc;" />
+    <label for="newEmail" style="font-weight:600; font-size:14px;">Էլփոստ</label>
+    <input type="email" id="newEmail" style="width:100%; margin-bottom:24px; padding:10px; border-radius:8px; border:1px solid #ccc;" />
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button onclick="closeAddModal()" style="padding:10px 16px; background:#eee; border:none; border-radius:8px; cursor:pointer;">Չեղարկել</button>
+      <button onclick="saveNewUser()" style="padding:10px 16px; background:#7c3aed; color:white; border:none; border-radius:8px; cursor:pointer;">Պահպանել</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js_codes/api.js?v=20261024-p2"></script>
+<script src="js_folder/accounts.js?v=20261024-p2"></script>
+</body>
+</html>

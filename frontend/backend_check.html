@@ -1,0 +1,13 @@
+<!doctype html><html lang="hy"><meta charset="utf-8"><title>Backend-ի ստուգում</title>
+<h1>ProfRates․ միացման ստուգում</h1><p>Այս առանձին էջը չի փոխում պատրաստ դիզայնը։</p>
+<button id="check">Ստուգել միացումը</button><pre id="status" aria-live="polite"></pre>
+<script src="js_codes/api.js"></script><script>
+document.getElementById('check').onclick = async () => {
+ const output = document.getElementById('status');
+ output.textContent = 'Ստուգվում է…';
+ try { const live = await ProfRatesAPI.request('/api/health/live');
+ output.textContent = 'Backend-ը աշխատում է։ Լեզուն՝ ' + live.language;
+ await ProfRatesAPI.request('/api/health/ready'); output.textContent += '\nԲազան միացված է։';
+ } catch (error) { output.textContent += '\n' + error.message; }
+};
+</script></html>

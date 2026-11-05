@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfRates - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-styles.css">
+<link rel="stylesheet" href="accounts-ui.css?v=20261024-p2">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="logo-text">
+                <h1>ProfRates</h1>
+                <p>Ադմին պորտալ</p>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">AD</div>
+            <div class="user-details">
+                <h3>Admin User</h3>
+                <p>admin@profrates.am</p>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active">
+                <span class="nav-icon"><i class="fas fa-th-large"></i></span>
+                <span>Վահանակ</span>
+            </a>
+            <a href="users_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-users"></i></span>
+                <span>Օգտատերեր</span>
+            </a>
+            <a href="professors_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+                <span>Դասախոսներ</span>
+            </a>
+            <a href="ratings&reviews_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-star"></i></span>
+                <span>Գնահատականներ և Կարծիքներ</span>
+            </a>
+            <a href="RatingQuestions_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>
+                <span>Ռեյթինգի Հարցեր</span>
+            </a>
+            <a href="ActivityLogs_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+                <span>Գործողությունների Պատմություն</span>
+            </a>
+            <a href="ResetPassword_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-key"></i></span>
+                <span>Վերականգնել Գաղտնաբառը</span>
+            </a>
+            <a href="../home_eng.html" class="nav-item" target="_blank" rel="noopener">
+                <span class="nav-icon"><i class="fas fa-globe"></i></span>
+                <span>Ուսանողական կայք</span>
+            </a>
+        </nav>
+
+
+        <div class="portal-links">
+            <a href="dashboard.html">EN</a>
+            <a href="#">Հայ</a>
+        </div>
+
+        <div class="sidebar-footer">
+            © 2025 ProfRates<br>
+            Ադմին պորտալ v1.0
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="header-title">
+                <h1>Վահանակ</h1>
+                <p>Կառավարեք ձեր պորտալը</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Փնտրել...">
+                </div>
+                <button class="export-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Բեռնել</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon users">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-change">+12.5%</div>
+                </div>
+                <div class="stat-value">2,547</div>
+                <div class="stat-label">Ընդհանուր Օգտատերեր</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon professors">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-change">+5.2%</div>
+                </div>
+                <div class="stat-value">342</div>
+                <div class="stat-label">Ընդհանուր Դասախոսներ</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon reviews">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-change">+18.3%</div>
+                </div>
+                <div class="stat-value">8,924</div>
+                <div class="stat-label">Ընդհանուր Կարծիքներ</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon rating">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-change">+0.3</div>
+                </div>
+                <div class="stat-value">4.2</div>
+                <div class="stat-label">Միջ Ռեյթինգ</div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Recent Activity -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h2>Վերջին գործունեությունը</h2>
+                    <p>Հարթակի վերջին գործողությունները</p>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Հաստատված Կարծիք</div>
+                        <div class="activity-meta">Emily Brown • 2025-10-14 10:30 AM</div>
+                    </div>
+                    <div class="activity-status">Հաջողություն</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Ստեղծված Կարծիք</div>
+                        <div class="activity-meta">John Smith • 2025-10-14 09:15 AM</div>
+                    </div>
+                    <div class="activity-status">Հաջողություն</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Backup Database</div>
+                        <div class="activity-meta">Համակարգ • 2025-10-14 02:00 AM</div>
+                    </div>
+                    <div class="activity-status">Հաջողություն</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Թարմացված Հաշիվ</div>
+                        <div class="activity-meta">Sarah Johnson • 2025-10-13 08:45 PM</div>
+                    </div>
+                    <div class="activity-status">Հաջողություն</div>
+                </div>
+            </div>
+
+            <!-- Pending Reviews -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h2>Սպասվող վերանայումներ</h2>
+                    <p>Վերանայումները սպասում են հաստատվելուն</p>
+                </div>
+
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-professor">Պրոֆ. Tom Miller</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="review-text">Լավ մասնագետ, բայց կոպիտ։</div>
+                    <div class="review-author">Mike Davis</div>
+                    <div class="review-actions">
+                        <button class="approve-btn">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Հաստատել</span>
+                        </button>
+                        <button class="reject-btn">
+                            <i class="fas fa-times"></i>
+                            <span>Մերժել</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="../js_codes/api.js?v=20261024-p2"></script>
+<script src="js_folder/accounts.js?v=20261024-p2"></script>
+</body>
+</html>

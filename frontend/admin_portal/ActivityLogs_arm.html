@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfRates - Activity Logs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-styles.css">
+<link rel="stylesheet" href="accounts-ui.css?v=20261024-p2">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="logo-text">
+                <h1>ProfRates</h1>
+                <p>Ադմին պորտալ</p>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">AD</div>
+            <div class="user-details">
+                <h3>Admin User</h3>
+                <p>admin@profrates.am</p>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="dashboard_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-th-large"></i></span>
+                <span>Վահանակ</span>
+            </a>
+            <a href="users_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-users"></i></span>
+                <span>Օգտատերեր</span>
+            </a>
+            <a href="professors_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+                <span>Դասախոսներ</span>
+            </a>
+            <a href="ratings&reviews_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-star"></i></span>
+                <span>Գնահատականներ և Կարծիքներ</span>
+            </a>
+            <a href="RatingQuestions_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>
+                <span>Ռեյթինգի Հարցեր</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+                <span>Գործողությունների Պատմություն</span>
+            </a>
+            <a href="ResetPassword_arm.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-key"></i></span>
+                <span>Վերականգնել Գաղտնաբառը</span>
+            </a>
+            <a href="../home_eng.html" class="nav-item" target="_blank" rel="noopener">
+                <span class="nav-icon"><i class="fas fa-globe"></i></span>
+                <span>Ուսանողական կայք</span>
+            </a>
+        </nav>
+
+
+        <div class="portal-links">
+            <a href="ActivityLogs.html">EN</a>
+            <a href="#">Հայ</a>
+        </div>
+
+        <div class="sidebar-footer">
+            © 2025 ProfRates<br>
+            Ադմին պորտալ v1.0
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="header-title">
+                <h1>Գործողությունների Պատմություն</h1>
+                <p>Կառավարեք ձեր պորտալը</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Փնտրել...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Logs Section -->
+        <div class="management-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>Գործողությունների Պատմություն</h2>
+                    <p>Վերահսկել համակարգի բոլոր գործողությունները</p>
+                </div>
+            </div>
+
+            <!-- Activity Table -->
+            <table class="activity-table">
+                <thead>
+                    <tr>
+                        <th>Օգտատերեր</th>
+                        <th>Գործողություններ</th>
+                        <th>Թիրախ</th>
+                        <th>Ժամանակ</th>
+                        <th>Կարգավիճակ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Emily Brown</td>
+                        <td>Հաստատված Կարծիք</td>
+                        <td>Կարծիք #234</td>
+                        <td>2025-10-14 10:30 AM</td>
+                        <td><span class="status-badge">Հաջողություն</span></td>
+                    </tr>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Ստեղծված Կարծիք</td>
+                        <td>Պրոֆ. Ann Johnson</td>
+                        <td>2025-10-14 09:15 AM</td>
+                        <td><span class="status-badge">Հաջողություն</span></td>
+                    </tr>
+                    <tr>
+                        <td>Համակարգ</td>
+                        <td>Backup Database</td>
+                        <td>All Data</td>
+                        <td>2025-10-14 02:00 AM</td>
+                        <td><span class="status-badge">Հաջողություն</span></td>
+                    </tr>
+                    <tr>
+                        <td>Sarah Johnson</td>
+                        <td>Թարմացված Հաշիվ</td>
+                        <td>Profile Settings</td>
+                        <td>2025-10-13 08:45 PM</td>
+                        <td><span class="status-badge">Հաջողություն</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<script src="../js_codes/api.js?v=20261024-p2"></script>
+<script src="js_folder/accounts.js?v=20261024-p2"></script>
+</body>
+</html>

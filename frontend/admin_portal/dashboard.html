@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfRates - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-styles.css">
+<link rel="stylesheet" href="accounts-ui.css?v=20261024-p2">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="logo-text">
+                <h1>ProfRates</h1>
+                <p>Admin Panel</p>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">AD</div>
+            <div class="user-details">
+                <h3>Admin User</h3>
+                <p>admin@profrates.am</p>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active">
+                <span class="nav-icon"><i class="fas fa-th-large"></i></span>
+                <span>Dashboard</span>
+            </a>
+            <a href="users.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-users"></i></span>
+                <span>Users</span>
+            </a>
+            <a href="professors.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+                <span>Professors</span>
+            </a>
+            <a href="ratings&reviews.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-star"></i></span>
+                <span>Ratings & Reviews</span>
+            </a>
+            <a href="RatingQuestions.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>
+                <span>Rating Questions</span>
+            </a>
+            <a href="ActivityLogs.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+                <span>Activity Logs</span>
+            </a>
+            <a href="ResetPassword.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-key"></i></span>
+                <span>Reset Password</span>
+            </a>
+            <a href="../home_eng.html" class="nav-item" target="_blank" rel="noopener">
+                <span class="nav-icon"><i class="fas fa-globe"></i></span>
+                <span>Student website</span>
+            </a>
+        </nav>
+
+
+        <div class="portal-links">
+            <a href="#">EN</a>
+            <a href="dashboard_arm.html">Հայ</a>
+        </div>
+
+        <div class="sidebar-footer">
+            © 2025 ProfRates<br>
+            Admin Panel v1.0
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="header-title">
+                <h1>Dashboard</h1>
+                <p>Manage your platform</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <button class="export-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Export</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon users">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-change">+12.5%</div>
+                </div>
+                <div class="stat-value">2,547</div>
+                <div class="stat-label">Total Users</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon professors">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-change">+5.2%</div>
+                </div>
+                <div class="stat-value">342</div>
+                <div class="stat-label">Total Professors</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon reviews">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-change">+18.3%</div>
+                </div>
+                <div class="stat-value">8,924</div>
+                <div class="stat-label">Total Reviews</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon rating">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-change">+0.3</div>
+                </div>
+                <div class="stat-value">4.2</div>
+                <div class="stat-label">Avg Rating</div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Recent Activity -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h2>Recent Activity</h2>
+                    <p>Latest actions on the platform</p>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Approved Review</div>
+                        <div class="activity-meta">Emily Brown • 2025-10-14 10:30 AM</div>
+                    </div>
+                    <div class="activity-status">Success</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Created Review</div>
+                        <div class="activity-meta">John Smith • 2025-10-14 09:15 AM</div>
+                    </div>
+                    <div class="activity-status">Success</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Backup Database</div>
+                        <div class="activity-meta">System • 2025-10-14 02:00 AM</div>
+                    </div>
+                    <div class="activity-status">Success</div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">Updated Profile</div>
+                        <div class="activity-meta">Sarah Johnson • 2025-10-13 08:45 PM</div>
+                    </div>
+                    <div class="activity-status">Success</div>
+                </div>
+            </div>
+
+            <!-- Pending Reviews -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h2>Pending Reviews</h2>
+                    <p>Reviews awaiting approval</p>
+                </div>
+
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-professor">Prof. Tom Miller</div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="review-text">Good but tough</div>
+                    <div class="review-author">Mike Davis</div>
+                    <div class="review-actions">
+                        <button class="approve-btn">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Approve</span>
+                        </button>
+                        <button class="reject-btn">
+                            <i class="fas fa-times"></i>
+                            <span>Reject</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="../js_codes/api.js?v=20261024-p2"></script>
+<script src="js_folder/accounts.js?v=20261024-p2"></script>
+</body>
+</html>

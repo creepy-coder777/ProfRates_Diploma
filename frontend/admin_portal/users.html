@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfRates - Users Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-styles.css">
+<link rel="stylesheet" href="accounts-ui.css?v=20261024-p2">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="logo-text">
+                <h1>ProfRates</h1>
+                <p>Admin Panel</p>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">AD</div>
+            <div class="user-details">
+                <h3>Admin User</h3>
+                <p>admin@profrates.am</p>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-th-large"></i></span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <span class="nav-icon"><i class="fas fa-users"></i></span>
+                <span>Users</span>
+            </a>
+            <a href="professors.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>
+                <span>Professors</span>
+            </a>
+            <a href="ratings&reviews.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-star"></i></span>
+                <span>Ratings & Reviews</span>
+            </a>
+            <a href="RatingQuestions.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>
+                <span>Rating Questions</span>
+            </a>
+            <a href="ActivityLogs.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+                <span>Activity Logs</span>
+            </a>
+            <a href="ResetPassword.html" class="nav-item">
+                <span class="nav-icon"><i class="fas fa-key"></i></span>
+                <span>Reset Password</span>
+            </a>
+            <a href="../home_eng.html" class="nav-item" target="_blank" rel="noopener">
+                <span class="nav-icon"><i class="fas fa-globe"></i></span>
+                <span>Student website</span>
+            </a>
+        </nav>
+
+
+        <div class="portal-links">
+            <a href="#">EN</a>
+            <a href="users_arm.html">Հայ</a>
+        </div>
+
+        <div class="sidebar-footer">
+            © 2025 ProfRates<br>
+            Admin Panel v1.0
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="header-title">
+                <h1>Users</h1>
+                <p>Manage your platform</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <button class="export-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Export</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- User Management Section -->
+        <div class="management-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <h2>User Management</h2>
+                    <p>Manage all registered users</p>
+                </div>
+                <button class="add-user-btn">
+                    <i class="fas fa-plus"></i>
+                    <span>Add User</span>
+                </button>
+            </div>
+
+            <!-- Users Table -->
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Users table">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Join Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>john.smith@polytechnic.am</td>
+                        <td><span class="role-badge student">Student</span></td>
+                        <td><span class="status-badge active">Active</span></td>
+                        <td>2025-01-15</td>
+                        <td>
+                            <div class="actions-cell">
+                                <button class="action-btn">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sarah Johnson</td>
+                        <td>sarah.johnson@polytechnic.am</td>
+                        <td><span class="role-badge student">Student</span></td>
+                        <td><span class="status-badge active">Active</span></td>
+                        <td>2025-02-20</td>
+                        <td>
+                            <div class="actions-cell">
+                                <button class="action-btn">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mike Davis</td>
+                        <td>mike.davis@polytechnic.am</td>
+                        <td><span class="role-badge student">Student</span></td>
+                        <td><span class="status-badge suspended">Suspended</span></td>
+                        <td>2025-03-10</td>
+                        <td>
+                            <div class="actions-cell">
+                                <button class="action-btn">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Admin User</td>
+                        <td>admin@profrates.am</td>
+                        <td><span class="role-badge admin">Admin</span></td>
+                        <td><span class="status-badge active">Active</span></td>
+                        <td>2025-09-05</td>
+                        <td>
+                            <div class="actions-cell">
+                                <button class="action-btn">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <button class="action-btn">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    <!-- Edit User Modal -->
+<div id="editModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:white; padding:30px; border-radius:12px; width:400px; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+    <h2 style="margin-bottom:20px; font-size:20px;">Edit User</h2>
+    <label for="editName" style="font-weight:600; font-size:14px;">Name</label>
+    <input type="text" id="editName" style="width:100%; margin-bottom:16px; padding:10px; border-radius:8px; border:1px solid #ccc;" />
+    <label for="editEmail" style="font-weight:600; font-size:14px;">Email</label>
+    <input type="email" id="editEmail" style="width:100%; margin-bottom:24px; padding:10px; border-radius:8px; border:1px solid #ccc;" />
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button onclick="closeEditModal()" style="padding:10px 16px; background:#eee; border:none; border-radius:8px; cursor:pointer;">Cancel</button>
+      <button onclick="saveEdit()" style="padding:10px 16px; background:#7c3aed; color:white; border:none; border-radius:8px; cursor:pointer;">Save Changes</button>
+    </div>
+  </div>
+</div>
+<!-- Add User Modal -->
+<div id="addModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:white; padding:30px; border-radius:12px; width:400px; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+    <h2 style="margin-bottom:20px; font-size:20px;">Add New User</h2>
+    <label for="newName" style="font-weight:600; font-size:14px;">Name</label>
+    <input type="text" id="newName" style="width:100%; margin-bottom:16px; padding:10px; border-radius:8px; border:1px solid #ccc;" />
+    <label for="newEmail" style="font-weight:600; font-size:14px;">Email</label>
+    <input type="email" id="newEmail" style="width:100%; margin-bottom:24px; padding:10px; border-radius:8px; border:1px solid #ccc;" />
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button onclick="closeAddModal()" style="padding:10px 16px; background:#eee; border:none; border-radius:8px; cursor:pointer;">Cancel</button>
+      <button onclick="saveNewUser()" style="padding:10px 16px; background:#7c3aed; color:white; border:none; border-radius:8px; cursor:pointer;">Save Changes</button>
+    </div>
+  </div>
+</div>
+<script src="../js_codes/api.js?v=20261024-p2"></script>
+<script src="js_folder/accounts.js?v=20261024-p2"></script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+.recovery-page,
+.admin-recovery-page {
+  width: min(560px, calc(100% - 32px));
+  max-width: none;
+  margin: auto;
+  padding: clamp(22px, 5vw, 38px);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow-md);
+}
+
+.recovery-page h1,
+.admin-recovery-page h1 {
+  margin-bottom: 12px;
+  color: var(--primary-deep);
+  font-size: clamp(24px, 5vw, 32px);
+  line-height: 1.25;
+}
+
+.recovery-intro,
+.recovery-purpose,
+.recovery-status {
+  margin: 0 0 18px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.recovery-page label,
+.admin-recovery-page label {
+  display: block;
+  margin: 16px 0 7px;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.recovery-page input,
+.admin-recovery-page input {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  margin: 0 0 14px;
+  padding: 11px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+
+.recovery-page input:focus-visible,
+.admin-recovery-page input:focus-visible {
+  outline: 3px solid rgba(139, 92, 246, .35);
+  outline-offset: 2px;
+  border-color: var(--primary-soft);
+}
+
+.recovery-page .submit,
+.admin-recovery-page .submit,
+.recovery-secondary {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  margin: 12px 0 0;
+  padding: 10px 16px;
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.recovery-secondary {
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--line-soft);
+  color: var(--primary-deep);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.recovery-secondary:focus-visible,
+.recovery-language a:focus-visible,
+.recovery-return:focus-visible {
+  outline: 3px solid var(--primary-soft);
+  outline-offset: 3px;
+}
+
+.recovery-page [hidden],
+.admin-recovery-page [hidden] {
+  display: none !important;
+}
+
+.recovery-return {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.recovery-language {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.recovery-language a {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.admin-recovery-page {
+  --font: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  margin: 8vh auto;
+  color: var(--ink);
+}
+
+.admin-recovery-page .recovery-status { min-height: 1.6em; }
+.admin-recovery-page .submit {
+  border: 0;
+  border-radius: var(--r-sm);
+  background: var(--grad-primary);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .recovery-page,
+  .admin-recovery-page {
+    width: min(100% - 24px, 560px);
+    margin: 16px auto;
+  }
+}

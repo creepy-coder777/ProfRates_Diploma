@@ -1,0 +1,26 @@
+[hidden] { display:none !important; }
+.professor-photo-link { display:block; flex:0 0 110px; line-height:0; border-radius:50%; }
+.professor-photo-link:focus-visible,.avatar a:focus-visible { outline:3px solid var(--primary); outline-offset:5px; }
+.professor-image.is-placeholder { background:#ede9fe; padding:0; border-color:#c4b5fd; }
+.avatar a { display:block; width:100%; height:100%; border-radius:50%; }
+.avatar img { background:#ede9fe; }
+.pagination { display:flex; justify-content:center; gap:10px; margin:20px 0; }
+.pr-page-btn,.pr-button { display:inline-flex; justify-content:center; align-items:center; width:auto; min-height:38px; padding:8px 18px; border:0; border-radius:10px; background:var(--grad-primary); color:white; font:600 14px var(--font); cursor:pointer; text-decoration:none; }
+.pr-page-btn:disabled { opacity:.45; cursor:default; }
+.pr-secondary { background:#ede9fe; color:var(--primary-deep); }
+.pr-more { display:block; margin:24px auto; }
+.pr-dialog { margin:auto; width:min(440px,calc(100% - 32px)); padding:28px; border:1px solid var(--line); border-radius:20px; color:var(--ink); box-shadow:var(--shadow-lg); }
+.pr-dialog::backdrop { background:rgba(30,27,46,.48); }
+.pr-dialog h2 { font-size:21px; color:var(--primary-deep); margin:0 0 14px; }
+.pr-dialog p { margin:0 0 22px; line-height:1.65; }
+.pr-dialog-actions { display:flex; gap:10px; flex-wrap:wrap; }
+.pr-form-status,.rating-access-note { color:var(--ink-soft); line-height:1.6; margin:12px 0; }
+.pr-form-status { overflow-wrap:anywhere; }
+.error-message.show { display:block; color:#be123c; font-size:13px; margin:4px 0 12px; }
+[aria-invalid="true"] { border:2px solid #be123c !important; }
+.question-item.pr-unanswered { border-radius:10px; outline:2px solid #be123c; outline-offset:4px; }
+.rating-section .question-item { scroll-margin-top:110px; }
+.pr-ranking-info { color:var(--ink-mute); font-size:13px; line-height:1.6; margin:8px 0 20px; }
+.rate-card .rating-status { font-size:13px; color:var(--ink-soft); }
+.submit-btn:disabled { opacity:.6; cursor:wait; }
+@media(max-width:600px) { .professor-photo-link { flex-basis:86px; } #professorsGrid .professor-image { width:86px; height:86px; } }

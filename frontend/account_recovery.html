@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>ProfRates — Ուսանողի հաշվի վերականգնում</title>
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="main-styles.css">
+<link rel="stylesheet" href="ui-fixes.css">
+<link rel="stylesheet" href="recovery.css">
+</head>
+<body>
+<main class="recovery-page" data-recovery-role="student" data-recovery-language="hy">
+  <h1>Ուսանողի հաշվի վերականգնում</h1>
+  <p class="recovery-intro">Մուտքագրեք ձեր էլ․ հասցեն՝ գաղտնաբառի վերականգնման 6-նիշանոց կոդ ստանալու համար։ Պատասխանը չի հայտնում՝ հասցեն գրանցվա՞ծ է, թե՞ ոչ։</p>
+  <form id="request-form">
+    <label for="email">Էլ․ հասցե</label>
+    <input id="email" name="email" type="email" maxlength="255" required autocomplete="email">
+    <button class="submit" type="submit">Վերականգնման կոդ ստանալ</button>
+    <button id="resend" class="recovery-secondary" type="button">Չհաստատված հաշվի համար կրկին ստանալ հաստատման հղումը</button>
+  </form>
+  <form id="code-form" hidden>
+    <label for="reset-code">6-digit code</label>
+    <input id="reset-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" minlength="6" maxlength="6" required>
+    <button class="submit" type="submit">Verify code</button>
+    <button id="code-back" class="recovery-secondary" type="button">Change email / request a new code</button>
+  </form>
+  <form id="token-form" hidden>
+    <p id="purpose" class="recovery-purpose"></p>
+    <div id="password-fields">
+      <label for="new-password">Նոր գաղտնաբառ (12–128 նիշ)</label>
+      <input id="new-password" type="password" minlength="12" maxlength="128" autocomplete="new-password" required>
+      <label for="confirm-password">Կրկնել նոր գաղտնաբառը</label>
+      <input id="confirm-password" type="password" minlength="12" maxlength="128" autocomplete="new-password" required>
+    </div>
+    <button class="submit" type="submit">Հաստատել</button>
+  </form>
+  <p id="status" class="recovery-status" role="status" aria-live="polite"></p>
+  <a class="recovery-return" href="login_arm.html">Վերադառնալ ուսանողի մուտքին</a>
+  <nav class="recovery-language" aria-label="Language">
+    <a href="account_recovery_en.html" lang="en">English</a>
+  </nav>
+</main>
+<script src="js_codes/api.js"></script>
+<script src="js_codes/account_recovery.js?v=20261024-otp1"></script>
+</body>
+</html>

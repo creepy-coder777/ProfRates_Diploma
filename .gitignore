@@ -1,0 +1,24 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+exports/
+
+# Original user database snapshots are bundled for local use only
+database/*_original.bak
+database/01_original_export.sql
+
+var/
+*.log
+.env
+.env.*
+!.env.example
+
+.venv/
+__pycache__/
+.pytest_cache/
+var/
+exports/
+*.log
+*.bak
+*.zip

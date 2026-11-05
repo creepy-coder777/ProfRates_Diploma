@@ -1,0 +1,44 @@
+/* Account dialogs use independent styles so existing admin tables keep their layout. */
+dialog.account-dialog:not([open]) { display:none; }
+dialog.account-dialog[open] {
+  display:flex; flex-direction:column; box-sizing:border-box;
+  width:min(580px,calc(100vw - 32px)); max-width:none;
+  max-height:calc(100dvh - 40px); margin:auto; padding:0; overflow:hidden;
+  border:1px solid #e5e0f4; border-radius:20px; background:#fff;
+  color:#292337; box-shadow:0 20px 70px rgba(40,25,80,.22);
+}
+dialog.account-dialog-wide[open] { width:min(1100px,calc(100vw - 32px)); }
+dialog.account-dialog::backdrop { background:rgba(30,20,50,.45); }
+.account-dialog-header {
+  flex:none; display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:20px 24px; border-bottom:1px solid #eee9f8; background:#fff;
+}
+.account-dialog-header h2 { margin:0; font-size:22px; line-height:1.35; color:#4c2b91; }
+.account-dialog-close {
+  flex:none; display:grid; place-items:center; width:40px; height:40px;
+  border:0; border-radius:12px; background:#f0eafa; color:#5934a4;
+  font:28px/1 sans-serif; cursor:pointer;
+}
+.account-dialog-close:hover { background:#e4d9f8; }
+.account-dialog button:focus-visible,.account-dialog input:focus-visible,.account-dialog select:focus-visible { outline:3px solid #9471e5; outline-offset:2px; }
+.account-dialog-content { flex:1; min-height:0; overflow:auto; padding:22px 24px; }
+.account-dialog-content p { line-height:1.6; margin:0 0 16px; }
+.account-dialog-content label { display:block; margin:0 0 16px; font-weight:600; }
+.account-dialog-content input,.account-dialog-content select {
+  box-sizing:border-box; width:100%; min-height:44px; margin:8px 0 12px;
+  padding:10px 12px; border:1px solid #ddd5f0; border-radius:10px;
+  background:#fff; color:inherit; font:inherit;
+}
+.account-dialog-content table { width:100%; border-collapse:collapse; margin:18px 0; }
+.account-dialog-content th,.account-dialog-content td { padding:12px; text-align:left; border-bottom:1px solid #eee9f8; vertical-align:middle; }
+.account-dialog-content th { background:#f3eefb; color:#513193; }
+.account-dialog-content td { overflow-wrap:anywhere; }
+.account-dialog-content .action-btn { white-space:nowrap; margin:4px; }
+.account-dialog-content button[type=submit] { padding:11px 18px; margin:4px; border:0; border-radius:10px; background:#7245da; color:#fff; font:inherit; cursor:pointer; }
+.account-dialog-content button:disabled { opacity:.55; cursor:default; }
+@media(max-width:600px) {
+  .account-dialog-header { padding:16px; }
+  .account-dialog-header h2 { font-size:19px; }
+  .account-dialog-content { padding:16px; }
+  .account-dialog-content table { min-width:650px; }
+}

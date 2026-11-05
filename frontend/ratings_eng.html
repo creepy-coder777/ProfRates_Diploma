@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ProfRates - My Ratings</title>
+<link href="main-styles.css?v=20261023-r3" rel="stylesheet"/>
+<link href="ui-fixes.css?v=20261023-r3" rel="stylesheet"/></head>
+<body>
+<header class="site-header">
+<div class="header-content">
+<a class="logo" href="home_eng.html">
+<img alt="ProfRates Logo" src="logo.png"/>
+<span>ProfRates</span>
+</a>
+<nav class="center-nav">
+<a aria-current="page" class="nav-link" href="home_eng.html">Home</a>
+<a class="nav-link" href="about.html">About Us</a>
+<a class="nav-link" href="privacy_eng.html">Privacy</a>
+<a class="nav-link" hidden="" href="ratings_arm.html">
+<img alt="" class="globe-icon" src="white-logo.png"/>
+<span>Հայ</span>
+</a>
+</nav>
+<div class="right-nav">
+<a class="logout-btn" href="login_eng.html">Logout</a>
+</div>
+</div>
+</header>
+<main>
+<div class="page-title">My Ratings</div>
+<div class="subtitle"></div>
+<section class="ratings-grid" id="ratingsGrid"></section>
+</main>
+<footer>
+<p>© 2026 ProfRates — All Rights Reserved</p>
+</footer>
+<div class="popup-overlay" id="editModal">
+<div class="popup-inner">
+<span class="close-icon" id="closeModal">×</span>
+<h2>Edit Review</h2>
+<p>Edit your review below</p>
+<textarea class="popup-textarea" id="reviewText" maxlength="350" placeholder="Write your review here..."></textarea>
+<div class="char-counter" id="charCounter">0/350</div>
+<button class="popup-submit" id="saveReview">Save Changes</button>
+</div>
+</div>
+<script src="js_codes/api.js?v=20261023-r2"></script><script src="js_codes/ui_session.js?v=20261023-r2"></script><script src="js_codes/student3_mine.js?v=20261023-r2"></script></body>
+</html>

@@ -1,0 +1,921 @@
+{
+  "source": "ProfRates_Student2_Backend(1).zip",
+  "files": [
+    {
+      "path": ".env.example",
+      "original_sha256": "4cc82071e50c5d225009288494ec2f5785a7caaead103b84838b2bf3bbbcf6a4",
+      "current_sha256": "83eeee12fcbe838ac5179a75d30ec0bca697b0e6aa1794994e45385446ca0903",
+      "status": "changed"
+    },
+    {
+      "path": ".gitignore",
+      "original_sha256": "4bcaad5bc608027d8d21bfd4b058b1b663631be47ba34d95ce3407a788339a4e",
+      "current_sha256": "561419fff732ffb233a5be837af59173401664968f2e73796e9bfe762ed5749c",
+      "status": "changed"
+    },
+    {
+      "path": "README_HY.md",
+      "original_sha256": "2647101b0fcd3f64e6e40da6c2c4f2b099a580b64f411d2a78b8deed8fe945ac",
+      "current_sha256": "7baa3d0c6a353f65358ed853311445925c95059f3f8cfdf432cdeb07ef3c4b6c",
+      "status": "changed"
+    },
+    {
+      "path": "app/__init__.py",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "unchanged"
+    },
+    {
+      "path": "app/config.py",
+      "original_sha256": "fae3b2ececca490c72a1af86d0784ec7c6db40422d7db1c1b2ec27e84b6689f0",
+      "current_sha256": "9ab9ec8fd924dd2abfb3a25302e4c7b5c2b6ce9cef4904b03d6809a9a821d657",
+      "status": "changed"
+    },
+    {
+      "path": "app/database.py",
+      "original_sha256": "da7bf58a88b2a586e252ecca1c31562ea75b8e463752eb2f223af5f16f3ec18b",
+      "current_sha256": "da7bf58a88b2a586e252ecca1c31562ea75b8e463752eb2f223af5f16f3ec18b",
+      "status": "unchanged"
+    },
+    {
+      "path": "app/integrations/__init__.py",
+      "original_sha256": "c1fefd768b651b3f17e8d743c5e00f3b1153cea6343587b08cf44c4abec12b92",
+      "current_sha256": "c1fefd768b651b3f17e8d743c5e00f3b1153cea6343587b08cf44c4abec12b92",
+      "status": "unchanged"
+    },
+    {
+      "path": "app/integrations/first_student.py",
+      "original_sha256": "e87501ef9e015a92ecfa7c37b1600825b10aa403b5ca572ee6e7b4a42b2712dd",
+      "current_sha256": "e87501ef9e015a92ecfa7c37b1600825b10aa403b5ca572ee6e7b4a42b2712dd",
+      "status": "unchanged"
+    },
+    {
+      "path": "app/main.py",
+      "original_sha256": "22cb08dbcc16db38fdadab8b3e31646716d06b596107244cdce92c42737c943f",
+      "current_sha256": "cf2c0afbfec986eed32beea5fede15d8b5fbad8635d22ecf9bbc36a857ec70f7",
+      "status": "changed"
+    },
+    {
+      "path": "app/security.py",
+      "original_sha256": "859b014fe57d657f0dc2e029c3700e4d07e3c57c67b7dceb02a4586f94eef442",
+      "current_sha256": "859b014fe57d657f0dc2e029c3700e4d07e3c57c67b7dceb02a4586f94eef442",
+      "status": "unchanged"
+    },
+    {
+      "path": "app/student2/__init__.py",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "unchanged"
+    },
+    {
+      "path": "app/student2/dependencies.py",
+      "original_sha256": "751f54908d433d7ba646307dc70694ceeb4d505d6d69e79c1fef7025e21cc29b",
+      "current_sha256": "751f54908d433d7ba646307dc70694ceeb4d505d6d69e79c1fef7025e21cc29b",
+      "status": "unchanged"
+    },
+    {
+      "path": "app/student2/router.py",
+      "original_sha256": "a344aee94b16c280ad2f80a8f53167664c23e97b548d4fc71d4d019bf9807d8b",
+      "current_sha256": "a344aee94b16c280ad2f80a8f53167664c23e97b548d4fc71d4d019bf9807d8b",
+      "status": "unchanged"
+    },
+    {
+      "path": "app/student2/schemas.py",
+      "original_sha256": "f20fe219a6a4e5873a1e258bb90236cb2e3430e2b85c43c723ac5f141435b1f4",
+      "current_sha256": "f20fe219a6a4e5873a1e258bb90236cb2e3430e2b85c43c723ac5f141435b1f4",
+      "status": "unchanged"
+    },
+    {
+      "path": "app/student2/service.py",
+      "original_sha256": "129d2bc3d5d40779f00020c90d691bc05c8ddbb271216b698564fd6619a44abd",
+      "current_sha256": "0fc18153f2bca6e04c4803042d585b1969c271e5399a8153c0be6effa939f206",
+      "status": "changed"
+    },
+    {
+      "path": "app/student2/tables.py",
+      "original_sha256": "43c3b54eaedce3fa2cb49a6fdcafa26de4e8d9dfd337abbbcda8dda458c8f4c3",
+      "current_sha256": "8d245ab185b731a65541234729901e1776571543126dcbbe2bc310fe9289d226",
+      "status": "changed"
+    },
+    {
+      "path": "docs/AUTH_CONNECTION_HY.md",
+      "original_sha256": "568364aca55dc420f329f14852664df8dec7d091d3916d17ee1d0c021afc6ccc",
+      "current_sha256": "568364aca55dc420f329f14852664df8dec7d091d3916d17ee1d0c021afc6ccc",
+      "status": "unchanged"
+    },
+    {
+      "path": "docs/BACKUP_PROVENANCE_READONLY.sql",
+      "original_sha256": "d363be653b6c533147e9ac53a0fc3fc719de2dc0c75b9597f21398d9a311e71c",
+      "current_sha256": "d363be653b6c533147e9ac53a0fc3fc719de2dc0c75b9597f21398d9a311e71c",
+      "status": "unchanged"
+    },
+    {
+      "path": "docs/DEFENSE_HY.md",
+      "original_sha256": "ad64c6fe919ef04776ba2dc00bd3b060df80bdd3bf678c0564e5511eaea5911f",
+      "current_sha256": "ad64c6fe919ef04776ba2dc00bd3b060df80bdd3bf678c0564e5511eaea5911f",
+      "status": "unchanged"
+    },
+    {
+      "path": "docs/INTEGRATION_HY.md",
+      "original_sha256": "d1e8c9e7e51fa324bed00f254046d2df2321a1f3c05f61d73537cf62c2955607",
+      "current_sha256": "d1e8c9e7e51fa324bed00f254046d2df2321a1f3c05f61d73537cf62c2955607",
+      "status": "unchanged"
+    },
+    {
+      "path": "docs/LOCAL_MSSQL_CHECKS_HY.md",
+      "original_sha256": "a5aca55a029c65e13c4577e676aef56ef2deaccd8cce4d2e5c4140b0f8ea7f07",
+      "current_sha256": "a5aca55a029c65e13c4577e676aef56ef2deaccd8cce4d2e5c4140b0f8ea7f07",
+      "status": "unchanged"
+    },
+    {
+      "path": "docs/TEST_REPORT_HY.md",
+      "original_sha256": "42871d1f12ebcce58e2369253c4ffe63e51c7bc1262936216acd4fb6c83236a3",
+      "current_sha256": "42871d1f12ebcce58e2369253c4ffe63e51c7bc1262936216acd4fb6c83236a3",
+      "status": "unchanged"
+    },
+    {
+      "path": "docs/frontend_questions_before_connection.json",
+      "original_sha256": "db159bfe093ebba28df5e54939379cd9f834c017117f2f2f65225a109615d207",
+      "current_sha256": "db159bfe093ebba28df5e54939379cd9f834c017117f2f2f65225a109615d207",
+      "status": "unchanged"
+    },
+    {
+      "path": "docs/openapi.json",
+      "original_sha256": "3bd84ab7d5216ed788488a2aa68bc4a3c2a7d20548a229dac781f80c86fb97ee",
+      "current_sha256": "0acd20bea502cfa726c4897a298e654b8d9cbdb86159761741c7b40e6b8abbc5",
+      "status": "changed"
+    },
+    {
+      "path": "docs/schema_contract.json",
+      "original_sha256": "fb2221a6d88168716be2fe6b6caeb3dc4ab364c006cfa30dee97c4af1b4a1948",
+      "current_sha256": "c1e1d3dac384b394124108ea5213eeb1fbc2753395307372bba062cc5e86f436",
+      "status": "changed"
+    },
+    {
+      "path": "docs/verified_schema.json",
+      "original_sha256": "6a4ea4dd93f1d8e3f598665d2c6f7084706adcbe74e388fa665a21ccb1c8e034",
+      "current_sha256": "6a4ea4dd93f1d8e3f598665d2c6f7084706adcbe74e388fa665a21ccb1c8e034",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/Ann_Johnson.jpg",
+      "original_sha256": "7c07371e920209b9dc530256272dc19da9fce48027b7fdd2ae466c32d1996f16",
+      "current_sha256": "7c07371e920209b9dc530256272dc19da9fce48027b7fdd2ae466c32d1996f16",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/David_Collins.jpg",
+      "original_sha256": "5f1a68af95725613b3e818afc09885737ac95ee6df1223a933a21a396351adf6",
+      "current_sha256": "5f1a68af95725613b3e818afc09885737ac95ee6df1223a933a21a396351adf6",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/Joyce_Parker.jpg",
+      "original_sha256": "1a516abed8b3558c33c494634f9c6f0c0b562c91c72ffbbae85e28aeec88022d",
+      "current_sha256": "1a516abed8b3558c33c494634f9c6f0c0b562c91c72ffbbae85e28aeec88022d",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/Tom_Miller.jpg",
+      "original_sha256": "30a149a5acbfcb9ffc77078a61e4f262d38a159a83f00319bf4a020f04110eb0",
+      "current_sha256": "30a149a5acbfcb9ffc77078a61e4f262d38a159a83f00319bf4a020f04110eb0",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/about.html",
+      "original_sha256": "7feb0081e000e957de8a13de3f8d5cfa5b86ccba661fc01b2df00d18143b02ca",
+      "current_sha256": "7feb0081e000e957de8a13de3f8d5cfa5b86ccba661fc01b2df00d18143b02ca",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/about_arm_guest.html",
+      "original_sha256": "ed98c0c0fdf33bceb7db6e8edb5e92f008cfa98bbc2b88e694866283a35c5154",
+      "current_sha256": "ed98c0c0fdf33bceb7db6e8edb5e92f008cfa98bbc2b88e694866283a35c5154",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/about_armenian.html",
+      "original_sha256": "51772cf8dfecca93937821a1bb7508e6883627b03e9d6657265f83c167d4253f",
+      "current_sha256": "51772cf8dfecca93937821a1bb7508e6883627b03e9d6657265f83c167d4253f",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/about_guest_eng.html",
+      "original_sha256": "01f5af4dc61453498b605eb3fa439c594d1425636c8e8e9ce7155589935fb459",
+      "current_sha256": "01f5af4dc61453498b605eb3fa439c594d1425636c8e8e9ce7155589935fb459",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/ActivityLogs.html",
+      "original_sha256": "03a2417aa87ed5d90c084c0116eddb5afd644022b9f307ffe83396a869498e45",
+      "current_sha256": "03a2417aa87ed5d90c084c0116eddb5afd644022b9f307ffe83396a869498e45",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/ActivityLogs_arm.html",
+      "original_sha256": "e5cdfbcd02ecad63222adea13a61353e02455fe0e04e4cf35a2041d422cbb342",
+      "current_sha256": "e5cdfbcd02ecad63222adea13a61353e02455fe0e04e4cf35a2041d422cbb342",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/Admin_login_arm.html",
+      "original_sha256": "bbe67c3cd89f4611887d8d8ff652bb420c2aaf80c5887fdc0b7a33af23036089",
+      "current_sha256": "bbe67c3cd89f4611887d8d8ff652bb420c2aaf80c5887fdc0b7a33af23036089",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/Admin_login_eng.html",
+      "original_sha256": "60a117aeb4e2161845f04d53918309251e4ed1824c631c0da5168097bd346b73",
+      "current_sha256": "60a117aeb4e2161845f04d53918309251e4ed1824c631c0da5168097bd346b73",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/RatingQuestions.html",
+      "original_sha256": "8d20185073556263a8037cd88b81e23246af59f65125e8867ec70dceb5b196b0",
+      "current_sha256": "8d20185073556263a8037cd88b81e23246af59f65125e8867ec70dceb5b196b0",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/RatingQuestions_arm.html",
+      "original_sha256": "4cbd0276b92e48578c28ceaecd2a2a3161577af9e0e632843ab3ae12bc77d066",
+      "current_sha256": "4cbd0276b92e48578c28ceaecd2a2a3161577af9e0e632843ab3ae12bc77d066",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/ResetPassword.html",
+      "original_sha256": "37ace6f53d0c208249f800f91590b4a3641a848fc04eea725e988ba7b04f1fa0",
+      "current_sha256": "37ace6f53d0c208249f800f91590b4a3641a848fc04eea725e988ba7b04f1fa0",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/ResetPassword_arm.html",
+      "original_sha256": "a3314527bf48990c9f8782efb9419afc63bcc0afd991f3c0b52e4899dca2cd94",
+      "current_sha256": "a3314527bf48990c9f8782efb9419afc63bcc0afd991f3c0b52e4899dca2cd94",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/academic.html",
+      "original_sha256": "273bd6990f678a2ed7d70e6720a8831364a04b6ba5da4184eb29592678bf75c1",
+      "current_sha256": "273bd6990f678a2ed7d70e6720a8831364a04b6ba5da4184eb29592678bf75c1",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/academic_arm.html",
+      "original_sha256": "6ce70a2468b7f56538b145dc929b37fb9687f8d4455f323f7810b8a9048785de",
+      "current_sha256": "6ce70a2468b7f56538b145dc929b37fb9687f8d4455f323f7810b8a9048785de",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/admin-styles.css",
+      "original_sha256": "6c0739831e46ac09919bea7d5cf32aa9d02553fd4ebca5571f67230eaa5804f3",
+      "current_sha256": "6c0739831e46ac09919bea7d5cf32aa9d02553fd4ebca5571f67230eaa5804f3",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/dashboard.html",
+      "original_sha256": "2f37368eb8d10b9a3a2c1919467c3ebce4674ac1c46e13856567c7736b3647c8",
+      "current_sha256": "2f37368eb8d10b9a3a2c1919467c3ebce4674ac1c46e13856567c7736b3647c8",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/dashboard_arm.html",
+      "original_sha256": "6029aa95f8e7e546a5571cfbf98034d1e4f77ed8b5de4830962dfa4c543ac7f6",
+      "current_sha256": "6029aa95f8e7e546a5571cfbf98034d1e4f77ed8b5de4830962dfa4c543ac7f6",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/admin.js",
+      "original_sha256": "c4817d8322ffb1121ef9c0a75ae6e2bc7d62fe8bdd46594e7588d62d4438677c",
+      "current_sha256": "c4817d8322ffb1121ef9c0a75ae6e2bc7d62fe8bdd46594e7588d62d4438677c",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/admin_arm.js",
+      "original_sha256": "07eb8cd2efaed9b18737b95ad6c200a0064b186be71a5a4dbd0fd2101aa9769b",
+      "current_sha256": "07eb8cd2efaed9b18737b95ad6c200a0064b186be71a5a4dbd0fd2101aa9769b",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/professors.js",
+      "original_sha256": "b8518cea55262b2b53c87a81aaa1b34693847348b6e56573c2111d4b46f96d29",
+      "current_sha256": "b8518cea55262b2b53c87a81aaa1b34693847348b6e56573c2111d4b46f96d29",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/professors_arm.js",
+      "original_sha256": "339eacf3f8f8628648c1432bee5c5d0cecddf89021450f049f318227f7d66a8a",
+      "current_sha256": "339eacf3f8f8628648c1432bee5c5d0cecddf89021450f049f318227f7d66a8a",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/questions_arm.js",
+      "original_sha256": "11d8e08a591fea357fc5236c0826e6124aea427292cf9810ebc963f2d58cc65c",
+      "current_sha256": "11d8e08a591fea357fc5236c0826e6124aea427292cf9810ebc963f2d58cc65c",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/questions_eng.js",
+      "original_sha256": "da3bc82743bb416155a81d5d937c7d959f97b4295c825be78e3005f63b8b80d0",
+      "current_sha256": "da3bc82743bb416155a81d5d937c7d959f97b4295c825be78e3005f63b8b80d0",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/reset_arm.js",
+      "original_sha256": "1037b848781e572df7c4f9c62765b91cd23ea487e0a6895f3cb6c70519b777d4",
+      "current_sha256": "1037b848781e572df7c4f9c62765b91cd23ea487e0a6895f3cb6c70519b777d4",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/reset_eng.js",
+      "original_sha256": "6f1c120d33326c7f71c392436ac452801f1bc9469924660202d17ce1aec793b6",
+      "current_sha256": "6f1c120d33326c7f71c392436ac452801f1bc9469924660202d17ce1aec793b6",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/student2_academic.js",
+      "original_sha256": "6515dd64085234c3dbea99cb8cd01e83f598b73c16015728fc9b9257831abc35",
+      "current_sha256": "6515dd64085234c3dbea99cb8cd01e83f598b73c16015728fc9b9257831abc35",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/student2_comments.js",
+      "original_sha256": "654ed8373508865191bd2f59774314199a6d149b0f1931c99be2d2c1db549ca7",
+      "current_sha256": "654ed8373508865191bd2f59774314199a6d149b0f1931c99be2d2c1db549ca7",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/student2_professors.js",
+      "original_sha256": "290228b5f1703e2c480872f77cdeff7d0f2770e8463f0a48a538970c27a86a53",
+      "current_sha256": "290228b5f1703e2c480872f77cdeff7d0f2770e8463f0a48a538970c27a86a53",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/student2_questions.js",
+      "original_sha256": "218109110907f6d1bb05b9e1524656a5aed7b57564466df2a5da6f429ca69636",
+      "current_sha256": "218109110907f6d1bb05b9e1524656a5aed7b57564466df2a5da6f429ca69636",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/student2_ui.js",
+      "original_sha256": "f862dabcd7cefe69ab4e6429a4e2d599fd1ab152556e06badedb09158266dc14",
+      "current_sha256": "f862dabcd7cefe69ab4e6429a4e2d599fd1ab152556e06badedb09158266dc14",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/user_arm.js",
+      "original_sha256": "3575ff298d15fcedbb7caa4922a03491c4d18c4fbdaedeefb86fcc096782a97c",
+      "current_sha256": "3575ff298d15fcedbb7caa4922a03491c4d18c4fbdaedeefb86fcc096782a97c",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/js_folder/users_eng.js",
+      "original_sha256": "a3760880baba9a48053eab4ddf74d25af2c21d5db621539a262b44273348d349",
+      "current_sha256": "a3760880baba9a48053eab4ddf74d25af2c21d5db621539a262b44273348d349",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/mark.svg",
+      "original_sha256": "269f643ee874e2eb961e208c9d97131118ff1d729841d0d4bc44ab8bfe0b0e76",
+      "current_sha256": "269f643ee874e2eb961e208c9d97131118ff1d729841d0d4bc44ab8bfe0b0e76",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/professors.html",
+      "original_sha256": "a2ac2fe61616f6a1f571eadd37a0b726631d9da5a63247c107e1d6d0660fd8c2",
+      "current_sha256": "a2ac2fe61616f6a1f571eadd37a0b726631d9da5a63247c107e1d6d0660fd8c2",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/professors_arm.html",
+      "original_sha256": "e0dc37143f594f62077e7edd074d1d692b5a37b3f0e98bf2b5e10c88b961e9dd",
+      "current_sha256": "e0dc37143f594f62077e7edd074d1d692b5a37b3f0e98bf2b5e10c88b961e9dd",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/ratings&reviews.html",
+      "original_sha256": "aea4574392f5399a838f4e6ec0a2ca572a96cc4fe308e3975bff1208cae482d3",
+      "current_sha256": "aea4574392f5399a838f4e6ec0a2ca572a96cc4fe308e3975bff1208cae482d3",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/ratings&reviews_arm.html",
+      "original_sha256": "3597985f6af8d197d31e0ca56fdd6f2c106efb6805c5b07a6644d154dfa0000b",
+      "current_sha256": "3597985f6af8d197d31e0ca56fdd6f2c106efb6805c5b07a6644d154dfa0000b",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/security.svg",
+      "original_sha256": "43396e053542a5ed7f1dc434124cdf9fca5ec624e3c6e23dd359027b8c92d6c9",
+      "current_sha256": "43396e053542a5ed7f1dc434124cdf9fca5ec624e3c6e23dd359027b8c92d6c9",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/users.html",
+      "original_sha256": "f9a2ace54517a0f6c154396e5126c9568dfa453c879723b445d37775b72777b3",
+      "current_sha256": "f9a2ace54517a0f6c154396e5126c9568dfa453c879723b445d37775b72777b3",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/admin_portal/users_arm.html",
+      "original_sha256": "fc567e5eb19432798a78fc3ac90896699856cae1bb5c161a241919422a5ff7f9",
+      "current_sha256": "fc567e5eb19432798a78fc3ac90896699856cae1bb5c161a241919422a5ff7f9",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/ava.png",
+      "original_sha256": "8547f2f77877aa246c4dc92f23317875e01cf6f08c1c5c074259d13a6e82fcfc",
+      "current_sha256": "8547f2f77877aa246c4dc92f23317875e01cf6f08c1c5c074259d13a6e82fcfc",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/backend_check.html",
+      "original_sha256": "4765dcee7634028a8fb6cd3ddd9ebf1ba386172b12b4e39e2688cf677bd7bace",
+      "current_sha256": "4765dcee7634028a8fb6cd3ddd9ebf1ba386172b12b4e39e2688cf677bd7bace",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/home_arm.html",
+      "original_sha256": "3611cb97ba4a6a9941fff466792ac1a265a984a7c2207661b1c9ecb6f60ad5b9",
+      "current_sha256": "3611cb97ba4a6a9941fff466792ac1a265a984a7c2207661b1c9ecb6f60ad5b9",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/home_arm_guest.html",
+      "original_sha256": "f0ace2832b47bb4d149903b3a2b7e2876ac09f2b4dfe0029610e77d205adf029",
+      "current_sha256": "f0ace2832b47bb4d149903b3a2b7e2876ac09f2b4dfe0029610e77d205adf029",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/home_eng.html",
+      "original_sha256": "68cf26767b974ec8814ecec6c229e9b30c4f97e4594b561ec98e3c4b167e1d33",
+      "current_sha256": "68cf26767b974ec8814ecec6c229e9b30c4f97e4594b561ec98e3c4b167e1d33",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/home_eng_guest.html",
+      "original_sha256": "7c8cf6eb854899ac9d0f0ca4b9d48881352a1bacc59270e099aa14227468f269",
+      "current_sha256": "7c8cf6eb854899ac9d0f0ca4b9d48881352a1bacc59270e099aa14227468f269",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/illustration.jpeg",
+      "original_sha256": "fe00e2daf6ef99c46688009928d58f19c3c2de6ea365cb8bf2364d2f952ad25a",
+      "current_sha256": "fe00e2daf6ef99c46688009928d58f19c3c2de6ea365cb8bf2364d2f952ad25a",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/js_codes/api.js",
+      "original_sha256": "9f9d3e718a7f2da4d82b104ad2553557538568b7479aa97bd36c84a7a710202b",
+      "current_sha256": "9f9d3e718a7f2da4d82b104ad2553557538568b7479aa97bd36c84a7a710202b",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/js_codes/rate_arm.js",
+      "original_sha256": "9eb3085b1e1acccb17a0483c11eb88e153efac8570a4cc8b1d3c84d06fb13cd9",
+      "current_sha256": "9eb3085b1e1acccb17a0483c11eb88e153efac8570a4cc8b1d3c84d06fb13cd9",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/js_codes/rate_eng.js",
+      "original_sha256": "2a62d9694776a4b2669f20d9af366ea94fcc314da71ef3f82bffae5ab52bd0e4",
+      "current_sha256": "2a62d9694776a4b2669f20d9af366ea94fcc314da71ef3f82bffae5ab52bd0e4",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/js_codes/script.js",
+      "original_sha256": "6021d6807ea49092a8a338155a3e066046bfda41bb7eaf9bef102424779c3d31",
+      "current_sha256": "6021d6807ea49092a8a338155a3e066046bfda41bb7eaf9bef102424779c3d31",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/js_codes/script2.js",
+      "original_sha256": "43d1f7d35be0b8bc746b0271cf73a97a3a9dbb9cece68f1ab863fd7c089a82eb",
+      "current_sha256": "43d1f7d35be0b8bc746b0271cf73a97a3a9dbb9cece68f1ab863fd7c089a82eb",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/js_codes/student2_home.js",
+      "original_sha256": "c4104db7e065f10ccf93586b84d5760a284ca08a74b669528903f0e31972cd32",
+      "current_sha256": "c4104db7e065f10ccf93586b84d5760a284ca08a74b669528903f0e31972cd32",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/js_codes/student2_i18n.js",
+      "original_sha256": "7c15ff4e0bf7271a8db2a9ccec92e40ac3bda915ddc8626c9a4f270873b25264",
+      "current_sha256": "7c15ff4e0bf7271a8db2a9ccec92e40ac3bda915ddc8626c9a4f270873b25264",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/js_codes/student2_profile.js",
+      "original_sha256": "a6cb540c3b2bc614655d4f57dc43403abe10df017541ba76695190bf2023f8d5",
+      "current_sha256": "8af3910ab1ca8be1484f836277768f85a842b0271e131b6f0df373adaaebb460",
+      "status": "changed"
+    },
+    {
+      "path": "frontend/js_codes/student2_rate.js",
+      "original_sha256": "622ed8ea3135371cadd67fdae7b3b6f2aac0a24345885f19b0adef7199050362",
+      "current_sha256": "6d227b59b45e885c1408c4386b5896a2f835154876f944287538ba1316a0085d",
+      "status": "changed"
+    },
+    {
+      "path": "frontend/language.png",
+      "original_sha256": "31cd24c6da628d7199d33b17243a20e92ec74fe4a43b0cb52ccb98cd257bd196",
+      "current_sha256": "31cd24c6da628d7199d33b17243a20e92ec74fe4a43b0cb52ccb98cd257bd196",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/login_arm.html",
+      "original_sha256": "127dc7f3e67ba575fd797d2ff9f8a3ab50b9730e528b963d12819a3ba5583d2e",
+      "current_sha256": "127dc7f3e67ba575fd797d2ff9f8a3ab50b9730e528b963d12819a3ba5583d2e",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/login_eng.html",
+      "original_sha256": "b444287997d00adcc8874b5593fb464424e16f204dbad60aeebd291bcc5f5880",
+      "current_sha256": "b444287997d00adcc8874b5593fb464424e16f204dbad60aeebd291bcc5f5880",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/logo.png",
+      "original_sha256": "7cb5d8a77a893b7c07fa49da2e0fe757a725108c80067f992a00aaa06f4f7f16",
+      "current_sha256": "7cb5d8a77a893b7c07fa49da2e0fe757a725108c80067f992a00aaa06f4f7f16",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/main-styles.css",
+      "original_sha256": "5d8af90b7c4c1eab08377f120244b73d372f13e2e9b3247e97a086f7dedf49d6",
+      "current_sha256": "5d8af90b7c4c1eab08377f120244b73d372f13e2e9b3247e97a086f7dedf49d6",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/privacy_arm.html",
+      "original_sha256": "076978da8a277e416e5af985d8aec7cc3c9678dbc55d5adeeb489bbe8ca52443",
+      "current_sha256": "076978da8a277e416e5af985d8aec7cc3c9678dbc55d5adeeb489bbe8ca52443",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/privacy_arm_guest.html",
+      "original_sha256": "d04828b54d848555c0c9bfe10964849e5436c37dcb58edc30c0345569a610021",
+      "current_sha256": "d04828b54d848555c0c9bfe10964849e5436c37dcb58edc30c0345569a610021",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/privacy_eng.html",
+      "original_sha256": "62880f36711a921eaad39baa3af962d6bddf8bc161f1febc5f38c9f24bb9b6fb",
+      "current_sha256": "62880f36711a921eaad39baa3af962d6bddf8bc161f1febc5f38c9f24bb9b6fb",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/privacy_eng_guest.html",
+      "original_sha256": "7e4ea9677e5e2aafe2867b96be85231dcb5c9b26eb50691a066fc4b0cb7d8cec",
+      "current_sha256": "7e4ea9677e5e2aafe2867b96be85231dcb5c9b26eb50691a066fc4b0cb7d8cec",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/prof_arm.html",
+      "original_sha256": "1eae6d1fa3e6c4b40c6683b43cd4d3f330974fb2397f09c6ee8b087d0a8a973b",
+      "current_sha256": "1eae6d1fa3e6c4b40c6683b43cd4d3f330974fb2397f09c6ee8b087d0a8a973b",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/prof_arm_guest.html",
+      "original_sha256": "3a305cdd40f9b042c616d1ad39e796ee6f19af66797233c935a9f42d1de006a9",
+      "current_sha256": "3a305cdd40f9b042c616d1ad39e796ee6f19af66797233c935a9f42d1de006a9",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/prof_eng.html",
+      "original_sha256": "42b75d9391fe0d69a25881bf78bd0d4db205de3a776ca05fdf29912dada11b03",
+      "current_sha256": "42b75d9391fe0d69a25881bf78bd0d4db205de3a776ca05fdf29912dada11b03",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/prof_eng_guest.html",
+      "original_sha256": "aa36b3a78cfea23219c4b93fca420c903b530b663c4b7112cf2ca55b2ea8ff18",
+      "current_sha256": "aa36b3a78cfea23219c4b93fca420c903b530b663c4b7112cf2ca55b2ea8ff18",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/rate_arm.html",
+      "original_sha256": "b7da2f0e4583b0ad71fd90b52369943922a7c80e195f8d2f41df7ef4ff5d58c2",
+      "current_sha256": "5dac73560f58b0bfbaa57ef29800b9e065765da2e88dd56cc760e76f40201831",
+      "status": "changed"
+    },
+    {
+      "path": "frontend/rate_eng.html",
+      "original_sha256": "b301ba7d30bdfafaa0300fadbd4743a7d6781e01f92933e9332453d0cfc2201e",
+      "current_sha256": "29d61263cdbf87d08eac56269267dd5ea45f91aabb9725f895700a1186c08c8b",
+      "status": "changed"
+    },
+    {
+      "path": "frontend/ratings_arm.html",
+      "original_sha256": "56e2224f1d0282323044893e98d72aa45edc1ab09cdcc464ae6aa1b835950072",
+      "current_sha256": "d1fe86cc0b347c3f7ddb6f5d02c8c82417d1fda3c9636c32969e5d427d28b3b7",
+      "status": "changed"
+    },
+    {
+      "path": "frontend/ratings_eng.html",
+      "original_sha256": "2442fdf7caaadf7b420815e3b580f7e8d83b48cd0dc7073208d4e0c93df4758f",
+      "current_sha256": "60f2ff8fcf8f083a7a50e18afaa9a42eb66edc1c8a93f0f1f5c24ba123ce9da2",
+      "status": "changed"
+    },
+    {
+      "path": "frontend/sign_up_arm.html",
+      "original_sha256": "21035febe2b0ff56813510ba151792bdff3f9fdff6e8a780b2a2e5b1d8188052",
+      "current_sha256": "21035febe2b0ff56813510ba151792bdff3f9fdff6e8a780b2a2e5b1d8188052",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/sign_up_eng.html",
+      "original_sha256": "91a5177399636e62107383304af4943ec68091368d3b2d065e49995dd4ef9d03",
+      "current_sha256": "91a5177399636e62107383304af4943ec68091368d3b2d065e49995dd4ef9d03",
+      "status": "unchanged"
+    },
+    {
+      "path": "frontend/top_arm.html",
+      "original_sha256": "dd7831b5c084fa4844ab877a619c2daa2e538c7bd1d9b0f45da8795ed8825ae7",
+      "current_sha256": "038ed7e697fb9707d47e84cbb07e97c4db0ef16f5475278a1dd8f727e1789131",
+      "status": "changed"
+    },
+    {
+      "path": "frontend/top_arm_guest.html",
+      "original_sha256": "fac3af1a04c1c27c98740c9c903604d0830d396c9a46e0f5e34f5f4b38cffe1b",
+      "current_sha256": "ee49fa1f8fbedc8e9074ebf506fc2ea3e7a52ed183206ab38ac1cd041f7a01a2",
+      "status": "changed"
+    },
+    {
+      "path": "frontend/top_eng.html",
+      "original_sha256": "0b98d4629b8b9a80cea85a9b852b109dedcaf8ee0622c6fc4035863d73b83c1e",
+      "current_sha256": "91f0cde15977203b31b6c5385736e206e083f50da77abbb9ff0d5bf1c6f39f87",
+      "status": "changed"
+    },
+    {
+      "path": "frontend/top_eng_guest.html",
+      "original_sha256": "a17b18f823b88debddcb65fded023157b18afc1034119d60c7b8d56a08e888ee",
+      "current_sha256": "b64c686206acc76640691ecefd3184559eb398012ddfce046df66e0a3fb5e17a",
+      "status": "changed"
+    },
+    {
+      "path": "frontend/white-logo.png",
+      "original_sha256": "02d4e2efadd1e6e3828dc887d07ff397eb8a60deb35ed05a4d0add8da070c2b0",
+      "current_sha256": "02d4e2efadd1e6e3828dc887d07ff397eb8a60deb35ed05a4d0add8da070c2b0",
+      "status": "unchanged"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "original_sha256": "81a1cc8494ab81fd7808a3f37416d28a35971141600aab3db0d3ea57f4c79c2e",
+      "current_sha256": "81a1cc8494ab81fd7808a3f37416d28a35971141600aab3db0d3ea57f4c79c2e",
+      "status": "unchanged"
+    },
+    {
+      "path": "requirements-tested.txt",
+      "original_sha256": "b508ce8a6cd072d034abff1b2165625e9e1c0464c792985de75881e1adcdebb7",
+      "current_sha256": "b508ce8a6cd072d034abff1b2165625e9e1c0464c792985de75881e1adcdebb7",
+      "status": "unchanged"
+    },
+    {
+      "path": "requirements.txt",
+      "original_sha256": "be0bac6456802e0b1fd49b7ce17a44e0a265a0bbf87511207bdf1b098ba829f0",
+      "current_sha256": "be0bac6456802e0b1fd49b7ce17a44e0a265a0bbf87511207bdf1b098ba829f0",
+      "status": "unchanged"
+    },
+    {
+      "path": "tests/conftest.py",
+      "original_sha256": "d08c2ec964ae9b36373ae7a89e67ebc724cb58dd263f0d1e37551f5aea71eb2d",
+      "current_sha256": "637e91c701a7ccd4e8dfbe2dc8c8f1d2c1d4cee9939b1f1c13efd935a071569e",
+      "status": "changed"
+    },
+    {
+      "path": "tests/test_auth_check.py",
+      "original_sha256": "875b166a965f5da0c2eecbca8a63763314168467772761446224b4471a40b4b0",
+      "current_sha256": "875b166a965f5da0c2eecbca8a63763314168467772761446224b4471a40b4b0",
+      "status": "unchanged"
+    },
+    {
+      "path": "tests/test_foundation.py",
+      "original_sha256": "00c67c31c301018fce1abb60d534f7c83ccd2db2ffe9b009856cf42b0b88831b",
+      "current_sha256": "00c67c31c301018fce1abb60d534f7c83ccd2db2ffe9b009856cf42b0b88831b",
+      "status": "unchanged"
+    },
+    {
+      "path": "tests/test_mssql_smoke_plan.py",
+      "original_sha256": "28261360d4c456ab963fedc56fa36ac67b0010acea8c3cfc2fb7c7ef4725ae7d",
+      "current_sha256": "48bf975caf76ec56ea0a83f3962916cc90abe7a34deff45c90e1c7431beb0238",
+      "status": "changed"
+    },
+    {
+      "path": "tests/test_schema_verifier.py",
+      "original_sha256": "413cc638ba1743a5be9a3e7f0d4aa5dfdd97120c8486ace344a7bd6fbab27ccc",
+      "current_sha256": "413cc638ba1743a5be9a3e7f0d4aa5dfdd97120c8486ace344a7bd6fbab27ccc",
+      "status": "unchanged"
+    },
+    {
+      "path": "tests/test_student2.py",
+      "original_sha256": "65eab51882d68e7a1a6fbd3ba5b4af3a2646c234949122fd62b0ab4d4144ae7b",
+      "current_sha256": "9954607827f310b6c5a1ab879cdfa48c41bd557ef6c8ea87737dbf615b02f300",
+      "status": "changed"
+    },
+    {
+      "path": "tests/test_team_bridge.py",
+      "original_sha256": "386c5c785fdf2baf3a4d53fe69df52c1d6e4fff6928f2f55152d4eb44259e728",
+      "current_sha256": "386c5c785fdf2baf3a4d53fe69df52c1d6e4fff6928f2f55152d4eb44259e728",
+      "status": "unchanged"
+    },
+    {
+      "path": "tools/__init__.py",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "unchanged"
+    },
+    {
+      "path": "tools/check_auth.py",
+      "original_sha256": "cf9770750611d0ff9ea1dff463211a98ddd3c3e5524537d40d82d080850d8232",
+      "current_sha256": "cf9770750611d0ff9ea1dff463211a98ddd3c3e5524537d40d82d080850d8232",
+      "status": "unchanged"
+    },
+    {
+      "path": "tools/check_db.py",
+      "original_sha256": "38458764270424dd9b09b20e8b88c96821d21edbcde92b52ad0154f99b49d92f",
+      "current_sha256": "38458764270424dd9b09b20e8b88c96821d21edbcde92b52ad0154f99b49d92f",
+      "status": "unchanged"
+    },
+    {
+      "path": "tools/export_schema.py",
+      "original_sha256": "d1be15159877345cd7c581739b12eec63483bca62deda8476362b57a21b7c5eb",
+      "current_sha256": "d1be15159877345cd7c581739b12eec63483bca62deda8476362b57a21b7c5eb",
+      "status": "unchanged"
+    },
+    {
+      "path": "tools/smoke_mssql.py",
+      "original_sha256": "4103b63526e8a2f07e20cdd52be3a602f28fc0af200fe3e66d6d7555180141c6",
+      "current_sha256": "6bbcab73dcf7246712ae23b1623d2b4623ad6a393f87372b0117b63aca6cac5d",
+      "status": "changed"
+    },
+    {
+      "path": "tools/verify_schema.py",
+      "original_sha256": "8536b080d4543e2da1f6480cc2a91bb5ce42eb7be51bf45335b30578dca9b428",
+      "current_sha256": "8536b080d4543e2da1f6480cc2a91bb5ce42eb7be51bf45335b30578dca9b428",
+      "status": "unchanged"
+    },
+    {
+      "path": "requirements-student3-tested.txt",
+      "current_sha256": "b1bc3f97877815f420758070dd623c23a773011f086eb592017aada716d3425e",
+      "status": "new"
+    },
+    {
+      "path": "RUN_TESTS.cmd",
+      "current_sha256": "38148eb2d615e56afe5d923c9d50b65e21fa03a6a918ce64a5319a3e1e23f446",
+      "status": "new"
+    },
+    {
+      "path": "START.cmd",
+      "current_sha256": "d28f0f0fc30fc6c8c68cf6c6b1b6d0cf5df577a51ea7a40f211dbffcdc30395f",
+      "status": "new"
+    },
+    {
+      "path": "START_HERE_HY.md",
+      "current_sha256": "4734505a3927903faf874211fec2c2f6d5835058bee5ea2c34adf53ba8090f69",
+      "status": "new"
+    },
+    {
+      "path": "database/01_original_export.sql",
+      "current_sha256": "642cac0bf9d059c7cdcc44f9742139174c5a965d8075a1c3fb4a537e5ae80539",
+      "status": "new"
+    },
+    {
+      "path": "database/02_upgrade_student3.sql",
+      "current_sha256": "e28168ed9a80828f7cb1fba8010ce5c63f6b2c5451fef0d5f3da38137473e45a",
+      "status": "new"
+    },
+    {
+      "path": "database/ProfRates_databaza_original.bak",
+      "current_sha256": "fb34bf2a5bae961bfb7f8c67c6ee5ce35a0395ee065b55f898fa6660c2d3f3d9",
+      "status": "new"
+    },
+    {
+      "path": "docs/STUDENT3_GUIDE_HY.md",
+      "current_sha256": "d455108342c17cbcdd8a2f98c76c784c788ee8aea3afcae5ba2f4cfaf6221ba4",
+      "status": "new"
+    },
+    {
+      "path": "docs/STUDENT3_TEST_REPORT.md",
+      "current_sha256": "fc84e7b883f1ca3db856083780ad5bfa6623dc8eae4bf766e265777e1ac306d4",
+      "status": "new"
+    },
+    {
+      "path": "tests/test_reactions_and_scores.py",
+      "current_sha256": "ee8b6e4076e780aaa62d4de741532febbcd927ea1eff384470c2557747de88b4",
+      "status": "new"
+    },
+    {
+      "path": "tests/test_student3.py",
+      "current_sha256": "d6565d971aa7b2a2d940cb00d9b7baedfe10b4781db7695075aaafab8edda0b6",
+      "status": "new"
+    },
+    {
+      "path": "tools/check_student3.py",
+      "current_sha256": "a2f1777ec4530b86212d7a71f4e027fc3ccc388ff6a84edc929d73ef785aa471",
+      "status": "new"
+    },
+    {
+      "path": "tools/start_local.ps1",
+      "current_sha256": "f76a6401267935b63414181e3d8c8b48d56a05556d1deec38c291017548297af",
+      "status": "new"
+    },
+    {
+      "path": "frontend/js_codes/student3_mine.js",
+      "current_sha256": "cad3f0ddc9e1587084d2c59c5652633e5041b0d641aeb9e69bc5bd02854f5d8b",
+      "status": "new"
+    },
+    {
+      "path": "frontend/js_codes/student3_rate.js",
+      "current_sha256": "8dc8100853565d2f84dac3f8015171acbed11b28dccccf465e7e39370fc4c755",
+      "status": "new"
+    },
+    {
+      "path": "frontend/js_codes/student3_top.js",
+      "current_sha256": "4b489c2e56d4f07ee13b80f54b03d9c24ec2125bd55dd317a8028a8caadc3117",
+      "status": "new"
+    },
+    {
+      "path": "app/student3/dependencies.py",
+      "current_sha256": "156b83f98da6141489e2f241482105b2336470b07c01d2f7d3e35f8dffec164d",
+      "status": "new"
+    },
+    {
+      "path": "app/student3/reactions.py",
+      "current_sha256": "3c8b3b174e2d08a4f365b8ae7a05212fd2138d2f45067d8fcb78755da9e95898",
+      "status": "new"
+    },
+    {
+      "path": "app/student3/router.py",
+      "current_sha256": "e2b58f7f006c451f6c57ed559dae06b7065b5ce595ffef59524f2c898dd8d370",
+      "status": "new"
+    },
+    {
+      "path": "app/student3/schemas.py",
+      "current_sha256": "67b580063ae0e08dda045173dbc37d92dd411024857c0106e71f0a9774936d48",
+      "status": "new"
+    },
+    {
+      "path": "app/student3/service.py",
+      "current_sha256": "04625d875930d88de42689f8d96341cceab3b2713d07fe6378fb5d9eeb144e74",
+      "status": "new"
+    },
+    {
+      "path": "app/student3/__init__.py",
+      "current_sha256": "2b3f2bf846b3690756f008a77bae4b8b0dad9957e80daedad87682892cfd3170",
+      "status": "new"
+    }
+  ],
+  "missing_original_files": [],
+  "changed_original_files": [
+    ".env.example",
+    ".gitignore",
+    "README_HY.md",
+    "app/config.py",
+    "app/main.py",
+    "app/student2/service.py",
+    "app/student2/tables.py",
+    "docs/openapi.json",
+    "docs/schema_contract.json",
+    "frontend/js_codes/student2_profile.js",
+    "frontend/js_codes/student2_rate.js",
+    "frontend/rate_arm.html",
+    "frontend/rate_eng.html",
+    "frontend/ratings_arm.html",
+    "frontend/ratings_eng.html",
+    "frontend/top_arm.html",
+    "frontend/top_arm_guest.html",
+    "frontend/top_eng.html",
+    "frontend/top_eng_guest.html",
+    "tests/conftest.py",
+    "tests/test_mssql_smoke_plan.py",
+    "tests/test_student2.py",
+    "tools/smoke_mssql.py"
+  ],
+  "new_files": [
+    "requirements-student3-tested.txt",
+    "RUN_TESTS.cmd",
+    "START.cmd",
+    "START_HERE_HY.md",
+    "database/01_original_export.sql",
+    "database/02_upgrade_student3.sql",
+    "database/ProfRates_databaza_original.bak",
+    "docs/STUDENT3_GUIDE_HY.md",
+    "docs/STUDENT3_TEST_REPORT.md",
+    "tests/test_reactions_and_scores.py",
+    "tests/test_student3.py",
+    "tools/check_student3.py",
+    "tools/start_local.ps1",
+    "frontend/js_codes/student3_mine.js",
+    "frontend/js_codes/student3_rate.js",
+    "frontend/js_codes/student3_top.js",
+    "app/student3/dependencies.py",
+    "app/student3/reactions.py",
+    "app/student3/router.py",
+    "app/student3/schemas.py",
+    "app/student3/service.py",
+    "app/student3/__init__.py"
+  ]
+}
