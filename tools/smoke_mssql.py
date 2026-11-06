@@ -93,7 +93,7 @@ def exercise(db,admin_id,mark,step):
     check(db.execute(select(func.count()).select_from(T['ActivityLogs'])).scalar_one()==log_count,'idempotent moderation')
     expect_http(409,lambda:svc.edit(db,T['Courses'],'CourseID',course,{'LecturerID':second},actor))
     svc.moderate(db,rid,Moderation(status='Rejected',expected_status='Approved'),actor)
-    check(totals()==1,'rejected text still contributes numeric score')
+    check(totals()==0,'rejected rating excluded from numeric summary')
     check(db.execute(select(func.count()).select_from(public_ratings).where(public_ratings.c.RatingID==rid)).scalar_one()==0,'rejected public view')
     step('approve_reject_live_views_idempotency')
     db.execute(T['StudentCourses'].delete().where(T['StudentCourses'].c.StudentCourseID==enrollment['StudentCourseID']))

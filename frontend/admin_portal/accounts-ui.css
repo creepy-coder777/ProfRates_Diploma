@@ -42,3 +42,16 @@ dialog.account-dialog::backdrop { background:rgba(30,20,50,.45); }
   .account-dialog-content { padding:16px; }
   .account-dialog-content table { min-width:650px; }
 }
+
+.student-filter-bar{display:flex;flex-wrap:wrap;gap:10px;padding:12px 0}.student-filter-bar select{flex:1 1 190px;min-width:0;padding:10px;border:1px solid #ddd;border-radius:8px;background:white}.student-filter-bar+ .table-wrap{max-width:100%}
+
+.reset-section .input-wrapper{display:flex;align-items:stretch;flex-wrap:wrap;gap:12px}
+.reset-section .email-input{display:flex;align-items:center;gap:10px;flex:1 1 280px;min-width:0;box-sizing:border-box}
+.reset-section .email-input input{flex:1;min-width:0;width:100%;padding:0;border:0;background:transparent;color:inherit;font:inherit;outline:none}
+.reset-section .email-input:focus-within{border-color:var(--primary-soft,#8b5cf6);box-shadow:0 0 0 4px rgba(139,92,246,.14)}
+.reset-section .email-icon{flex:none;color:var(--primary,#7c3aed)}
+.reset-section .send-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:12px 20px;border:0;border-radius:10px;background:var(--grad-primary,linear-gradient(135deg,#7c3aed,#a855f7));color:#fff;font:inherit;font-weight:600;cursor:pointer;white-space:normal}
+.reset-section .send-btn:focus-visible{outline:3px solid #a78bfa;outline-offset:3px}
+.reset-section .send-btn:disabled{opacity:.6;cursor:wait}
+.requests-section .table-wrap{max-width:100%;overflow:auto}
+@media(max-width:600px){.reset-section .send-btn{width:100%}}

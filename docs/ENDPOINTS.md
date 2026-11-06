@@ -1,3 +1,23 @@
+# 2026-11-07 immutable scores and comment editing
+
+- `PATCH /api/ratings/{ident}/comment`: owner-only `Comment`, `expected_updated_at`; Approved within the original 24h, Rejected within the 24h reopened by moderation. Pending is not editable. Text is re-screened; no deadline extension on student edit.
+- `PUT /api/ratings/{ident}`: compatibility route only; all submitted scores/context must equal stored values. No numeric answer updates.
+- `DELETE /api/ratings/{ident}`: blocked (409 for owner) to prevent delete/re-create score changes.
+- Private rating projection adds `CanEditComment`. No new database columns or public identity fields.
+- See STUDENT_UI_REVISION_HY.md for details and test results. This supersedes historical rating CRUD/edit notes below.
+
+# 2026-11-06 account workflow update
+
+- `POST /api/admin/users`: admin-only real account provisioning. Body: FirstName, LastName, Email, GroupID, Password. Returns a safe student projection plus academic_status. No password/token returned.
+- `GET /api/admin/users`: existing search/status/pagination plus institute_id, faculty_id, chair_id, specialization_id, group_id, year (1–4). Missing current semester means unknown study year.
+- `GET /api/admin/users/export`: same filters, existing paginated CSV export.
+- `PUT /api/admin/users/{id}`: existing account management, no roster requirement.
+- Removed: `POST /api/auth/register`, `GET /api/auth/registration-groups`, `/api/admin/student-roster` routes, both signup HTML pages.
+- Student/admin login, logout and recovery endpoints remain unchanged.
+- Rating POST/PUT: safe/no comment -> Approved; flagged text -> entire rating Pending. Rejected ratings excluded only when live SQL summaries implement approved-only policy. See ADMIN_REVISION_HY.md.
+
+The historical endpoint notes below are superseded by this update for account creation and moderation.
+
 # API endpoints
 
 This is the actual registered route list. /docs contains request/response schemas.

@@ -6,7 +6,7 @@ from app.student2.router import pagination
 from app.student2.service import page
 from app.student2.tables import TABLES as T, public_ratings, admin_ratings
 from app.student3.dependencies import get_student
-from app.student3.schemas import RatingInput, RatingEdit, PrivateRating, PublicRating
+from app.student3.schemas import RatingInput, RatingEdit, CommentEdit, PrivateRating, PublicRating
 from app.student3 import service as svc
 
 router = APIRouter(prefix='/api', tags=['Student 3: ratings and statistics'])
@@ -64,6 +64,11 @@ def historical_questions(ident: int, actor=Depends(get_student), db=Depends(get_
 @router.put('/ratings/{ident}', response_model=PrivateRating)
 def edit(ident: int, payload: RatingEdit, actor=Depends(get_student), db=Depends(get_db, scope='function')):
     return svc.edit_rating(db, actor, ident, payload)
+
+
+@router.patch('/ratings/{ident}/comment', response_model=PrivateRating)
+def edit_comment(ident: int, payload: CommentEdit, actor=Depends(get_student), db=Depends(get_db, scope='function')):
+    return svc.update_comment(db, actor, ident, payload.Comment, payload.expected_updated_at)
 
 
 @router.delete('/ratings/{ident}')

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from fastapi import HTTPException
 from sqlalchemy import select, func, or_, and_, exists
 from app.student2.tables import TABLES as T, summary, admin_ratings
@@ -154,8 +154,12 @@ def moderate(db, ident, payload, actor):
     if old['Status']!=payload.expected_status:
         raise HTTPException(409,'Կարգավիճակը փոխվել է։ Թարմացրեք էջը։')
     if old['Status']!=payload.status:
-        result=db.execute(table.update().where(table.c.RatingID==ident,table.c.Status==payload.expected_status).values(
-            Status=payload.status,ApprovedByAdminID=actor.admin_id,UpdatedAt=datetime.now()))
+        db_now=db.execute(select(func.current_timestamp())).scalar_one()
+        values=dict(Status=payload.status,ApprovedByAdminID=actor.admin_id,UpdatedAt=db_now)
+        if payload.status=='Rejected':
+            values['EditExpiry']=db_now+timedelta(hours=24)
+        # Approval does not restart the original comment window; an actual rejection does.
+        result=db.execute(table.update().where(table.c.RatingID==ident,table.c.Status==payload.expected_status).values(**values))
         if result.rowcount!=1: raise HTTPException(409,'Գրառումը փոխվել է։')
         audit(db,actor,'Moderate',f'Ratings:{ident}:{payload.status}')
     # Ամփոփումը հաշվարկվում է առկա vwLecturerRatingSummary view-ով։ Այստեղ վերահաշվարկ չկա։

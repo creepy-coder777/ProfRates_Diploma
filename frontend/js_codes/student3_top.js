@@ -32,7 +32,7 @@
         card.append(content,button);grid.append(card);
       }
     }
-    const note=element('p','pr-ranking-info',english?'Ranking follows the database ranking method. Average score and number of ratings are shown separately.':'Դասավորությունը՝ բազայի վարկանիշի հաշվարկով։ Միջին գնահատականն ու գնահատումների քանակը ներկայացված են առանձին։');grid.before(note);
+    const note=element('p','pr-ranking-info',english?'Ranking follows the database ranking method.':'Դասավորությունը՝ բազայի վարկանիշի հաշվարկով։');grid.before(note);
     filter.onchange=sort.onchange=search.oninput=()=>{page=1;render();};render();
   }catch(e){status.textContent=e.message;}
 })();

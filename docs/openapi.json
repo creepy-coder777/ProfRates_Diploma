@@ -2555,6 +2555,58 @@
         }
       }
     },
+    "/api/ratings/{ident}/comment": {
+      "patch": {
+        "tags": [
+          "Student 3: ratings and statistics"
+        ],
+        "summary": "Edit Comment",
+        "operationId": "edit_comment_api_ratings__ident__comment_patch",
+        "parameters": [
+          {
+            "name": "ident",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Ident"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentEdit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateRating"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/lecturers/{ident}/ratings": {
       "get": {
         "tags": [
@@ -2993,6 +3045,17 @@
             }
           },
           {
+            "name": "lang",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(hy|en)$",
+              "default": "hy",
+              "title": "Lang"
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -3007,6 +3070,109 @@
                 }
               ],
               "title": "Status"
+            }
+          },
+          {
+            "name": "institute_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Institute Id"
+            }
+          },
+          {
+            "name": "faculty_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Faculty Id"
+            }
+          },
+          {
+            "name": "chair_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Chair Id"
+            }
+          },
+          {
+            "name": "specialization_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Specialization Id"
+            }
+          },
+          {
+            "name": "group_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Group Id"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 4,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Year"
             }
           },
           {
@@ -3054,6 +3220,43 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Accounts and dashboard"
+        ],
+        "summary": "Create User",
+        "operationId": "create_user_api_admin_users_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/admin/users/export": {
@@ -3073,6 +3276,126 @@
               "maxLength": 150,
               "default": "",
               "title": "Q"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(Active|Suspended|Banned)$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "name": "institute_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Institute Id"
+            }
+          },
+          {
+            "name": "faculty_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Faculty Id"
+            }
+          },
+          {
+            "name": "chair_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Chair Id"
+            }
+          },
+          {
+            "name": "specialization_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Specialization Id"
+            }
+          },
+          {
+            "name": "group_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Group Id"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 4,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Year"
             }
           },
           {
@@ -3337,37 +3660,21 @@
         ],
         "summary": "Dashboard",
         "operationId": "dashboard_api_admin_dashboard_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(hy|en)$",
+              "default": "hy",
+              "title": "Lang"
             }
           }
-        }
-      }
-    },
-    "/api/auth/register": {
-      "post": {
-        "tags": [
-          "Accounts"
         ],
-        "summary": "Register",
-        "operationId": "register_api_auth_register_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterInput"
-              }
-            }
-          },
-          "required": true
-        },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
@@ -3399,7 +3706,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginInput"
+                "$ref": "#/components/schemas/StudentLoginInput"
               }
             }
           },
@@ -3504,6 +3811,84 @@
         }
       }
     },
+    "/api/auth/student/forgot-password": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Student Forgot",
+        "operationId": "student_forgot_api_auth_student_forgot_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryRequestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/admin/forgot-password": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Admin Forgot",
+        "operationId": "admin_forgot_api_auth_admin_forgot_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryRequestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/auth/forgot-password": {
       "post": {
         "tags": [
@@ -3515,7 +3900,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RecoveryInput"
+                "$ref": "#/components/schemas/RecoveryRequestInput"
               }
             }
           },
@@ -3554,7 +3939,46 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RecoveryInput"
+                "$ref": "#/components/schemas/RecoveryRequestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/student/resend-verification": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Student Resend",
+        "operationId": "student_resend_api_auth_student_resend_verification_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryRequestInput"
               }
             }
           },
@@ -3589,6 +4013,84 @@
         ],
         "summary": "Reset",
         "operationId": "reset_api_auth_reset_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/student/reset-password": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Student Reset",
+        "operationId": "student_reset_api_auth_student_reset_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/admin/reset-password": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Admin Reset",
+        "operationId": "admin_reset_api_auth_admin_reset_password_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3660,24 +4162,92 @@
         }
       }
     },
-    "/api/auth/registration-groups": {
-      "get": {
+    "/api/auth/{role}/password-code": {
+      "post": {
         "tags": [
           "Accounts"
         ],
-        "summary": "Groups",
-        "operationId": "groups_api_auth_registration_groups_get",
+        "summary": "Request Password Code",
+        "operationId": "request_password_code_api_auth__role__password_code_post",
         "parameters": [
           {
-            "name": "chair_id",
-            "in": "query",
+            "name": "role",
+            "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "title": "Chair Id"
+              "enum": [
+                "student",
+                "admin"
+              ],
+              "type": "string",
+              "title": "Role"
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryRequestInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/{role}/verify-password-code": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Verify Password Code",
+        "operationId": "verify_password_code_api_auth__role__verify_password_code_post",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "student",
+                "admin"
+              ],
+              "type": "string",
+              "title": "Role"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetCodeInput"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -3820,6 +4390,33 @@
         ],
         "title": "Assignment"
       },
+      "CommentEdit": {
+        "properties": {
+          "Comment": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 350
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          },
+          "expected_updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expected Updated At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_updated_at"
+        ],
+        "title": "CommentEdit"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -3913,29 +4510,6 @@
           "FirstName"
         ],
         "title": "LecturerInput"
-      },
-      "LoginInput": {
-        "properties": {
-          "Email": {
-            "type": "string",
-            "maxLength": 255,
-            "minLength": 3,
-            "title": "Email"
-          },
-          "Password": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "title": "Password"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "Email",
-          "Password"
-        ],
-        "title": "LoginInput"
       },
       "Moderation": {
         "properties": {
@@ -4040,6 +4614,10 @@
             },
             "type": "array",
             "title": "Answers"
+          },
+          "CanEditComment": {
+            "type": "boolean",
+            "title": "Caneditcomment"
           }
         },
         "type": "object",
@@ -4053,7 +4631,8 @@
           "CreatedAt",
           "UpdatedAt",
           "EditExpiry",
-          "answers"
+          "answers",
+          "CanEditComment"
         ],
         "title": "PrivateRating"
       },
@@ -4210,6 +4789,15 @@
             ],
             "title": "Role",
             "default": "student"
+          },
+          "Language": {
+            "type": "string",
+            "enum": [
+              "hy",
+              "en"
+            ],
+            "title": "Language",
+            "default": "hy"
           }
         },
         "additionalProperties": false,
@@ -4219,7 +4807,7 @@
         ],
         "title": "RecoveryInput"
       },
-      "RegisterInput": {
+      "RecoveryRequestInput": {
         "properties": {
           "Email": {
             "type": "string",
@@ -4227,46 +4815,22 @@
             "minLength": 3,
             "title": "Email"
           },
-          "Password": {
+          "Language": {
             "type": "string",
-            "maxLength": 128,
-            "minLength": 12,
-            "title": "Password"
-          },
-          "FirstName": {
-            "type": "string",
-            "maxLength": 100,
-            "minLength": 1,
-            "title": "Firstname"
-          },
-          "LastName": {
-            "type": "string",
-            "maxLength": 100,
-            "minLength": 1,
-            "title": "Lastname"
-          },
-          "ChairID": {
-            "type": "integer",
-            "exclusiveMinimum": 0.0,
-            "title": "Chairid"
-          },
-          "GroupID": {
-            "type": "integer",
-            "exclusiveMinimum": 0.0,
-            "title": "Groupid"
+            "enum": [
+              "hy",
+              "en"
+            ],
+            "title": "Language",
+            "default": "hy"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "Email",
-          "Password",
-          "FirstName",
-          "LastName",
-          "ChairID",
-          "GroupID"
+          "Email"
         ],
-        "title": "RegisterInput"
+        "title": "RecoveryRequestInput"
       },
       "Reorder": {
         "properties": {
@@ -4287,6 +4851,39 @@
           "question_ids"
         ],
         "title": "Reorder"
+      },
+      "ResetCodeInput": {
+        "properties": {
+          "Email": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 3,
+            "title": "Email"
+          },
+          "Language": {
+            "type": "string",
+            "enum": [
+              "hy",
+              "en"
+            ],
+            "title": "Language",
+            "default": "hy"
+          },
+          "Code": {
+            "type": "string",
+            "maxLength": 6,
+            "minLength": 6,
+            "pattern": "^[0-9]{6}$",
+            "title": "Code"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "Email",
+          "Code"
+        ],
+        "title": "ResetCodeInput"
       },
       "ResetInput": {
         "properties": {
@@ -4332,6 +4929,77 @@
           "CourseID"
         ],
         "title": "StudentCourseInput"
+      },
+      "StudentCreate": {
+        "properties": {
+          "Email": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 3,
+            "title": "Email"
+          },
+          "FirstName": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Firstname"
+          },
+          "LastName": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Lastname"
+          },
+          "GroupID": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Groupid"
+          },
+          "Password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 12,
+            "title": "Password"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "Email",
+          "FirstName",
+          "LastName",
+          "GroupID",
+          "Password"
+        ],
+        "title": "StudentCreate"
+      },
+      "StudentLoginInput": {
+        "properties": {
+          "Email": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 3,
+            "title": "Email"
+          },
+          "Password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Password"
+          },
+          "RememberMe": {
+            "type": "boolean",
+            "title": "Rememberme",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "Email",
+          "Password"
+        ],
+        "title": "StudentLoginInput"
       },
       "TokenInput": {
         "properties": {

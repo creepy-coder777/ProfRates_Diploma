@@ -36,7 +36,6 @@ def auth_api(database,tmp_path,monkeypatch):
         db.execute(T['Chairs'].insert().values(ChairID=1,InstituteID=1,Name='Chair',ShortName='C',IsActive=True))
         db.execute(T['Specializations'].insert().values(SpecializationID=1,ChairID=1,Name='Spec',Code='S',IsActive=True))
         db.execute(T['StudentGroups'].insert().values(GroupID=1,SpecializationID=1,GroupCode='Test-1',EnrollmentYear=2026,IsActive=True))
-        db.execute(T['StudentRoster'].insert().values(Email=EMAIL,FirstName='Anna',LastName='Test',GroupID=1,IsActive=True,UserID=None))
         db.execute(T['Admins'].update().where(T['Admins'].c.AdminID==1).values(Email='admin@example.test',PasswordHash=hash_password(PASSWORD),IsEmailVerified=True))
     with TestClient(app) as client:
         client.headers['X-ProfRates-Request']='1'
@@ -60,11 +59,17 @@ def token(settings,purpose='verify',email=EMAIL):
     items=[m for m in messages(settings) if m['purpose']==purpose and m['recipient']==email]
     return parse_qs(urlsplit(items[-1]['link']).fragment)['token'][0]
 
+def provision(client,**patch):
+    assert sign_in(client,'admin@example.test',admin=True).status_code==200
+    result=post(client,'/api/admin/users',{'FirstName':'Anna','LastName':'Test','GroupID':1,**registration(),**patch})
+    assert post(client,'/api/auth/logout').status_code==200
+    return result
+
+
 def verified(client,settings):
-    assert post(client,'/api/auth/register',registration()).status_code==201
-    code=token(settings)
-    assert post(client,'/api/auth/verify-email',{'Token':code}).status_code==200
-    return code
+    assert provision(client).status_code==201
+    return 'x'*43
+
 
 def sign_in(client,email=EMAIL,password=PASSWORD,admin=False):
     return post(client,'/api/auth/admin/login' if admin else '/api/auth/login',{'Email':email,'Password':password})
@@ -94,50 +99,10 @@ def test_registration_verification_login_logout(auth_api):
         assert verify_password(PASSWORD,row['PasswordHash']) and row['IsEmailVerified']
         assert conn.execute(select(sessions)).first() is None
 
-def test_registration_verification_link_uses_selected_language(auth_api):
-    c,_,s=auth_api
-    result=post(c,'/api/auth/register',registration(Language='en'))
-    assert result.status_code==201
-    assert 'No email was sent' in result.json()['message']
-    link=messages(s)[0]['link']
-    assert urlsplit(link).path.endswith('/frontend/account_recovery_en.html')
-    assert parse_qs(urlsplit(link).fragment)['purpose']==['verify']
 
-@pytest.mark.parametrize(('language','private_terms'),[
-    ('hy',('թեստային','փոստարկղ')),
-    ('en',('test','mailbox')),
-])
-def test_production_registration_response_does_not_expose_local_mailbox(auth_api,monkeypatch,language,private_terms):
-    c,_,settings=auth_api
-    monkeypatch.setattr('app.auth.router.get_settings',lambda:settings.model_copy(update={'mail_backend':'smtp'}))
-    monkeypatch.setattr(svc,'register',lambda db,payload:object())
-    result=post(c,'/api/auth/register',registration(Language=language))
-    assert result.status_code==201
-    assert all(term not in result.json()['message'].lower() for term in private_terms)
 
-def test_duplicate_and_unverified_login(auth_api):
-    c,db,s=auth_api
-    assert post(c,'/api/auth/register',registration()).status_code==201
-    assert sign_in(c).status_code==401
-    assert post(c,'/api/auth/register',registration()).status_code==409
-    assert post(c,'/api/auth/register',{**registration(),'Email':EMAIL.upper()}).status_code==409
-    assert sign_in(c,password='wrong').status_code==401
-    assert sign_in(c,email='unknown@polytechnic.am').status_code==401
-    with db.begin() as conn:
-        assert conn.execute(select(T['ActivityLogs']).where(T['ActivityLogs'].c.ActionType=='Login',T['ActivityLogs'].c.Status=='Failed')).first()
 
-@pytest.mark.parametrize('patch',[
-    {'Email':'a@gmail.com'},{'Email':'x@@polytechnic.am'},{'Password':'short'},
-    {'FirstName':' '},{'ChairID':True},{'GroupID':999},{'Role':'admin'},{'IsEmailVerified':True}
-])
-def test_invalid_registration(auth_api,patch):
-    c,_,_=auth_api
-    assert post(c,'/api/auth/register',{**registration(),**patch}).status_code==422
 
-def test_registration_group_must_belong_to_chair(auth_api):
-    c,_,_=auth_api
-    assert post(c,'/api/auth/register',{**registration(),'ChairID':999}).status_code==422
-    assert c.get('/api/auth/registration-groups?chair_id=1').json()['items'][0]['GroupID']==1
 
 def test_recovery_non_enumerating_hash_only_and_local_mail(auth_api):
     c,db,s=auth_api
@@ -275,7 +240,7 @@ def test_rate_limit_persists_in_database(auth_api):
 def test_validation_errors_never_echo_password(auth_api):
     c,_,_=auth_api
     password='private-invalid-password'*20
-    result=post(c,'/api/auth/register',{**registration(),'Password':password})
+    result=post(c,'/api/auth/login',{**registration(),'Password':password})
     assert result.status_code==422 and password not in result.text
 
 @pytest.mark.parametrize('patch',[
@@ -342,7 +307,11 @@ def test_mail_failure_is_audited_without_claiming_sent(auth_api,monkeypatch):
 
 def test_expired_verification_and_resend(auth_api):
     c,db,s=auth_api
-    post(c,'/api/auth/register',registration())
+    verified(c,s)
+    with db.begin() as conn:
+        conn.execute(T['Users'].update().where(T['Users'].c.Email==EMAIL).values(IsEmailVerified=False))
+        user=conn.execute(select(T['Users']).where(T['Users'].c.Email==EMAIL)).mappings().one()
+        svc.issue_link(conn,user,'student','verify')
     old=token(s)
     with db.begin() as conn:
         conn.execute(T['PasswordResets'].update().values(Expiry=svc.now()-timedelta(minutes=1)))
@@ -376,7 +345,7 @@ def test_frontend_recovery_and_admin_wiring(auth_api):
     c,_,_=auth_api
     root=Path(__file__).resolve().parents[1]/'frontend'
     recovery=BeautifulSoup((root/'account_recovery.html').read_text(encoding='utf-8'),'html.parser')
-    assert recovery.select_one('script[src="js_codes/account_recovery.js"]')
+    assert recovery.select_one('script[src^="js_codes/account_recovery.js"]')
     for filename in ('account_recovery.html','account_recovery_en.html',
                      'admin_portal/account_recovery_arm.html','admin_portal/account_recovery_eng.html'):
         response=c.get('/frontend/'+filename)
@@ -384,7 +353,7 @@ def test_frontend_recovery_and_admin_wiring(auth_api):
         assert response.headers.get('Cache-Control')=='no-store'
     for name in ['users.html','users_arm.html','dashboard.html','ActivityLogs_arm.html','ResetPassword.html','Admin_login_eng.html']:
         soup=BeautifulSoup((root/'admin_portal'/name).read_text(encoding='utf-8'),'html.parser')
-        sources=[node.get('src') for node in soup.select('script[src]')]
+        sources=[node.get('src').split('?')[0] for node in soup.select('script[src]')]
         assert sources.index('../js_codes/api.js')<sources.index('js_folder/accounts.js')
         assert 'js_folder/admin.js' not in sources and 'js_folder/reset_eng.js' not in sources
 
@@ -416,29 +385,64 @@ def test_remember_me_is_strict_and_not_admin_registration_input(auth_api):
 
 
 
-def test_roster_unknown_email_and_forged_identity_are_rejected(auth_api):
-    c, db, _ = auth_api
-    assert post(c, '/api/auth/register', registration(Email='unknown@polytechnic.am')).status_code == 422
-    assert post(c, '/api/auth/register', {**registration(), 'GroupID':999}).status_code == 422
-    assert post(c, '/api/auth/register', {**registration(), 'FirstName':'Forged'}).status_code == 422
-    with db.begin() as conn:
-        assert conn.execute(select(T['Users'].c.UserID).where(T['Users'].c.Email == EMAIL)).first() is None
 
 
-def test_roster_supplies_identity_and_is_claimed_once(auth_api):
-    c, db, _ = auth_api
-    assert post(c, '/api/auth/register', registration()).status_code == 201
-    with db.begin() as conn:
-        user = conn.execute(select(T['Users']).where(T['Users'].c.Email == EMAIL)).mappings().one()
-        entry = conn.execute(select(T['StudentRoster']).where(T['StudentRoster'].c.Email == EMAIL)).mappings().one()
-        assert (user['FirstName'], user['LastName'], user['GroupID']) == ('Anna','Test',1)
-        assert entry['UserID'] == user['UserID']
-        assert not user['IsEmailVerified']
-    assert post(c, '/api/auth/register', registration()).status_code == 409
 
 
-def test_roster_inactive_entry_cannot_register(auth_api):
-    c, db, _ = auth_api
-    with db.begin() as conn:
-        conn.execute(T['StudentRoster'].update().where(T['StudentRoster'].c.Email == EMAIL).values(IsActive=False))
-    assert post(c, '/api/auth/register', registration()).status_code == 422
+
+
+def test_public_registration_and_roster_removed(auth_api):
+    c,_,_=auth_api
+    assert post(c,'/api/auth/register',registration()).status_code==404
+    for page in ['sign_up_arm.html','sign_up_eng.html']:
+        assert c.get('/frontend/'+page).status_code==404
+    assert sign_in(c,'admin@example.test',admin=True).status_code==200
+    assert c.get('/api/admin/student-roster').status_code==404
+
+
+def test_admin_provisions_ready_account_without_roster(auth_api):
+    c,engine,s=auth_api
+    response=provision(c)
+    assert response.status_code==201,response.text
+    assert response.json()['academic_status']=='term-unconfigured'
+    assert PASSWORD not in response.text and 'PasswordHash' not in response.text
+    assert messages(s)==[]
+    with engine.connect() as db:
+        user=db.execute(select(T['Users']).where(T['Users'].c.Email==EMAIL)).mappings().one()
+        assert user['GroupID']==1 and user['IsEmailVerified']
+        assert verify_password(PASSWORD,user['PasswordHash'])
+        assert 'StudentRoster' not in T
+    assert sign_in(c).status_code==200
+    assert post(c,'/api/admin/users',{'FirstName':'X','LastName':'Y','GroupID':1,**registration(Email='other@polytechnic.am')}).status_code==403
+    post(c,'/api/auth/logout')
+    assert post(c,'/api/admin/users',{'FirstName':'X','LastName':'Y','GroupID':1,**registration()}).status_code==401
+
+
+def test_duplicate_student_and_invalid_credentials(auth_api):
+    c,_,_=auth_api
+    assert provision(c).status_code==201
+    assert provision(c,Email=EMAIL.upper()).status_code==409
+    assert sign_in(c,password='wrong').status_code==401
+    assert sign_in(c,email='unknown@polytechnic.am').status_code==401
+
+
+@pytest.mark.parametrize('patch',[{'FirstName':' '},{'LastName':''},{'GroupID':999},{'GroupID':True},
+    {'Email':'x@gmail.com'},{'Password':'short'},{'Role':'admin'},{'IsEmailVerified':True}])
+def test_admin_create_validation(auth_api,patch):
+    c,_,_=auth_api
+    assert provision(c,**patch).status_code==422
+
+
+def test_admin_create_and_audit_are_one_transaction(auth_api,monkeypatch):
+    from fastapi import HTTPException
+    c,engine,_=auth_api
+    sign_in(c,'admin@example.test',admin=True)
+    original=svc.audit
+    def fail(db,actor,action,*args,**kwargs):
+        if action=='StudentCreated':raise HTTPException(503,'Audit unavailable')
+        return original(db,actor,action,*args,**kwargs)
+    monkeypatch.setattr(svc,'audit',fail)
+    response=post(c,'/api/admin/users',{'FirstName':'Anna','LastName':'Test','GroupID':1,**registration()})
+    assert response.status_code==503
+    with engine.connect() as db:
+        assert db.execute(select(T['Users'].c.UserID).where(T['Users'].c.Email==EMAIL)).first() is None

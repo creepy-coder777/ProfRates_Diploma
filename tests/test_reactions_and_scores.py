@@ -14,16 +14,16 @@ def approve(api, ident):
     app.dependency_overrides[get_current_user] = lambda: Principal(1, False)
 
 
-def test_pending_and_rejected_text_do_not_hide_scores(student):
+def test_pending_and_rejected_ratings_do_not_contribute_scores(student):
     api, database, payload = student
     record = create(student); ident = record['RatingID']; lid = payload['LecturerID']
     stats = api.get(f'/api/lecturers/{lid}/statistics').json()
-    assert stats['TotalRatings'] == 1 and stats['AverageScore'] == 5
-    assert stats['distribution'][-1]['count'] == 1
+    assert stats['TotalRatings'] == 0 and stats['AverageScore'] is None
+    assert stats['distribution'][-1]['count'] == 0
     assert api.get(f'/api/lecturers/{lid}/comments').json()['total'] == 0
     app.dependency_overrides[get_current_user] = lambda: Principal(None, True, 1)
     assert api.put(f'/api/admin/comments/{ident}/moderation', json={'status': 'Rejected', 'expected_status': 'Pending'}).status_code == 200
-    assert api.get(f'/api/lecturers/{lid}/statistics').json()['AverageScore'] == 5
+    assert api.get(f'/api/lecturers/{lid}/statistics').json()['AverageScore'] is None
     assert api.get(f'/api/lecturers/{lid}/comments').json()['total'] == 0
 
 
@@ -73,22 +73,23 @@ def test_reaction_rolls_back_if_audit_fails(student, monkeypatch):
         assert db.execute(select(T['Ratings'].c.Likes).where(T['Ratings'].c.RatingID == ident)).scalar_one() == 0
 
 
-def test_edit_changes_score_immediately_and_hides_text(student):
+def test_flagged_edit_removes_score_until_approved(student):
     api, database, payload = student
     record = create(student); ident = record['RatingID']; approve(api, ident)
     assert api.put(f'/api/ratings/{ident}/like').status_code == 200
     latest = api.get(f'/api/me/ratings/{ident}').json()
     edited = {**payload, 'answers': [{**payload['answers'][0], 'Score': 2}], 'expected_updated_at': latest['UpdatedAt']}
-    response = api.put(f'/api/ratings/{ident}', json=edited)
-    assert response.status_code == 200, response.text
+    assert api.put(f'/api/ratings/{ident}',json=edited).status_code==409
+    response=api.patch(f'/api/ratings/{ident}/comment',json={'Comment':'idiot again','expected_updated_at':latest['UpdatedAt']})
+    assert response.status_code==200,response.text
     assert response.json()['Status'] == 'Pending'
-    assert api.get(f"/api/lecturers/{payload['LecturerID']}/statistics").json()['AverageScore'] == 2
+    assert api.get(f"/api/lecturers/{payload['LecturerID']}/statistics").json()['AverageScore'] is None
     assert api.get(f"/api/lecturers/{payload['LecturerID']}/comments").json()['total'] == 0
     assert api.put(f'/api/ratings/{ident}/dislike').status_code == 404
-    assert api.delete(f'/api/ratings/{ident}', params={'expected_updated_at': response.json()['UpdatedAt']}).status_code == 200
+    assert api.delete(f'/api/ratings/{ident}', params={'expected_updated_at': response.json()['UpdatedAt']}).status_code == 409
     with database.connect() as db:
         for name in ['Ratings', 'RatingAnswers', 'RatingReactions']:
-            assert db.execute(select(func.count()).select_from(T[name])).scalar_one() == 0
+            assert db.execute(select(func.count()).select_from(T[name])).scalar_one() == 1
 
 
 def test_anonymous_reactions_are_rejected(student):

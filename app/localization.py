@@ -52,13 +52,60 @@ def department(value):
     return DEPARTMENTS.get(value, value)
 
 
+PATRONYMIC_BASES = {name+'ի':name for name in (
+    'Արամ','Ռուբեն','Հրանտ','Արմեն','Ալբերտ','Սուրեն','Կարեն','Հայկ','Ռաֆիկ',
+    'Վաղարշակ','Կամո','Ռոբերտ','Արթուր','Արտուր','Ղևոնդ','Վարդան','Ժիրայր',
+    'Սամվել','Հակոբ','Վաչագան','Գագիկ','Անդրանիկ','Լևոն','Գուրգեն','Միքայել',
+    'Էդուարդ','Ռաֆայել','Արա')}
+PATRONYMIC_BASES.update({'Դավթի':'Դավիթ','Արայի':'Արա','Կամոյի':'Կամո'})
+
+# A portrait belongs to the full person name, across course-specific lecturer IDs.
+DEMO_PORTRAITS = {
+    ('Արամ','Ռուբենի','Ղազարյան'):'lecturer-01.jpg',
+    ('Մարինե','Սուրենի','Հովհաննիսյան'):'lecturer-02.jpg',
+    ('Վահե','Հրանտի','Մկրտչյան'):'lecturer-03.jpg',
+    ('Անի','Արմենի','Սիմոնյան'):'lecturer-04.jpg',
+    ('Գագիկ','Ալբերտի','Պետրոսյան'):'lecturer-05.jpg',
+    ('Նարինե','Կարենի','Ավետիսյան'):'lecturer-06.jpg',
+    ('Դավիթ','Հայկի','Ասատրյան'):'lecturer-07.jpg',
+    ('Տաթևիկ','Ռաֆիկի','Գրիգորյան'):'lecturer-08.jpg',
+    ('Արտուր','Վաղարշակի','Բաղդասարյան'):'lecturer-09.jpg',
+    ('Սոնա','Կամոյի','Կարապետյան'):'lecturer-10.jpg',
+}
+
+
+def portrait_identity(parts):
+    import unicodedata
+    return tuple(unicodedata.normalize('NFC',' '.join((value or '').split())).casefold()
+                 for value in parts)
+
+
+_PORTRAITS_BY_NAME = {portrait_identity(identity):filename
+                      for identity,filename in DEMO_PORTRAITS.items()}
+
+
+def english_patronymic(value):
+    if not value:
+        return value
+    value=value.strip()
+    bases={**PATRONYMIC_BASES,
+           **{transliterate(key):transliterate(base) for key,base in PATRONYMIC_BASES.items()}}
+    # Unknown names are transliterated intact; never truncate arbitrary final 'i'.
+    return transliterate(bases.get(value,value))
+
+
 def lecturer(item, lang):
+    item = dict(item)
+    identity=portrait_identity(item.get(key) for key in ('FirstName','MiddleName','LastName'))
+    demo = _PORTRAITS_BY_NAME.get(identity)
+    if not item.get('PhotoUrl') and demo:
+        item['PhotoUrl'] = '/frontend/assets/'+demo
+        item['PhotoIsDemo'] = True
     if lang != 'en':
         return item
-    item = dict(item)
     for key in ('FirstName', 'MiddleName', 'LastName'):
         if key in item:
-            item[key] = transliterate(item[key])
+            item[key] = english_patronymic(item[key]) if key=='MiddleName' else transliterate(item[key])
     item['Chairs'] = [department(value) for value in item.get('Chairs', [])]
     return item
 

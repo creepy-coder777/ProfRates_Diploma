@@ -1,6 +1,6 @@
 from datetime import timedelta
+from app.student3.moderation import rating_status
 from fastapi import HTTPException
-from app.config import get_settings
 from sqlalchemy import select, func, and_
 from app.student2.tables import TABLES as T, summary, public_ratings
 from app.student2 import service as shared
@@ -83,6 +83,9 @@ def private_rating(db, ident, user_id):
             select(a.c.QuestionID, a.c.Score).where(a.c.RatingID == ident).order_by(a.c.QuestionID)
         ).mappings()
     ]
+    db_now = db.execute(select(func.current_timestamp())).scalar_one()
+    record['CanEditComment'] = (record['Status'] in {'Approved', 'Rejected'}
+        and record['EditExpiry'] is not None and record['EditExpiry'] > db_now)
     # Explicit allowlist, even for the owner; never serialize the full Ratings row.
     keys = (
         "RatingID",
@@ -95,6 +98,7 @@ def private_rating(db, ident, user_id):
         "UpdatedAt",
         "EditExpiry",
         "answers",
+        "CanEditComment",
     )
     return {key: record[key] for key in keys}
 
@@ -113,10 +117,10 @@ def create_rating(db, actor, payload):
     if duplicate:
         raise HTTPException(409, "Այս առարկայի համար գնահատումն արդեն գոյություն ունի։")
     values = payload.model_dump(exclude={"answers"})
-    # EditExpiry follows the configured rating_edit_hours policy.
+    # Existing EditExpiry stores the fixed comment-edit deadline; scores are immutable.
     values.update(
         UserID=actor.user_id,
-        Status="Pending" if payload.Comment else "Approved",
+        Status=rating_status(payload.Comment),
         ApprovedByAdminID=None,
         Likes=0,
         Dislikes=0,
@@ -124,7 +128,8 @@ def create_rating(db, actor, payload):
         UpdatedAt=func.current_timestamp(),
     )
     db_now = db.execute(select(func.current_timestamp())).scalar_one()
-    values["EditExpiry"] = db_now + timedelta(hours=get_settings().rating_edit_hours)
+    values["CreatedAt"] = values["UpdatedAt"] = db_now
+    values["EditExpiry"] = db_now + timedelta(hours=24)
     ident = db.execute(r.insert().values(**values)).inserted_primary_key[0]
     db.execute(
         T["RatingAnswers"].insert(),
@@ -145,54 +150,49 @@ def editable(db, ident, user_id, expected_updated_at):
             r.c.EditExpiry > func.current_timestamp(),
         )
     ).first()
+    if record["Status"] not in {"Approved", "Rejected"}:
+        raise HTTPException(409, "Մեկնաբանությունը հնարավոր է խմբագրել հաստատումից կամ մերժումից հետո։")
     if not permitted or record["UpdatedAt"] != expected_updated_at:
         raise HTTPException(409, "Գնահատումը փոխվել է կամ փոփոխման հաստատված ժամկետը հասանելի չէ։")
     return record
 
 
-def edit_rating(db, actor, ident, payload):
-    old = editable(db, ident, actor.user_id, payload.expected_updated_at)
-    if any(old[k] != getattr(payload, k) for k in ("LecturerID", "CourseID", "TermID")):
-        raise HTTPException(409, "Գնահատման դասախոսը, առարկան և կիսամյակը փոխել չի կարելի։")
-    check_eligibility(db, actor.user_id, payload)
-    a = T["RatingAnswers"]
-    expected = set(db.execute(select(a.c.QuestionID).where(a.c.RatingID == ident)).scalars())
-    # Historical answers keep their original question IDs, even after deactivation/versioning.
-    validate_answers(db, payload.answers, expected)
-    r = T["Ratings"]
-    db.execute(
-        r.update()
-        .where(r.c.RatingID == ident, r.c.UserID == actor.user_id)
-        .values(
-            Comment=payload.Comment,
-            Status="Pending" if payload.Comment else "Approved",
-            ApprovedByAdminID=None,
-            UpdatedAt=func.current_timestamp(),
-        )
-    )
-    for answer in payload.answers:
-        db.execute(
-            a.update()
-            .where(a.c.RatingID == ident, a.c.QuestionID == answer.QuestionID)
-            .values(Score=answer.Score)
-        )
-    shared.audit(db, actor, "Update", f"Ratings:{ident}")
+def update_comment(db, actor, ident, comment, expected_updated_at):
+    old = editable(db, ident, actor.user_id, expected_updated_at)
+    from types import SimpleNamespace
+    check_eligibility(db, actor.user_id, SimpleNamespace(**old))
+    r = T['Ratings']
+    db_now = db.execute(select(func.current_timestamp())).scalar_one()
+    result = db.execute(r.update().where(
+        r.c.RatingID == ident, r.c.UserID == actor.user_id,
+        r.c.UpdatedAt == expected_updated_at, r.c.Status == old['Status'],
+        r.c.EditExpiry > func.current_timestamp()).values(
+            Comment=comment, Status=rating_status(comment), ApprovedByAdminID=None,
+            UpdatedAt=db_now))
+    if result.rowcount != 1:
+        raise HTTPException(409, 'Գնահատումը փոխվել է կամ մեկնաբանության խմբագրման ժամկետն ավարտվել է։')
+    # Do not change answers or extend EditExpiry when the student edits text.
+    shared.audit(db, actor, 'CommentUpdated', f'Ratings:{ident}')
     return private_rating(db, ident, actor.user_id)
 
 
-def delete_rating(db, actor, ident, expected_updated_at):
-    old = editable(db, ident, actor.user_id, expected_updated_at)
-    # Recheck the educational link for destructive actions too.
-    from types import SimpleNamespace
+def edit_rating(db, actor, ident, payload):
+    # Compatibility with old clients: accept only the identical stored answers/context.
+    old = owned(db, ident, actor.user_id)
+    if any(old[k] != getattr(payload, k) for k in ('LecturerID','CourseID','TermID')):
+        raise HTTPException(409, 'Գնահատման դասախոսը, առարկան և կիսամյակը փոխել չի կարելի։')
+    a = T['RatingAnswers']
+    stored = dict(db.execute(select(a.c.QuestionID,a.c.Score).where(a.c.RatingID == ident)).all())
+    submitted = {answer.QuestionID:answer.Score for answer in payload.answers}
+    if submitted != stored:
+        raise HTTPException(409, 'Ուղարկված միավորները խմբագրել չի կարելի։')
+    return update_comment(db, actor, ident, payload.Comment, payload.expected_updated_at)
 
-    check_eligibility(db, actor.user_id, SimpleNamespace(**old))
-    a, r = T["RatingAnswers"], T["Ratings"]
-    reactions = T["RatingReactions"]
-    db.execute(reactions.delete().where(reactions.c.RatingID == ident))
-    db.execute(a.delete().where(a.c.RatingID == ident))
-    db.execute(r.delete().where(r.c.RatingID == ident, r.c.UserID == actor.user_id))
-    shared.audit(db, actor, "Delete", f"Ratings:{ident}")
-    return {"deleted": ident}
+
+def delete_rating(db, actor, ident, expected_updated_at):
+    owned(db, ident, actor.user_id)
+    # A delete/re-create cycle must not bypass the immutable-score rule.
+    raise HTTPException(409, 'Ուղարկված գնահատումը ջնջել չի կարելի։')
 
 
 def statistics(db, ident):
@@ -207,7 +207,7 @@ def statistics(db, ident):
         db.execute(
             select(a.c.Score, func.count())
             .select_from(a.join(r, a.c.RatingID == r.c.RatingID))
-            .where(r.c.LecturerID == ident)
+            .where(r.c.LecturerID == ident, r.c.Status == "Approved")
             .group_by(a.c.Score)
         ).all()
     )

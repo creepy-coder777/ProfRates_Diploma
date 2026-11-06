@@ -103,7 +103,7 @@ def test_moderation_summary_anonymity_and_idempotency(api,database):
     assert api.put(url,json={'status':'Rejected','expected_status':'Pending'}).status_code==409
     assert api.put(url,json={'status':'Rejected','expected_status':'Approved'}).status_code==200
     assert api.get(f'/api/lecturers/{l}/comments').json()['total']==0
-    assert api.get(f'/api/lecturers/{l}').json()['TotalRatings']==1
+    assert api.get(f'/api/lecturers/{l}').json()['TotalRatings']==0
 
 def test_course_history_preserved(api,database):
     c=curriculum(api);new=lecturer(api,'Նոր');q=question(api)

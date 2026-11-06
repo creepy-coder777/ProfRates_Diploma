@@ -1,13 +1,14 @@
 (async () => {
  const {text}=ProfRatesSession,api=ProfRatesAPI,main=document.querySelector('main'),button=document.querySelector('.submit-btn'),review=document.getElementById('reviewText');
  const status=document.createElement('p');status.setAttribute('role','alert');status.className='rating-access-note';button.before(status);
- const answers=new Map(),rows=new Map();let questions=[],readOnly=false,loaded=false,saving=false;
+ const answers=new Map(),rows=new Map();let questions=[],readOnly=false,loaded=false,saving=false,editMode=false,canEditComment=false;
  const labels=[text('Բոլորովին համաձայն չեմ','Strongly disagree'),text('Համաձայն չեմ','Disagree'),text('Մասամբ համաձայն եմ','Partly agree'),text('Համաձայն եմ','Agree'),text('Լիովին համաձայն եմ','Strongly agree')];
  const note=message=>{status.textContent=message;};
  review.oninput=()=>{document.getElementById('charCount').textContent=review.value.length;};
  window.submitRating=async()=>{
   if(saving)return;
   if(!loaded){const message=text('Հարցաշարը դեռ չի բեռնվել։ Փորձեք թարմացնել էջը։','The questionnaire has not loaded. Try refreshing the page.');note(message);ProfRatesSession.dialog(message,location.href,false);return;}
+  if(editMode&&!canEditComment){note(text('Մեկնաբանությունն այժմ խմբագրել հնարավոր չէ։','The comment cannot be edited now.'));return;}
   if(readOnly){const message=text('Ձեր հաշվին այս դասախոսի համար հասանելի առարկա չկա։','No eligible course is linked to your account for this lecturer.');note(message);ProfRatesSession.dialog(message,location.href,false);return;}
   const missing=questions.filter(q=>!answers.has(q.QuestionID));for(const [id,row]of rows)row.classList.toggle('pr-unanswered',!answers.has(id));
   if(missing.length||!questions.length){
@@ -21,7 +22,7 @@
   saving=true;button.disabled=true;
   try {
    const result=await ProfRatesRatings.submit(payload);
-   const message=result.Status==='Pending'?text('Գնահատումը հաջողությամբ պահպանվել է։ Մեկնաբանությունը սպասում է հաստատման։','Your rating was saved. The comment is awaiting moderation.'):text('Գնահատումը հաջողությամբ պահպանվել է։','Your rating was saved successfully.');
+   const message=result.Status==='Pending'?text('Գնահատումը հաջողությամբ պահպանվել է։ Ամբողջ գնահատումը սպասում է ադմինի ստուգմանը և դեռ չի մասնակցում վարկանիշին։','Your rating was saved. The entire rating awaits administrator review and is not yet included in the ranking.'):text('Գնահատումը հաջողությամբ պահպանվել է։','Your rating was saved successfully.');
    note(message);
    const modal=ProfRatesSession.dialog(message,location.href,false);
    modal.querySelector('button').textContent=text('Իմ գնահատականները','My ratings');
@@ -38,7 +39,7 @@
   else{readOnly=true;note(text('Հարցաշարը կարող եք դիտել։ Ուղարկելու համար մուտք գործեք։','You can preview this questionnaire. Sign in to submit.'));await ProfRatesSession.requireStudent();}
   readOnly=readOnly||Boolean(context.readOnly);
   if(context.questions)questions=context.questions;
-  if(context.rating){review.value=context.rating.Comment||'';review.oninput();for(const answer of context.rating.answers)answers.set(answer.QuestionID,answer.Score);}
+  if(context.rating){editMode=true;canEditComment=context.rating.CanEditComment;review.disabled=!canEditComment;review.value=context.rating.Comment||'';review.oninput();for(const answer of context.rating.answers)answers.set(answer.QuestionID,answer.Score);}
   const anchor=document.querySelector('.review-section'),groups=new Map();
   for(const question of questions){if(!groups.has(question.Category))groups.set(question.Category,[]);groups.get(question.Category).push(question);}
   for(const [category,items]of groups){
@@ -54,10 +55,12 @@
      segment.onkeydown=event=>{if(['Enter',' '].includes(event.key)){event.preventDefault();segment.click();}};scale.append(segment);
     }
     if(answers.has(question.QuestionID))scale.children[answers.get(question.QuestionID)-1]?.click();
+    if(editMode){scale.setAttribute('aria-disabled','true');for(const segment of scale.children){segment.tabIndex=-1;segment.setAttribute('aria-disabled','true');segment.onclick=()=>{};segment.onkeydown=()=>{};}}
     wrap.append(scale,selected);row.append(label,wrap);section.append(row);
    }anchor.before(section);
   }
-  loaded=true;button.disabled=false;
+  loaded=true;button.disabled=editMode&&!canEditComment;
+  if(editMode)button.textContent=text('Պահպանել մեկնաբանությունը','Save comment');
   if(context.notice)note(context.notice);
   if(!questions.length)note(text('Ակտիվ հարցեր չկան։','There are no active questions.'));
   const lecturer=new URLSearchParams(location.search).get('lecturer_id');

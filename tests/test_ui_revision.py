@@ -55,7 +55,7 @@ def test_authentication_uses_real_router():
 
 def test_page_wiring_and_no_static_personal_counts():
     root=Path(__file__).resolve().parents[1]/'frontend'
-    for filename in ('home_eng.html','home_arm_guest.html','rate_eng.html','ratings_eng.html','login_eng.html','sign_up_arm.html'):
+    for filename in ('home_eng.html','home_arm_guest.html','rate_eng.html','ratings_eng.html','login_eng.html'):
         soup=BeautifulSoup((root/filename).read_text('utf-8'),'html.parser')
         scripts=[script['src'].split('?')[0] for script in soup.select('script[src]')]
         assert scripts.index('js_codes/api.js')<scripts.index('js_codes/ui_session.js')
@@ -65,10 +65,6 @@ def test_page_wiring_and_no_static_personal_counts():
         if filename.startswith(('login_','sign_up_')):
             assert not soup.select('script:not([src])')
             assert 'js_codes/ui_auth_forms.js' in scripts
-    for filename in ('sign_up_arm.html','sign_up_eng.html'):
-        soup=BeautifulSoup((root/filename).read_text('utf-8'),'html.parser')
-        assert soup.select_one('.mail') and soup.select_one('.pass')
-        assert not soup.select_one('#menu') and not soup.select_one('#auth-group')
     auth_script=(root/'js_codes/ui_auth_forms.js').read_text('utf-8')
     assert "label.after(note)" in auth_script
     assert "input.setAttribute('aria-describedby', note.id)" in auth_script
@@ -101,7 +97,7 @@ def test_rating_persists_and_mine_is_scoped_to_verified_student(database):
         assert mine((1,20),actor,db)['total']==0
         with pytest.raises(HTTPException):service.validate_answers(db,[])
         saved=service.create_rating(db,actor,payload)
-        assert saved['Status']=='Pending'
+        assert saved['Status']=='Approved'
         result=mine((1,20),actor,db)
         assert result['total']==1
         assert result['items'][0]['RatingID']==saved['RatingID']

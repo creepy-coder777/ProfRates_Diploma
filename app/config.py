@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=ROOT / ".env", env_file_encoding="utf-8", extra="ignore")
+    # Legacy configuration compatibility; comment editing now has a fixed 24-hour policy.
     rating_edit_hours: int = Field(default=24, ge=1, le=720)
     auth_provider: str = ""
     audit_provider: str = ""

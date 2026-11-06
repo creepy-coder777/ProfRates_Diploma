@@ -23,15 +23,13 @@
     const date=node('p','rate-date',new Date(rating.CreatedAt).toLocaleDateString(en?'en-GB':'hy-AM'));
     const label=node('p','rating-status',statuses[rating.Status]||rating.Status);
     info.append(name,score,review,label,date);
-    const actions=node('div','card-actions'),edit=node('a','icon-btn edit-btn','✎'),remove=node('button','icon-btn delete-btn','×');
-    edit.setAttribute('aria-label',text('Խմբագրել','Edit'));edit.href=(en?'rate_eng.html':'rate_arm.html')+'?rating_id='+rating.RatingID;
-    remove.type='button';remove.setAttribute('aria-label',text('Ջնջել','Delete'));
-    remove.onclick=async()=>{
-     if(!confirm(text('Ջնջե՞լ գնահատումը։','Delete this rating?')))return;remove.disabled=true;
-     try {await ProfRatesAPI.request('/api/ratings/'+rating.RatingID+'?expected_updated_at='+encodeURIComponent(rating.UpdatedAt),{method:'DELETE'});card.remove();total--;shown--;count();status.textContent=total?'':text('Դեռ գնահատումներ չկան։','No ratings yet.');more.hidden=shown>=total;}
-     catch(e){status.textContent=e.message;}finally{remove.disabled=false;}
-    };
-    actions.append(edit,remove);card.append(avatar,info,actions);grid.append(card);shown++;
+    const actions=node('div','card-actions');
+    if(rating.CanEditComment){
+      const edit=node('a','icon-btn edit-btn','✎');
+      edit.setAttribute('aria-label',text('Խմբագրել մեկնաբանությունը','Edit comment'));
+      edit.href=(en?'rate_eng.html':'rate_arm.html')+'?rating_id='+rating.RatingID;actions.append(edit);
+    }
+    card.append(avatar,info,actions);grid.append(card);shown++;
     ProfRatesAPI.request('/api/lecturers/'+rating.LecturerID).then(lecturer=>{
      name.textContent=[lecturer.FirstName,lecturer.LastName].filter(Boolean).join(' ');image.alt=name.textContent;
      if(lecturer.PhotoUrl)image.src=lecturer.PhotoUrl;

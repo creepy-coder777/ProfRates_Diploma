@@ -6,7 +6,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Մուտք — ProfRates</title>
 <link href="main-styles.css?v=20261023-r3" rel="stylesheet"/>
-<link href="ui-fixes.css?v=20261023-r3" rel="stylesheet"/></head>
+<link href="ui-fixes.css?v=20261107-student" rel="stylesheet"/></head>
 <body>
 <div class="auth-wrapper">
 <aside class="auth-aside">
@@ -26,7 +26,12 @@
 <p class="p3">Մուտք գործեք ձեր հաշիվ</p>
 <div class="form">
 <input class="mail" placeholder="Էլփոստ" type="email"/>
-<input class="pass" placeholder="Գաղտնաբառ" type="password"/>
+<div class="auth-password">
+<input id="student-password" class="pass" placeholder="Գաղտնաբառ" type="password"/>
+<button class="password-toggle" type="button" aria-controls="student-password" aria-pressed="false" aria-label="Ցույց տալ գաղտնաբառը">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="m3 3 18 18" style="display:none"/></svg>
+</button>
+</div>
 <div class="check-container">
 <input class="check" type="checkbox"/>
 <p class="p2">Հիշել ինձ?</p>
@@ -34,11 +39,10 @@
 <p class="p1">
 <a class="a1" href="account_recovery.html">Մոռացե՞լ եք գաղտնաբառը</a>
 </p>
-<p class="p1">Չունեք հաշիվ? <a class="a1" href="sign_up_arm.html">Գրանցվել</a></p>
 <button class="submit">Մուտք</button>
 </div>
 </div>
 </main>
 </div>
-<script src="js_codes/api.js?v=20261023-r2"></script><script src="js_codes/ui_session.js?v=20261023-r2"></script><script src="js_codes/ui_auth_forms.js?v=20261024-roster1"></script></body>
+<script src="js_codes/api.js?v=20261023-r2"></script><script src="js_codes/ui_session.js?v=20261106-admin"></script><script src="js_codes/ui_auth_forms.js?v=20261107-student"></script></body>
 </html>

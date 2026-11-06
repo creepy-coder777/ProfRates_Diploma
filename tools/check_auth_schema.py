@@ -3,7 +3,6 @@ from sqlalchemy import inspect
 from app.database import get_engine
 
 REQUIRED = {
-    'StudentRoster': {'Email','FirstName','LastName','GroupID','IsActive','UserID'},
     'Admins': {'IsEmailVerified'},
     'PasswordResets': {'Code','UserID','AdminID','Purpose','Expiry','IsUsed'},
     'AuthSessions': {'SessionHash','CSRFHash','UserID','AdminID','CreatedAt','ExpiresAt'},
@@ -40,7 +39,7 @@ def main():
             print('ACCOUNT SCHEMA: CHECK REQUIRED')
             for problem in problems:
                 print('CHECK: ' + problem)
-            print('No database changes made. Compare the findings before applying migration 03 or 04.')
+            print('No database changes made. Compare the findings before applying migration 03 (04 is legacy and not required).')
             return 1
         print('Account migration structure is present. Runtime behavior still requires tests.')
         return 0

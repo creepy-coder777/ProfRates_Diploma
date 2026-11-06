@@ -6,7 +6,6 @@ from app.auth.schemas import (
     LoginInput,
     StudentLoginInput,
     AdminLoginInput,
-    RegisterInput,
     RecoveryRequestInput,
     ResetInput,
     TokenInput,
@@ -40,30 +39,6 @@ def limited():
     return JSONResponse(
         {"detail": "Too many attempts. Try again later."}, 429, headers={"Retry-After": "900"}
     )
-
-
-@router.post("/register", status_code=201)
-def register(payload: RegisterInput, request: Request, db=Depends(get_db, scope="function")):
-    if not svc.throttle(db, request, "register", payload.Email, 5):
-        return limited()
-    if svc.register(db, payload) is None:
-        return JSONResponse(
-            {"detail": "This email is already registered. Try signing in or requesting recovery."},
-            409,
-        )
-    if get_settings().mail_backend == "local":
-        message = (
-            "Գրանցումն ընդունվել է։ Նամակ չի ուղարկվել․ թեստային հաղորդագրությունը ստեղծվել է մասնավոր տեղային փոստարկղում."
-            if payload.Language == "hy"
-            else "Registration received. No email was sent; a test message was created in the private local mailbox."
-        )
-    else:
-        message = (
-            "Գրանցումն ընդունվել է։ Ստուգեք էլ․ հասցեն և հաստատեք այն՝ մուտք գործելուց առաջ."
-            if payload.Language == "hy"
-            else "Registration received. Check your email and verify it before signing in."
-        )
-    return {"message": message}
 
 
 def sign_in(payload, request, response, db, role):
@@ -208,29 +183,6 @@ def verify(payload: TokenInput, request: Request, db=Depends(get_db, scope="func
     if not svc.consume(db, payload.Token, "verify", expected_role="student"):
         return JSONResponse({"detail": "Invalid, expired, or previously used link."}, 400)
     return {"message": "Email verified. You may now sign in."}
-
-
-@router.get("/registration-groups")
-def groups(chair_id: int, db=Depends(get_db, scope="function")):
-    from app.student2.tables import TABLES as T
-
-    g, sp, ch = T["StudentGroups"], T["Specializations"], T["Chairs"]
-    stmt = (
-        select(g.c.GroupID, g.c.GroupCode)
-        .select_from(
-            g.join(sp, g.c.SpecializationID == sp.c.SpecializationID).join(
-                ch, sp.c.ChairID == ch.c.ChairID
-            )
-        )
-        .where(
-            ch.c.ChairID == chair_id,
-            g.c.IsActive == True,
-            sp.c.IsActive == True,
-            ch.c.IsActive == True,
-        )
-        .order_by(g.c.GroupCode)
-    )
-    return {"items": [dict(row) for row in db.execute(stmt).mappings()]}
 
 
 @router.post('/{role}/password-code')

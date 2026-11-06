@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator, field_validator
 
 
 class Answer(BaseModel):
@@ -28,6 +28,17 @@ class RatingEdit(RatingInput):
     expected_updated_at: datetime
 
 
+class CommentEdit(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    Comment: str | None = Field(default=None, max_length=350)
+    expected_updated_at: datetime
+
+    @field_validator('Comment')
+    @classmethod
+    def clean_comment(cls, value):
+        return value.strip() or None if value else None
+
+
 class PrivateRating(BaseModel):
     RatingID: int
     LecturerID: int
@@ -39,6 +50,7 @@ class PrivateRating(BaseModel):
     UpdatedAt: datetime
     EditExpiry: datetime | None
     answers: list[Answer]
+    CanEditComment: bool
 
 
 class PublicRating(BaseModel):

@@ -1,8 +1,9 @@
 window.ProfRatesRatings = {
   current: null,
   async submit(payload) {
-    return ProfRatesAPI.save(this.current ? '/api/ratings/' + this.current.RatingID : '/api/ratings',
-      this.current ? 'PUT' : 'POST', this.current ? {...payload, expected_updated_at: this.current.UpdatedAt} : payload);
+    if(this.current)return ProfRatesAPI.save('/api/ratings/'+this.current.RatingID+'/comment',
+      'PATCH',{Comment:payload.Comment,expected_updated_at:this.current.UpdatedAt});
+    return ProfRatesAPI.save('/api/ratings','POST',payload);
   },
   async context() {
     const params = new URLSearchParams(location.search);

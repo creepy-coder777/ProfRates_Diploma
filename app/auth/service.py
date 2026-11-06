@@ -8,7 +8,6 @@ from app.database import get_engine
 from app.security import Principal
 from app.student2.tables import TABLES as T
 from app.auth.tables import sessions, limits
-from app.auth.roster import roster, candidate
 from app.auth.crypto import digest, new_token, hash_password, verify_password, DUMMY_HASH
 from app.auth.mail import get_mailer, MailDeliveryError
 
@@ -124,37 +123,6 @@ def issue_link(db, row, role, purpose, language="hy"):
         "LocalTest" if get_settings().mail_backend == "local" else "Sent",
     )
     return True
-
-
-def register(db, payload):
-    u, g, sp, ch = T["Users"], T["StudentGroups"], T["Specializations"], T["Chairs"]
-    duplicate = db.execute(select(u.c.UserID).where(func.lower(u.c.Email) == payload.Email)).first()
-    if duplicate:
-        audit(db, None, "Register", status="Duplicate")
-        return None
-    approved = candidate(db, payload.Email)
-    ident = db.execute(
-        u.insert().values(
-            FirstName=approved["FirstName"],
-            LastName=approved["LastName"],
-            Email=payload.Email,
-            PasswordHash=hash_password(payload.Password),
-            GroupID=approved["GroupID"],
-            IsEmailVerified=False,
-            Status="Active",
-        )
-    ).inserted_primary_key[0]
-    claimed = db.execute(roster.update().where(roster.c.Email == approved['Email'],
-        roster.c.UserID.is_(None), roster.c.IsActive == True).values(UserID=ident))
-    if claimed.rowcount != 1:
-        raise HTTPException(409, 'Registration is unavailable. Contact the university administrator.')
-    from app.auth.academic import sync_student
-    academic_status = sync_student(db, ident)
-    audit(db, None, 'AcademicSync', f'Users:{ident}:{academic_status}')
-    row = dict(payload.model_dump(), UserID=ident)
-    audit(db, None, "Register", f"Users:{ident}")
-    issue_link(db, row, "student", "verify", payload.Language)
-    return ident
 
 
 def session_lifetime(payload, role):

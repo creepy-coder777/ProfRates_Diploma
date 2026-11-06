@@ -17,7 +17,7 @@ window.ProfRatesSession = (() => {
     const title = document.createElement('h2'); title.textContent = text('ProfRates', 'ProfRates');
     const note = document.createElement('p'); note.textContent = message;
     const actions = document.createElement('div'); actions.className = 'pr-dialog-actions';
-    if (account) for (const [type, label] of [['login', text('Մուտք', 'Sign in')], ['sign_up', text('Գրանցվել', 'Register')]]) {
+    if (account) for (const [type, label] of [['login', text('Մուտք', 'Sign in')]]) {
       const link = document.createElement('a'); link.className = 'pr-button'; link.textContent = label;
       link.href = accountPage(type) + '?next=' + encodeURIComponent(safeNext(next)); actions.append(link);
     }

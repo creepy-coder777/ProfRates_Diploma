@@ -63,6 +63,10 @@ class RosterInput(EmailInput):
         return value.strip() if isinstance(value, str) else value
 
 
+class StudentCreate(RosterInput):
+    Password: str = Field(min_length=12, max_length=128)
+
+
 class RosterState(Input):
     IsActive: bool = Field(strict=True)
 

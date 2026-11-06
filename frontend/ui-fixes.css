@@ -24,3 +24,10 @@
 .rate-card .rating-status { font-size:13px; color:var(--ink-soft); }
 .submit-btn:disabled { opacity:.6; cursor:wait; }
 @media(max-width:600px) { .professor-photo-link { flex-basis:86px; } #professorsGrid .professor-image { width:86px; height:86px; } }
+
+
+.auth-password{position:relative;margin-bottom:10px}
+.auth-password .pass{margin-bottom:0;padding-right:54px}
+.auth-password .password-toggle{position:absolute;right:3px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:44px;height:42px;border:0;border-radius:8px;background:transparent;color:#6842b5;cursor:pointer}
+.auth-password .password-toggle:focus-visible{outline:2px solid #8b5cf6;outline-offset:-3px}
+.scale[aria-disabled="true"] .segment{cursor:default}

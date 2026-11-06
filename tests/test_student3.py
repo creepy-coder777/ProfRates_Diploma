@@ -19,7 +19,7 @@ def student(api, database):
         db.execute(T['StudentCourses'].insert().values(UserID=1, CourseID=c['courses'], EnrolledAt=datetime.now()))
     app.dependency_overrides[get_current_user] = lambda: Principal(1, False)
     payload = dict(LecturerID=c['lecturer'], CourseID=c['courses'], TermID=term,
-                   Comment='Review', answers=[dict(QuestionID=q, Score=5)])
+                   Comment='idiot', answers=[dict(QuestionID=q, Score=5)])
     return api, database, payload
 
 
@@ -72,11 +72,14 @@ def test_owner_expiry_version_and_history(student):
     assert api.put(f'/api/ratings/{ident}', json=body).status_code == 409
     enable_edit(database, ident)
     with database.begin() as db:
+        db.execute(T['Ratings'].update().where(T['Ratings'].c.RatingID==ident).values(Status='Approved'))
         db.execute(T['Questions'].update().values(IsActive=False))
-    body['answers'][0]['Score'] = 4
+    changed={**body,'answers':[dict(QuestionID=body['answers'][0]['QuestionID'],Score=4)]}
+    assert api.put(f'/api/ratings/{ident}',json=changed).status_code==409
+    body['Comment']='Clear explanation'
     result = api.put(f'/api/ratings/{ident}', json=body)
     assert result.status_code == 200, result.text
-    assert result.json()['answers'][0]['Score'] == 4
+    assert result.json()['answers'][0]['Score'] == 5
     assert api.get(f'/api/me/ratings/{ident}/questions').json()['items'][0]['IsActive'] is False
     stale = {**body, 'expected_updated_at': '2000-01-01T00:00:00'}
     assert api.put(f'/api/ratings/{ident}', json=stale).status_code == 409
@@ -109,13 +112,13 @@ def test_moderation_anonymity_statistics_and_delete(student):
     app.dependency_overrides[get_current_user] = lambda: Principal(1, False)
     enable_edit(database, ident)
     latest = api.get(f'/api/me/ratings/{ident}').json()
-    result = api.put(f'/api/ratings/{ident}', json={**payload, 'Comment': 'Edited', 'expected_updated_at': latest['UpdatedAt']})
+    result = api.put(f'/api/ratings/{ident}', json={**payload, 'Comment': 'idiot edited', 'expected_updated_at': latest['UpdatedAt']})
     assert result.status_code == 200
     assert result.json()['Status'] == 'Pending'
     assert api.get(f'/api/lecturers/{lecturer}/ratings').json()['total'] == 0
-    assert api.delete(f'/api/ratings/{ident}', params={'expected_updated_at': result.json()['UpdatedAt']}).status_code == 200
+    assert api.delete(f'/api/ratings/{ident}', params={'expected_updated_at': result.json()['UpdatedAt']}).status_code == 409
     with database.connect() as db:
-        assert db.execute(select(func.count()).select_from(T['RatingAnswers'])).scalar_one() == 0
+        assert db.execute(select(func.count()).select_from(T['RatingAnswers'])).scalar_one() == 1
 
 
 def test_no_comment_can_be_moderated(student):

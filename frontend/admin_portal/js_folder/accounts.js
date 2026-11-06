@@ -47,7 +47,7 @@
     document.querySelectorAll('.user-details p').forEach(x=>x.textContent=d.admin.Email);
     if(file.startsWith('dashboard')){
       const values=[d.users,d.lecturers,d.ratings,d.average_score?.toFixed(2)??'—'];
-      const labels=document.querySelectorAll('.stat-label');if(labels[3])labels[3].textContent=text('Բոլոր գնահատումների միջին','Average across all ratings');
+      const labels=document.querySelectorAll('.stat-label');if(labels[3])labels[3].textContent=text('Հաստատված գնահատումների միջին','Average of approved ratings');
       document.querySelectorAll('.stat-value').forEach((x,i)=>x.textContent=values[i]);
       document.querySelectorAll('.stat-change').forEach(x=>x.remove());
       document.querySelector('.search-bar')?.remove();
@@ -84,6 +84,32 @@
   controls.append(button('→',async()=>{if(page*20<total){page++;await load();}}));
   const table=tbody?.closest('table'),tableWrap=table?.closest('.table-wrap');
   (tableWrap||table)?.after(controls);
+  const filters={};
+  async function allOptions(path){
+    const items=[];
+    for(let n=1;;n++){
+      const result=await api.request(path+(path.includes('?')?'&':'?')+'page_size=100&page='+n);
+      items.push(...result.items);if(n*result.page_size>=result.total)return items;
+    }
+  }
+  function userQuery(){const params=new URLSearchParams({page:String(page),page_size:'20',q:search?.value||'',lang:en?'en':'hy'});
+    for(const [key,input]of Object.entries(filters))if(input.value)params.set(key,input.value);return params;}
+  if(file.startsWith('users')){
+    const bar=document.createElement('div');bar.className='student-filter-bar';
+    const specs=[['institute_id',text('Բոլոր ինստիտուտները','All institutes'),'institutes','InstituteID','Name'],['faculty_id',text('Բոլոր ֆակուլտետները','All faculties'),'faculties','FacultyID','Name'],['chair_id',text('Բոլոր ամբիոնները','All chairs'),'chairs','ChairID','Name'],['specialization_id',text('Բոլոր մասնագիտությունները','All specializations'),'specializations','SpecializationID','Name'],['group_id',text('Բոլոր խմբերը','All groups'),'groups','GroupID','GroupCode']];
+    for(const [key,title]of [...specs,['year',text('Բոլոր կուրսերը','All study years')],['status',text('Բոլոր կարգավիճակները','All statuses')]]){
+      const select=document.createElement('select');select.setAttribute('aria-label',title);select.append(new Option(title,''));filters[key]=select;bar.append(select);
+      select.onchange=async()=>{page=1;try{await load();}catch(e){report(e);}};
+    }
+    for(let n=1;n<=4;n++)filters.year.append(new Option(text(n+'-րդ կուրս','Year '+n),n));
+    for(const [value,title]of [['Active',text('Ակտիվ','Active')],['Suspended',text('Կասեցված','Suspended')],['Banned',text('Արգելափակված','Banned')]])filters.status.append(new Option(title,value));
+    document.querySelector('.section-header').after(bar);
+    const headers=table.querySelector('thead tr');headers.replaceChildren();
+    for(const title of [text('Անուն','Name'),text('Էլփոստ','Email'),text('Խումբ','Group'),text('Մասնագիտություն','Specialization'),text('Կուրս','Year'),text('Կարգավիճակ','Status'),text('Վերջին մուտք','Last login'),text('Գործողություններ','Actions')]){const th=document.createElement('th');th.textContent=title;headers.append(th);}
+    try{await Promise.all(specs.map(async([key,title,resource,id,name])=>{
+      for(const item of await allOptions('/api/admin/academic/'+resource))filters[key].append(new Option(item[name],item[id]));
+    }));}catch(e){report(e);}
+  }
   async function editUser(item){
     const {modal,content}=accountDialog(text('Ուսանողի հաշիվ','Student account'));const form=document.createElement('form');content.append(form);
     const inputs={};
@@ -103,12 +129,12 @@
   }
   async function load(){
     status.textContent='';
-    const url=endpoint+'?page='+page+'&page_size=20'+(!file.startsWith('ResetPassword')?'&q='+encodeURIComponent(search?.value||''):'');
+    const url=file.startsWith('users')?endpoint+'?'+userQuery():endpoint+'?page='+page+'&page_size=20'+(!file.startsWith('ResetPassword')?'&q='+encodeURIComponent(search?.value||''):'');
     const result=await api.request(url);total=result.total;tbody.replaceChildren();pageNote.textContent=' '+page+' / '+Math.max(1,Math.ceil(total/20))+' ';
     for(const item of result.items){
       const row=document.createElement('tr');
       if(file.startsWith('users')){
-        cell(row,item.DisplayName||item.FirstName+' '+item.LastName);cell(row,item.Email);cell(row,text('Ուսանող','Student'));
+        cell(row,item.DisplayName||item.FirstName+' '+item.LastName);cell(row,item.Email);cell(row,item.GroupCode);cell(row,item.SpecializationName);cell(row,item.StudyYear??text('Չսահմանված','Not configured'));
         const statusLabel={Active:text('Ակտիվ','Active'),Suspended:text('Կասեցված','Suspended'),Banned:text('Արգելափակված','Banned')}[item.Status]||item.Status;
         cell(row,statusLabel+(item.IsEmailVerified?'':' · '+text('Չհաստատված','Unverified')));cell(row,item.LastLogin);
         const actions=cell(row,'');actions.className='actions-cell';actions.append(button(text('Փոփոխել','Edit'),()=>editUser(item)));
@@ -127,56 +153,56 @@
   if(file.startsWith('ResetPassword')){
     document.querySelector('.search-bar')?.remove();
     const info=document.querySelector('.info-content');if(info)info.textContent=text('Հղումը գործում է 30 րոպե՝ լռելյայն կարգավորմամբ։ Տեղային ռեժիմում իրական նամակ չի ուղարկվում։','Default link lifetime: 30 minutes. Local mode creates a private test message; no real email is sent.');
-    const send=document.querySelector('.send-btn');if(send)send.onclick=async()=>{try{const result=await api.save('/api/admin/password-resets','POST',{Email:document.querySelector('.email-input input').value.trim(),Role:'student'});status.textContent=result.message;await load();}catch(e){report(e);}};
+    const send=document.querySelector('.send-btn');if(send)send.onclick=async()=>{const email=document.querySelector('.email-input input');if(!email.reportValidity())return;send.disabled=true;try{const result=await api.save('/api/admin/password-resets','POST',{Email:email.value.trim(),Role:'student'});await load();status.textContent=result.message;}catch(e){report(e);}finally{send.disabled=false;}};
   }
-  async function addRosterStudent(){
-    const {modal,content}=accountDialog(text('Ուսանողի գրանցման թույլտվություն','Allow a student to register'));
+  async function addStudent(){
+    const {modal,content}=accountDialog(text('Ավելացնել ուսանողի հաշիվ','Add student account'));
     const form=document.createElement('form'),inputs={};
-    for(const [key,label,type] of [['FirstName',text('Անուն','First name'),'text'],['LastName',text('Ազգանուն','Last name'),'text'],['Email',text('Համալսարանական էլփոստ','University email'),'email']]){
-      const wrapper=document.createElement('label');wrapper.textContent=label;const input=document.createElement('input');input.type=type;input.required=true;input.maxLength=key==='Email'?255:100;wrapper.append(input);form.append(wrapper);inputs[key]=input;
+    for(const [key,label,type] of [['FirstName',text('Անուն','First name'),'text'],['LastName',text('Ազգանուն','Last name'),'text'],['Email',text('Համալսարանական էլփոստ','University email'),'email'],['Password',text('Նախնական գաղտնաբառ (առնվազն 12 նիշ)','Initial password (at least 12 characters)'),'password'],['ConfirmPassword',text('Կրկնել գաղտնաբառը','Confirm password'),'password']]){
+      const wrapper=document.createElement('label');wrapper.textContent=label;
+      const input=document.createElement('input');input.name=key;input.type=type;input.required=true;
+      input.maxLength=key==='Email'?255:type==='password'?128:100;
+      if(type==='password'){input.minLength=12;input.autocomplete='new-password';}
+      if(key==='Email'){input.autocomplete='off';input.pattern='[^@\\s]+@[Pp][Oo][Ll][Yy][Tt][Ee][Cc][Hh][Nn][Ii][Cc]\\.[Aa][Mm]';}
+      wrapper.append(input);form.append(wrapper);inputs[key]=input;
     }
-    const groupLabel=document.createElement('label');groupLabel.textContent=text('Հաստատված խումբ','Approved group');
-    const groups=document.createElement('select');groups.required=true;groups.append(new Option(text('Ընտրեք խումբը','Choose group'),''));groupLabel.append(groups);form.append(groupLabel);
+    const label=document.createElement('label');label.textContent=text('Խումբ','Group');
+    const groups=document.createElement('select');groups.required=true;groups.append(new Option(text('Ընտրեք խումբը','Choose group'),''));label.append(groups);form.append(label);
+    const explanation=document.createElement('p');explanation.textContent=text('Հաշիվը ստեղծվելու է անմիջապես։ Գաղտնաբառը փոխանցեք ուսանողին անձնական անվտանգ եղանակով։','The account will be ready to sign in. Deliver its initial password privately.');form.append(explanation);
     const note=document.createElement('p');note.setAttribute('role','alert');form.append(note);
-    const save=document.createElement('button');save.type='submit';save.textContent=text('Թույլատրել գրանցումը','Allow registration');save.disabled=true;
-    form.append(save,button(text('Փակել','Close'),()=>modal.close()));content.append(form);document.body.append(modal);modal.onclose=()=>modal.remove();modal.showModal();
+    const save=document.createElement('button');save.type='submit';save.textContent=text('Ստեղծել հաշիվ','Create account');save.disabled=true;
+    form.append(save,button(text('Փակել','Close'),()=>modal.close()));content.append(form);document.body.append(modal);modal.showModal();
     try{
-      for(let page=1;;page++){
-        const result=await api.request('/api/admin/academic/groups?active=true&page_size=100&page='+page);
-        for(const g of result.items)groups.append(new Option(g.GroupCode+' · '+g.EnrollmentYear,g.GroupID));
-        if(page*result.page_size>=result.total)break;
-      }save.disabled=false;
+      const [allGroups,specializations]=await Promise.all([allOptions('/api/admin/academic/groups?active=true'),allOptions('/api/admin/academic/specializations?active=true')]);
+      const names=new Map(specializations.map(x=>[x.SpecializationID,x.Name]));
+      for(const g of allGroups)groups.append(new Option([g.GroupCode,names.get(g.SpecializationID),g.EnrollmentYear].filter(Boolean).join(' · '),g.GroupID));
+      save.disabled=!allGroups.length;
+      if(!allGroups.length)note.textContent=text('Ակտիվ խմբեր չկան։ Նախ լրացրեք ուսումնական տվյալները։','No active groups. Configure academic data first.');
     }catch(e){note.textContent=e.message;}
-    form.onsubmit=async event=>{event.preventDefault();save.disabled=true;try{
-      await api.save('/api/admin/student-roster','POST',{FirstName:inputs.FirstName.value.trim(),LastName:inputs.LastName.value.trim(),Email:inputs.Email.value.trim(),GroupID:Number(groups.value)});
-      modal.close();status.textContent=text('Ուսանողն ավելացված է թույլատրված ցանկում։ Այժմ կարող է գրանցվել իր էլփոստով։','Student added to the approved roster and can now register with that email.');
-    }catch(e){note.textContent=e.message;}finally{save.disabled=false;}};
+    form.onsubmit=async event=>{event.preventDefault();
+      if(!form.reportValidity())return;
+      if(inputs.Password.value!==inputs.ConfirmPassword.value){note.textContent=text('Գաղտնաբառերը չեն համընկնում։','Passwords do not match.');return;}
+      save.disabled=true;note.textContent='';
+      try{
+        const result=await api.save('/api/admin/users','POST',{FirstName:inputs.FirstName.value.trim(),LastName:inputs.LastName.value.trim(),Email:inputs.Email.value.trim(),Password:inputs.Password.value,GroupID:Number(groups.value)});
+        inputs.Password.value=inputs.ConfirmPassword.value='';modal.close();page=1;await load();
+        status.textContent=text('Ուսանողի հաշիվը ստեղծված է։','Student account created.')+' '+academicMessage(result.academic_status);
+      }catch(e){note.textContent=e.message;}finally{save.disabled=false;}
+    };
   }
-  async function viewRoster(){
-    const {modal,content}=accountDialog(text('Գրանցման թույլատրված ցանկ','Approved registration roster'),true);
-    const explanation=document.createElement('p');explanation.textContent=text('Գրանցված ուսանողի ապաակտիվացումը նաև կասեցնում է նրա մուտքը։ Հաշիվը կրկին ակտիվացվում է Օգտատերերի ցանկից։','Deactivating a registered student also suspends sign-in. Reactivate the account from Users.');
-    const search=document.createElement('input');search.placeholder=text('Անուն կամ էլփոստ','Name or email');search.setAttribute('aria-label',search.placeholder);
-    const scope=document.createElement('select');scope.setAttribute('aria-label',text('Ցանկի տեսակը','Roster filter'));scope.append(new Option(text('Դեռ չգրանցվածներ','Not yet registered'),'pending'),new Option(text('Բոլորը','All students'),'all'));
-    const table=document.createElement('table'),head=document.createElement('thead'),tr=document.createElement('tr'),body=document.createElement('tbody');
-    for(const label of [text('Անուն','Name'),text('Էլփոստ','Email'),text('Խումբ','Group'),text('Հաշիվ','Account'),text('Գործողություն','Action')]){const th=document.createElement('th');th.textContent=label;tr.append(th);}head.append(tr);table.append(head,body);
-    const note=document.createElement('p');note.setAttribute('role','alert');let rosterPage=1,total=0;
-    async function refresh(){
-      const result=await api.request('/api/admin/student-roster?page_size=20&page='+rosterPage+'&q='+encodeURIComponent(search.value||'')+(scope.value==='pending'?'&registered=false':''));total=result.total;body.replaceChildren();note.textContent=total?rosterPage+' / '+Math.max(1,Math.ceil(total/20)):text('Այս ցանկում ուսանողներ չկան։','No students in this list.');
-      for(const item of result.items){const row=document.createElement('tr');cell(row,item.DisplayName||item.FirstName+' '+item.LastName);cell(row,item.Email);cell(row,item.GroupCode);cell(row,item.UserID?text('Գրանցված','Registered'):text('Սպասում է գրանցմանը','Not registered'));
-        cell(row,'').append(button(item.IsActive?text('Ապաակտիվացնել','Deactivate'):text('Ակտիվացնել','Activate'),async()=>{
-          try{await api.save('/api/admin/student-roster/'+encodeURIComponent(item.Email),'PUT',{IsActive:!item.IsActive});await refresh();}catch(e){note.textContent=e.message;}
-        }));body.append(row);
-      }
-    }
-    const run=async action=>{try{await action();}catch(e){note.textContent=e.message;}};
-    scope.onchange=()=>run(async()=>{rosterPage=1;await refresh();});
-    content.append(explanation,scope,search,button(text('Որոնել','Search'),()=>run(async()=>{rosterPage=1;await refresh();})),table,note,
-      button('←',()=>run(async()=>{if(rosterPage>1){rosterPage--;await refresh();}})),button('→',()=>run(async()=>{if(rosterPage*20<total){rosterPage++;await refresh();}})),button(text('Փակել','Close'),()=>modal.close()));
-    document.body.append(modal);modal.onclose=()=>modal.remove();modal.showModal();await run(refresh);
+  function academicMessage(value){
+    if(value==='ready')return text('Ուսումնական կապերը պատրաստ են։','Academic links are ready.');
+    const messages={
+      'curriculum-missing':text('Ընթացիկ կիսամյակի ակտիվ առարկաներ/դասախոսներ չկան։ Գնահատումը դեռ հասանելի չէ։','No active courses/lecturers for the current semester. Rating is not yet available.'),
+      'term-unconfigured':text('Ընթացիկ ուսումնական շրջանը կարգավորված չէ։','The current academic term is not configured.'),
+      'semester-unconfigured':text('Կիսամյակի տվյալը բացակայում է։','The academic semester is not configured.'),
+      'academic-review-required':text('Ընդունելության տարին կամ կիսամյակը պահանջում է ստուգում։','Enrollment year or semester requires review.'),
+      'group-unavailable':text('Խմբի ուսումնական տվյալները հասանելի չեն։','The group academic data is unavailable.')};
+    return messages[value]||text('Ստուգեք ուսումնական կապերը։','Check academic links.');
   }
   const add=document.querySelector('.add-user-btn');
-  if(add){add.textContent=text('Գրանցման թույլտվություն','Allow registration');add.onclick=()=>addRosterStudent().catch(report);add.after(button(text('Թույլատրված ցանկ','Approved roster'),viewRoster));}
+  if(add){add.textContent=text('Ավելացնել ուսանող','Add student');add.onclick=()=>addStudent().catch(report);}
   const exportBtn=document.querySelector('.export-btn');
-  if(exportBtn&&file.startsWith('users'))exportBtn.onclick=()=>api.download('/api/admin/users/export?page='+page+'&q='+encodeURIComponent(search?.value||''),'users.csv').catch(report);
+  if(exportBtn&&file.startsWith('users'))exportBtn.onclick=()=>api.download('/api/admin/users/export?'+userQuery(),'users.csv').catch(report);
   try{await load();}catch(e){report(e);}
 })();

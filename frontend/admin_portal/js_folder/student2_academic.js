@@ -4,6 +4,15 @@
  const fields={institutes:{Name:'text',ShortName:'text',IsActive:'checkbox'},faculties:{Name:'text',ShortName:'text',IsActive:'checkbox'},chairs:{Name:'text',ShortName:'text',InstituteID:'number',FacultyID:'number',IsActive:'checkbox'},specializations:{Name:'text',Code:'text',ChairID:'number',IsActive:'checkbox'},groups:{GroupCode:'text',SpecializationID:'number',EnrollmentYear:'number',IsActive:'checkbox'},courses:{Name:'text',SpecializationID:'number',LecturerID:'number',CurriculumSemesterNumber:'number',IsActive:'checkbox'},'student-courses':{UserID:'number',CourseID:'number'}};
  const select=document.getElementById('s2Resource'),body=document.querySelector('tbody'),head=document.querySelector('thead tr');let current=1;
  for(const [v,t]of Object.entries(names))select.append(new Option(trText(t),v));select.value=new URLSearchParams(location.search).get('resource')||'institutes';if(!names[select.value])select.value='institutes';
+ const params=new URLSearchParams(location.search);
+ if(params.get('lecturer_id')){
+  const back=el('a','action-btn',trText('Վերադառնալ դասախոսների ցանկին'),true);
+  const fallback=ProfRatesI18n.page('professors_arm.html','professors.html');
+  const raw=params.get('return_to');
+  let target=fallback;
+  if(raw){try{const url=new URL(raw,location.href);if(url.origin===location.origin&&/^\/frontend\/admin_portal\/professors(?:_arm)?\.html$/.test(url.pathname))target=url.pathname+url.search;}catch{}}
+  back.href=target;document.querySelector('.section-header').prepend(back);
+ }
  const search=document.querySelector('.search-bar input');const pages=pager(load);document.querySelector('table').after(pages.node);
  const path=()=>select.value==='student-courses'?'/api/admin/student-courses':'/api/admin/academic/'+select.value;
  const query=()=>new URLSearchParams({page:current,page_size:20,q:search.value,...(select.value==='courses'&&new URLSearchParams(location.search).get('lecturer_id')?{lecturer_id:new URLSearchParams(location.search).get('lecturer_id')}:{})});
